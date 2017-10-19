@@ -2,21 +2,36 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" href="../libraries/css/bootstrap/bootstrap.min.css" />
+<title>CarShop - Sign up</title>
+<link rel="stylesheet" href="../libraries/css/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../css/style.css" />
 <script src="../libraries/js/angular.min.js"></script>
 <script src="../libraries/js/jquery-ui/external/jquery/jquery.js"></script>
 <script src="../js/script.js"></script>
 </head>
 <body>
-<form method="post" action="http://localhost:8080/carshop/Jserv/control/newUser">
-<input type="text" name="name" placeholder="name">
-<input type="text" name="email" placeholder="email">
-<input type="text" name="phone" placeholder="phone">
-<input type="password" name="pwd" placeholder="password">
-<input type="text" name="region" placeholder="region">
-<input type="submit">
-</form>
+	<div class="header">
+		<h1 align="center">CarShop</h1>
+	</div>
+	<div class="set-middle login-box">
+		<p align="center">Welcome, Please Sign Up!</p>
+		<form method="post" action="http://localhost:8080/carshop/Jserv/control/newUser">
+			<input type="text" class="form-control form-text-box" name="name" placeholder="Name">
+			<input type="text" class="form-control form-text-box" name="email" placeholder="E-mail">
+			<input type="text" class="form-control form-text-box" name="phone" placeholder="Phone">
+			<input type="password" class="form-control form-text-box" name="pwd" placeholder="Password">
+			<input type="password" class="form-control form-text-box" placeholder="Re-Enter Password">
+			<select class="form-control form-text-box" >
+				<option value="">--Select a Region--</option>
+				<option value="chennai">Chennai</option>
+				<option value="madurai">Madurai</option>
+				<option value="mumbai">Mumbai</option>
+				<option value="delhi">Delhi</option>
+				<option value="kolkata">Kolkata</option>
+			</select>
+			<button  class="btn btn-success" type="submit">Sign Up</button>
+			<a href="../index.html" class="link-text">Sign In </a>|<a href="#" class="link-text"> Forgot Password</a>
+		</form>
+	</div>
 </body>
 </html>

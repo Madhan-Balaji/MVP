@@ -1,0 +1,29 @@
+body{
+	background:#efefef;
+}
+
+.set-middle{
+	height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+.login-box{
+	width: 25%;
+	background:white;
+	border-radius: 10px;
+	padding: 10px;
+	border: 1px solid black;
+}
+.link-text{
+	text-decoration:none;
+	color: #6ab8fc;
+}
+
+.form-text-box{
+	margin:10px 0;
+}
+
+.header{
+	padding:15px;
+	margin-bottom: 20px;
+}
