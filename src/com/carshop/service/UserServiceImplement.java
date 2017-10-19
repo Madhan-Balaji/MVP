@@ -46,9 +46,6 @@ public class UserServiceImplement implements UserService {
 		URI location;
 		gotUser = userDetails.fetchRowByEmail(user);
 		String checkPassword = Md5Encrypt(user.getPassword());
-		System.out.println(checkPassword);
-		System.out.println("   ");
-		System.out.println(gotUser.getPassword());
 		if(checkPassword.equals(gotUser.getPassword())){
 			location = new URI("https://www.yahoo.com");
 		}
