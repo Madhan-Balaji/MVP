@@ -7,20 +7,13 @@
 <link rel="stylesheet" href="css/style.css" />
 <script src="libraries/js/angular.min.js"></script>
 <script src="libraries/js/jquery-ui/external/jquery/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 <script src="js/script.js"></script>
 </head>
 <body>
 	<div class="header">
 		<h1 align="center">CarShop</h1>
 	</div>
-	<div class="login-box set-middle">
-		<form method="post" action="http://localhost:8080/carshop/Jserv/control/userLogin">
-			<p align="center">Welcome, Please Login!</p>
-			<input type="text" class="form-control form-text-box" placeholder="Email Address" name="mail">
-			<input type="password" class="form-control form-text-box" placeholder="Password" name="pwd">
-			<button type="submit" class="btn btn-success set-middle">Sign in</button>
-			<a text-align="left" class="link-text" href="views/signup.html">Signup </a>|<a text-align="right" class="link-text" href="#"> Forgot Password</a>
-		</form>
-	</div>
+	<div ui-view></div>
 </body>
 </html>
