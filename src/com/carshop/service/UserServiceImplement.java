@@ -11,21 +11,25 @@ import javax.ws.rs.core.Response;
 
 import com.carshop.dao.UserDetailsDao;
 import com.carshop.dao.UserDetailsDaoImplement;
+import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 
 public class UserServiceImplement implements UserService {
 	UserDetailsDao userDetails = new UserDetailsDaoImplement();
 	@Override
-	public Response addNewUser(UserModel user) throws UnknownHostException,
+	public ResponseWithUserData addNewUser(UserModel user) throws UnknownHostException,
 	UnsupportedEncodingException, NoSuchAlgorithmException, URISyntaxException{
-		URI location;
+		ResponseWithUserData resp = new ResponseWithUserData();
 		if(userDetails.insertDataForSignUp(user)){
-			location = new URI("https://www.yahoo.com");	
+			resp.status = "success";
+			String encyPassword = Md5Encrypt(user.getPassword());
+			user.setPassword(encyPassword);
+			resp.user = user;
 		}
 		else{
-			location = new URI("https://www.facebook.com");
+			resp.status = "failed";
 		}
-		return Response.temporaryRedirect(location).build();
+		return resp;
 	}
 	
 	
@@ -40,19 +44,21 @@ public class UserServiceImplement implements UserService {
 		return encryptPassword;
 	}
 	@Override
-	public Response userLoginCheck(UserModel user) throws UnknownHostException,
+	public ResponseWithUserData userLoginCheck(UserModel user) throws UnknownHostException,
 	NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException{
 		UserModel gotUser = new UserModel();
 		URI location;
 		gotUser = userDetails.fetchRowByEmail(user);
 		String checkPassword = Md5Encrypt(user.getPassword());
+		ResponseWithUserData returnUser = new ResponseWithUserData();
 		if(checkPassword.equals(gotUser.getPassword())){
-			location = new URI("https://www.yahoo.com");
+			returnUser.status = "success";
+			returnUser.user = gotUser;
 		}
 		else{
-			location = new URI("https://www.facebook.com");
+			returnUser.status = "failed";
 		}
-		return Response.temporaryRedirect(location).build();
+		return returnUser;
 		
 	}
 }

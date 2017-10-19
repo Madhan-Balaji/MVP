@@ -5,11 +5,14 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
@@ -18,7 +21,9 @@ import com.carshop.service.UserServiceImplement;
 public class UserController {
 	@Path("/newUser")
 	@POST
-	public Response addingNewUser(
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces("application/json")
+	public ResponseWithUserData addingNewUser(
 			@FormParam("name") String name,
 			@FormParam("email") String email,
 			@FormParam("pwd") String pwd,
@@ -36,8 +41,8 @@ public class UserController {
 	}
 	@POST
 	@Path("/userLogin")
-	public Response userLogin(
-			@FormParam("email") String email,
+	public ResponseWithUserData userLogin(
+			@FormParam("mail") String email,
 			@FormParam("pwd") String password
 			) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException{
 		UserModel user = new UserModel();
