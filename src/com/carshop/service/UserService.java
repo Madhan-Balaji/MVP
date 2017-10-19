@@ -5,11 +5,14 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 
 public interface UserService {
-	public ResponseWithUserData addNewUser(UserModel user) throws UnknownHostException, UnsupportedEncodingException, NoSuchAlgorithmException, URISyntaxException ;
+	public ResponseWithUserData addNewUser(UserModel user, HttpServletRequest req) throws UnknownHostException, UnsupportedEncodingException, NoSuchAlgorithmException, URISyntaxException ;
 	public String Md5Encrypt(String data) throws NoSuchAlgorithmException, UnsupportedEncodingException;
-	public ResponseWithUserData userLoginCheck(UserModel user) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException;
+	public ResponseWithUserData userLoginCheck(UserModel user, HttpServletRequest req) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException;
+	public void setUserSession(HttpServletRequest req, UserModel user);
 }

@@ -59,5 +59,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/smtp.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sun.misc.BASE64Decoder.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/tomcat-util-8.0.0-rc1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

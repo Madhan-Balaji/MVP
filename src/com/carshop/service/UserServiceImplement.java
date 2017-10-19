@@ -1,13 +1,13 @@
 package com.carshop.service;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.ws.rs.core.Response;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.carshop.dao.UserDetailsDao;
 import com.carshop.dao.UserDetailsDaoImplement;
@@ -17,14 +17,16 @@ import com.carshop.model.UserModel;
 public class UserServiceImplement implements UserService {
 	UserDetailsDao userDetails = new UserDetailsDaoImplement();
 	@Override
-	public ResponseWithUserData addNewUser(UserModel user) throws UnknownHostException,
+	public ResponseWithUserData addNewUser(UserModel user, HttpServletRequest req) throws UnknownHostException,
 	UnsupportedEncodingException, NoSuchAlgorithmException, URISyntaxException{
 		ResponseWithUserData resp = new ResponseWithUserData();
 		if(userDetails.insertDataForSignUp(user)){
+			UserModel gotUser = userDetails.fetchRowByEmail(user);
 			resp.status = "success";
 			String encyPassword = Md5Encrypt(user.getPassword());
 			user.setPassword(encyPassword);
-			resp.user = user;
+			resp.user = gotUser;
+			setUserSession(req, gotUser);
 		}
 		else{
 			resp.status = "failed";
@@ -44,21 +46,26 @@ public class UserServiceImplement implements UserService {
 		return encryptPassword;
 	}
 	@Override
-	public ResponseWithUserData userLoginCheck(UserModel user) throws UnknownHostException,
+	public ResponseWithUserData userLoginCheck(UserModel user, HttpServletRequest req) throws UnknownHostException,
 	NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException{
 		UserModel gotUser = new UserModel();
-		URI location;
 		gotUser = userDetails.fetchRowByEmail(user);
 		String checkPassword = Md5Encrypt(user.getPassword());
 		ResponseWithUserData returnUser = new ResponseWithUserData();
 		if(checkPassword.equals(gotUser.getPassword())){
 			returnUser.status = "success";
 			returnUser.user = gotUser;
+			setUserSession(req, gotUser);
 		}
 		else{
 			returnUser.status = "failed";
 		}
 		return returnUser;
 		
+	}
+	@Override
+	public void setUserSession(HttpServletRequest req,UserModel user){
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user.getId());
 	}
 }
