@@ -28,9 +28,6 @@ public class UserServiceImplement implements UserService {
 		return Response.temporaryRedirect(location).build();
 	}
 	
-	public String Hw(){
-		return "hello world";
-	}
 	
 	@Override
 	public String Md5Encrypt(String data) throws NoSuchAlgorithmException, UnsupportedEncodingException{
