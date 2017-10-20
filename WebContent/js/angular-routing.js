@@ -4,10 +4,21 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 	$stateProvider
 	.state('signin',{
 		url:'/signin',
+		controller:function($scope){
+			$scope.email = "madi";
+			$scope.pwd;
+			$scope.login = function(){
+				alert("controller works");
+			};
+		},
 		templateUrl:'views/signin.html'
 	})
 	.state('signup',{
 		url:'/signup',
 		templateUrl:'views/signup.html'
+	})
+	.state('dashboard',{
+		url:'/dashboard',
+		templateUrl:'views/dashboard.html'
 	})
 });

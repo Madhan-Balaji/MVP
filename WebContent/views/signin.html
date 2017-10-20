@@ -1,9 +1,9 @@
-<div class="login-box set-middle">
-	<form method="post" action="http://localhost:8080/carshop/Jserv/control/userLogin">
+<div  class="login-box set-middle">
+	
 		<p align="center">Welcome, Please Login!</p>
-		<input type="text" class="form-control form-text-box" placeholder="Email Address" name="mail">
-		<input type="password" class="form-control form-text-box" placeholder="Password" name="pwd">
-		<button type="submit" class="btn btn-success set-middle">Sign in</button>
+		<input type="text" class="form-control form-text-box" placeholder="Email Address" ng-model="email">
+		<input type="password" class="form-control form-text-box" placeholder="Password" ng-model="pwd">
+		<button ng-click="login()" class="btn btn-success set-middle">Sign in</button>
 		<a class="link-text" ui-sref="signup">Signup </a>|<a class="link-text" href="#"> Forgot Password</a>
-	</form>
+	
 </div>
