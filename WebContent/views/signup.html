@@ -1,12 +1,12 @@
 <div class="set-middle login-box">
 	<p align="center">Welcome, Please Sign Up!</p>
-	<form method="post" action="http://localhost:8080/carshop/Jserv/control/newUser">
-		<input type="text" class="form-control form-text-box" name="name" placeholder="Name">
-		<input type="text" class="form-control form-text-box" name="email" placeholder="E-mail">
-		<input type="text" class="form-control form-text-box" name="phone" placeholder="Phone">
-		<input type="password" class="form-control form-text-box" name="pwd" placeholder="Password">
+	
+		<input type="text" class="form-control form-text-box" ng-model="name" placeholder="Name">
+		<input type="text" class="form-control form-text-box" ng-model="email" placeholder="E-mail">
+		<input type="text" class="form-control form-text-box" ng-model="phone" placeholder="Phone">
+		<input type="password" class="form-control form-text-box" ng-model="pwd" placeholder="Password">
 		<input type="password" class="form-control form-text-box" placeholder="Re-Enter Password">
-		<select name="region" class="form-control form-text-box" >
+		<select ng-model="region" class="form-control form-text-box" >
 			<option>--Select a Region--</option>
 			<option value="chennai">Chennai</option>
 			<option value="madurai">Madurai</option>
@@ -14,7 +14,7 @@
 			<option value="delhi">Delhi</option>
 			<option value="kolkata">Kolkata</option>
 		</select>
-		<button  class="btn btn-success" type="submit">Sign Up</button>
+		<button  class="btn btn-success" ng-click="signup()">Sign Up</button>
 		<a ui-sref="signin" class="link-text">Sign In </a>|<a href="#" class="link-text"> Forgot Password</a>
-	</form>
+	
 </div>

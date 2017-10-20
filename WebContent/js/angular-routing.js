@@ -14,6 +14,7 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 	})
 	.state('dashboard',{
 		url:'/dashboard',
-		templateUrl:'views/dashboard.html'
+		templateUrl:'views/dashboard.html',
+		controller:'dashboardCtrl'
 	})
 });
