@@ -48,3 +48,13 @@ body{
 	border-bottom: 1px solid #9ec2d4;
 	padding: 10px;
 }
+.car-data-edit{
+	width: 50%;
+	background:white;
+	border-radius: 10px;
+	padding: 10px;
+	border: 1px solid black;
+}
+.form-box{
+	margin: 10px 0;
+}
