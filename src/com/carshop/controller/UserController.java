@@ -8,9 +8,11 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -44,6 +46,7 @@ public class UserController {
 	}
 	@POST
 	@Path("/userLogin")
+	@Produces("application/json")
 	public ResponseWithUserData userLogin(
 			@FormParam("mail") String email,
 			@FormParam("pwd") String password,
@@ -56,4 +59,14 @@ public class UserController {
 		
 		return userService.userLoginCheck(user,req);
 	}
+	@GET
+	@Path("/checkSession")
+	public String checkSession(
+			@QueryParam("session") String availedSession,
+			@Context HttpServletRequest req
+			){
+		UserService userService = new UserServiceImplement();
+		return userService.checkUserSession(availedSession,req);
+	}
+	
 }

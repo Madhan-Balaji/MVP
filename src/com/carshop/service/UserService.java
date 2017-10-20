@@ -16,4 +16,5 @@ public interface UserService {
 	public String Md5Encrypt(String data) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	public ResponseWithUserData userLoginCheck(UserModel user, HttpServletRequest req) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException;
 	public void setUserSession(HttpServletRequest req, UserModel user);
+	public String checkUserSession(String availedSession, HttpServletRequest req);
 }

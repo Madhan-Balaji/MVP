@@ -68,4 +68,16 @@ public class UserServiceImplement implements UserService {
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user.getId());
 	}
+	@Override
+	public String checkUserSession(String availedSession,HttpServletRequest req){
+		HttpSession session = req.getSession();
+		String serverSession = (String) session.getAttribute("user");
+		if(serverSession.equals(availedSession)){
+			return "success";
+		}
+		else{
+			return "failed";
+		}
+	}
+	
 }
