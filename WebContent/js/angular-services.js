@@ -1,4 +1,4 @@
-mainPage.service('userServices',function($rootScope,$state){
+mainPage.service('userServices',function($rootScope,$state,$http){
 	this.checkLogin = function(email, pwd){
 		$.post("http://localhost:8080/carshop/Jserv/control/userLogin",
 		{
@@ -72,5 +72,25 @@ mainPage.service('userServices',function($rootScope,$state){
 				alert("something went wrong - server error");
 			}
 		});
+	}
+	this.sellCar = function(formdata){
+		// $.post("http://localhost:8080/carshop/Jserv/control/newUsedCar",
+		// {
+		// 	file: files
+		// },
+		// function(data,status){
+		// 	alert(status);
+		// 	alert(data);
+		// });
+		$.ajax( {
+      url: 'http://localhost:8080/carshop/Jserv/control/newUsedCar',
+      type: 'POST',
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: function(data){
+      	alert(data)
+      }
+    } );
 	}
 })

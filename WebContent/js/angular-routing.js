@@ -19,7 +19,8 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 	})
 	.state('dashboard.user',{
 		url:'/user-dashboard',
-		templateUrl:'views/user.html'
+		templateUrl:'views/user.html',
+		controller:'userPanelCtrl'
 	})
 	.state('dashboard.insurance',{
 		url:'/insurance-dashboard',
@@ -28,5 +29,10 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 	.state('dashboard.admin',{
 		url:'/admin-dashboard',
 		templateUrl:'views/admin.html'
+	})
+	.state('dashboard.sell',{
+		url:'/sell-a-car',
+		templateUrl:'views/sell.html',
+		controller:'sellCtrl'
 	})
 });
