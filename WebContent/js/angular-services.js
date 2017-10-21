@@ -55,7 +55,15 @@ mainPage.service('userServices',function($rootScope,$state){
 				if(data.status == "success"){
 					$rootScope.sessionHolder = data.user.id;
 					$rootScope.user = data.user;
-					$state.go('dashboard');
+					if($rootScope.user.role == "user"){
+						$state.go('dashboard.user');
+					}
+					else if($rootScope.user.role == "insurance"){
+						$state.go('dashboard.insurance');
+					}
+					else if($rootScope.user.role == "admin"){
+						$state.go('dashboard.admin');
+					}
 				}
 				else{
 					alert("Could not signup!")

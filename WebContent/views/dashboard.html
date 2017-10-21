@@ -1,4 +1,11 @@
 <div class="user-note">
-	<h4>Welcome {{user.name}}<span style="text-align:right" class="link-text">Sign Out</span></h4>
+	<div class="dropdown">
+	  <button class="dropbtn">Welcome {{user.name}}</button>
+	  <div class="dropdown-content">
+	    <a href="#">My Accout</a>
+	    <a href="#">Sign Out</a>
+	  </div>
+	</div>
+
 </div>
 <div ui-view></div>

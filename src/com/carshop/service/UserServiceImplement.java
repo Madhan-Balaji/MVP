@@ -72,10 +72,16 @@ public class UserServiceImplement implements UserService {
 	public String checkUserSession(String availedSession, HttpServletRequest req){
 		HttpSession session = req.getSession();
 		String serverSession = (String) session.getAttribute("user");
-		if(serverSession.equals(availedSession)){
-			return "success";
+		if(availedSession != null) {
+
+			if(serverSession.equals(availedSession)){
+				return "success";
+			}
+			else{
+				return "failed";
+			}
 		}
-		else{
+		else {
 			return "failed";
 		}
 	}
