@@ -50,6 +50,7 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		document.append("usage", carModel.getUsage());
 		document.append("user", carModel.getUser());
 		document.append("entry", carModel.getCarEntry());
+		document.append("price", carModel.getPrice());
 		collection.insert(document);
 		BasicDBObject search = new BasicDBObject();
 		List<BasicDBObject> obj = new ArrayList<BasicDBObject>();

@@ -18,6 +18,13 @@ public class CarModel {
 	private String carEntry;
 	private String brand;
 	private String type;
+	private String price;
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 	public String getBrand() {
 		return brand;
 	}

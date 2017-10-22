@@ -37,6 +37,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				var files = $('#myFile').prop('files');
 				// alert(files[0].name);
 				var fd = new FormData();
+				fd.append('price',$scope.data.price)
 				fd.append('brand',$scope.data.brand);
 				fd.append('type',$scope.data.type);
 				fd.append('name',$scope.data.carName);
@@ -57,6 +58,9 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 		.controller('userPanelCtrl',function($state,$scope){
 			$scope.sellPage=function(){
 				$state.go('dashboard.sell')
+			}
+			$scope.searchPage=function(){
+				$state.go('dashboard.search')
 			}
 		})
 		

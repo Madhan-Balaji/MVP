@@ -35,4 +35,8 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		templateUrl:'views/sell.html',
 		controller:'sellCtrl'
 	})
+	.state('dashboard.search',{
+		url:'/search',
+		templateUrl:'views/search.html'
+	})
 });

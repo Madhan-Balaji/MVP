@@ -1,5 +1,6 @@
 body{
 	background:#efefef;
+	padding-bottom: 15px;
 }
 
 .set-middle{
@@ -95,4 +96,14 @@ body{
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+.filter-region{
+	border-right: 1px solid black;
+}
+.filter-ops{
+	padding: 10px;
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	margin: 10px 0;
 }

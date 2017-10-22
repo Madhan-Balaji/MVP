@@ -25,7 +25,6 @@ import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 import com.carshop.service.CarService;
 import com.carshop.service.CarServiceImplement;
-import com.carshop.service.MediaStreamer;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -98,6 +97,7 @@ public class UserController {
 			@FormDataParam("address") String  address,
 			@FormDataParam("brand") String  brand,
 			@FormDataParam("type") String  type,
+			@FormDataParam("price") String  price,
 			@Context HttpServletRequest req
 			) throws UnknownHostException {
 		
@@ -118,6 +118,7 @@ public class UserController {
 		carModel.setMilage(milage);
 		carModel.setCc(cc);
 		carModel.setAddress(address);
+		carModel.setPrice(price);
 		return carService.addNewUsedCar(carModel, fileInputStream, fileInputDetails,req);
 	}
 	@GET
