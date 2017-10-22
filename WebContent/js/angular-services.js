@@ -74,14 +74,6 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		});
 	}
 	this.sellCar = function(formdata){
-		// $.post("http://localhost:8080/carshop/Jserv/control/newUsedCar",
-		// {
-		// 	file: files
-		// },
-		// function(data,status){
-		// 	alert(status);
-		// 	alert(data);
-		// });
 		$.ajax( {
       url: 'http://localhost:8080/carshop/Jserv/control/newUsedCar',
       type: 'POST',
@@ -89,7 +81,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
       processData: false,
       contentType: false,
       success: function(data){
-      	alert(data)
+      	alert(data.status)
       }
     } );
 	}

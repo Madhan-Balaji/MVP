@@ -37,6 +37,8 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				var files = $('#myFile').prop('files');
 				// alert(files[0].name);
 				var fd = new FormData();
+				fd.append('brand',$scope.data.brand);
+				fd.append('type',$scope.data.type);
 				fd.append('name',$scope.data.carName);
 				fd.append('model',$scope.data.carModel);
 				fd.append('year',$scope.data.carYear);

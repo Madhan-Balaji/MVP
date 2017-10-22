@@ -3,6 +3,18 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6">
+					<select class="form-control form-box" ng-model="data.brand">
+						<option value="">--Select a Brand--</option>
+						<option value="honda">Honda</option>
+						<option value="maruti suzuki">Maruti Suzuki</option>
+						<option value="hundai">Hundai</option>
+						<option value="toyota">Toyota</option>
+						<option value="benz">Benz</option>
+						<option value="bmw">BMW</option>
+						<option value="ford">Ford</option>
+						<option value="volkswagen">Volkswagen</option>
+						<option value="volvo">Volvo</option>
+					</select>
 					<input placeholder="Car Name" class="form-control form-box" type="text" ng-model="data.carName" />
 					<input placeholder="Car Model"  class="form-control form-box" type="text" ng-model="data.carModel" />
 					<input placeholder="Model Year"  class="form-control form-box" type="text" ng-model="data.carYear" />
@@ -10,6 +22,21 @@
 					<input placeholder="Seating Capacity" class="form-control form-box" type="text" ng-model="data.seat">
 				</div>
 				<div class="col-sm-6">
+					<select class="form-control form-box" ng-model="data.type">
+						<option value="">--Select Car Type--</option>
+						<option value="hatchback">Hatchback</option>
+						<option value="sedans">Sedans</option>
+						<option value="muv">MUV</option>
+						<option value="suv">SUV</option>
+						<option value="luxury">luxury</option>
+						<option value="hybrids">Hybrids</option>
+						<option value="minivans">Minivans</option>
+						<option value="convertibles">Convertibles</option>
+						<option value="coupe">Coupe</option>
+						<option value="diesel engines">Diesel Engines</option>
+						<option value="wagons">Wagons</option>
+						<option value="pickup trucks">Pickup Trucks</option>
+					</select>
 					<select class="form-control form-box" ng-model="data.color">
 						<option value="" selected="selected">--Select a Color--</option>
 						<option value="white">White</option>

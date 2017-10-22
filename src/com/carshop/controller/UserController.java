@@ -9,16 +9,23 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.carshop.model.CarModel;
+import com.carshop.model.ResponseWithCarData;
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
+import com.carshop.service.CarService;
+import com.carshop.service.CarServiceImplement;
+import com.carshop.service.MediaStreamer;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -74,8 +81,8 @@ public class UserController {
 	@POST
 	@Path("/newUsedCar")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces("text/html")
-	public Response uploadFile(		
+	@Produces("application/json")
+	public ResponseWithCarData uploadFile(		
 			@FormDataParam("file") InputStream fileInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileInputDetails,
 			@FormDataParam("name") String  name,
@@ -88,13 +95,18 @@ public class UserController {
 			@FormDataParam("fuelType") String  fuel,
 			@FormDataParam("milage") String  milage,
 			@FormDataParam("cc") String  cc,
-			@FormDataParam("address") String  address
+			@FormDataParam("address") String  address,
+			@FormDataParam("brand") String  brand,
+			@FormDataParam("type") String  type,
+			@Context HttpServletRequest req
 			) throws UnknownHostException {
 		
 		System.out.println(" File name is :"+fileInputDetails.getFileName());
 		
-		UserService userService = new UserServiceImplement();
+		CarService carService = new CarServiceImplement();
 		CarModel carModel = new CarModel();
+		carModel.setBrand(brand);
+		carModel.setType(type);
 		carModel.setName(name);
 		carModel.setModel(model);
 		carModel.setYear(year);
@@ -106,45 +118,16 @@ public class UserController {
 		carModel.setMilage(milage);
 		carModel.setCc(cc);
 		carModel.setAddress(address);
-		return userService.addNewUserCar();
-//		MongoClient mongoClient = new MongoClient("localhost", 27017);
-//		DB mongoDB = mongoClient.getDB("Apple");
-//
-//		
-//		DBCollection collection = mongoDB.getCollection("mydb");
-//
-//		BasicDBObject query = new BasicDBObject();
-//		query.put("_id", fileId);
-//		DBCursor cursor = collection.find(query);
-//
-//		if (!cursor.hasNext()) {
-//		
-//			BasicDBObject document = new BasicDBObject();
-//			document.append("_id", fileId);
-//			document.append("filename", fileInputDetails.getFileName());
-//
-//
-//		 
-//			collection.insert(document);
-//
-//		  
-//			GridFS fileStore = new GridFS(mongoDB, "mydb");
-//			GridFSInputFile inputFile = fileStore.createFile(fileInputStream);
-//			inputFile.setId(fileId);
-//			inputFile.setFilename(fileInputDetails.getFileName());
-//			inputFile.save();
-//
-//			 status = "Sucessfully Uploaded!";
-//
-//		
-//			
-//		} else
-//		{
-//			 status = "Unable to insert record with ID: " + fileId +" as record already exists!!!";
-//								
-//		}
-//		
-		//return Response.status(200).entity(fileInputDetails.getFileName()).build();
+		return carService.addNewUsedCar(carModel, fileInputStream, fileInputDetails,req);
+	}
+	@GET
+	@Produces("video/mp4")
+	@Path("/media/{id}")
+	public Response streamMedia(@HeaderParam("Range") String range,
+			@PathParam ("id") String id
+			) throws Exception{
+		CarService carService = new CarServiceImplement();
+		return carService.getCarMedia(id, range);
 	}
 
 }

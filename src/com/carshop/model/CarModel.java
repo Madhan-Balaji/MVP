@@ -13,6 +13,41 @@ public class CarModel {
 	private String milage;
 	private String cc;
 	private String address;
+	private String user;
+	private String usage;
+	private String carEntry;
+	private String brand;
+	private String type;
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getCarEntry() {
+		return carEntry;
+	}
+	public void setCarEntry(String carEntry) {
+		this.carEntry = carEntry;
+	}
+	public String getUsage() {
+		return usage;
+	}
+	public void setUsage(String usage) {
+		this.usage = usage;
+	}
+	public String getUser() {
+		return user;
+	}
+	public void setUser(String user) {
+		this.user = user;
+	}
 	public String getId() {
 		return id;
 	}
