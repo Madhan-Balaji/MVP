@@ -77,6 +77,9 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				$( "#amount" ).val( "RS." + $( "#slider-range" ).slider( "values", 0 ) +
 				  " - &RS." + $( "#slider-range" ).slider( "values", 1 ) );
 			  } );
+			  $scope.initcap = function(string) {
+					return string.charAt(0).toUpperCase() + string.slice(1);
+				}
 			  $scope.cars ={};
 			  $scope.printCars = function(cars, noOfCars){
 				  var i=0;
@@ -85,17 +88,20 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				  while(i<noOfCars){
 					  $scope.scripting += "<div class='row'>";
 					  while((t%3 != 0) && (i<noOfCars)){
-						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><a href="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'"><img src="http://localhost:8080/carshop/Jserv/control/media/59ed8a57c6fa13133ae21870" alt="Nature" style="width:100%"><div class="caption"><h4>Honda City</h4><p>2014</p><h5 style="text-align: right;"><span style="background: #eaeaea;">&#8377 650000</span></h5></div></div></div>';
+						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><a href="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
 						  i++;t++;
 					  }
+					  if(i<noOfCars){
+						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><a href="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
+						  i++;
+					  }
 					  $scope.scripting += "</div>";
-					  i++;t++;
+					  t++;
 				  }
 				  $('#search-area').append($scope.scripting);
 			  }
 			  $scope.firstLoad = function(){
 				  $scope.data = userServices.fetchAllCars();
-				  alert($scope.data.cars);
 				  $scope.printCars($scope.data.cars,$scope.data.rows);
 			  }
 			  $scope.firstLoad();
