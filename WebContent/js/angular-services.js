@@ -85,16 +85,20 @@ mainPage.service('userServices',function($rootScope,$state,$http){
       }
     } );
 	}
-})
-
-mainPage.service('carServices',function($scope,$state, $http){
 	this.fetchAllCars = function(){
-		$.post("http://localhost:8080/carshop/Jserv/control/getAllCars",
-		function(data,status){
-			if(status == 'success'){
-				return data.cars;
-			}
-		}
-		)
+		return $.ajax({
+        type: "GET",
+        url: 'http://localhost:8080/carshop/Jserv/control/getAllCars',
+        async: false
+    }).responseText;
+		/*var avail = $.ajax( {
+      url: 'http://localhost:8080/carshop/Jserv/control/getAllCars',
+      type: 'GET',
+	  async:false,
+      success: function(data){
+      	return data;
+      }
+    } );
+	return avail;*/
 	}
 })

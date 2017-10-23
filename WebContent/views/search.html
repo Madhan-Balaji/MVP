@@ -5,7 +5,7 @@
 				<input type="text" id="search-box"  placeholder="Search" class="form-control form-box">
 				<div class="filter-ops">
 					<h4>Select Usage</h4>
-					<input type="checkbox" ng-model="used"> Used<br>
+					<input type="checkbox" ng-model="used" ng-click="usedClicked()"> Used<br>
 					<input type="checkbox" ng-model="new"> New<br>
 				</div>
 				<div class="filter-ops">
@@ -35,8 +35,8 @@
 				<div id="slider-range"></div>
 			</div>
 			<div class="col-sm-9">
-				<div class="col-sm-12" style="padding-top: 10px;">
-					
+				<div class="col-sm-12" id="search-area" style="padding-top: 10px;">
+					<div class="row">
 						<div class="col-sm-4">
 							<div class="thumbnail">
 								<a href="http://localhost:8080/carshop/Jserv/control/media/59ed8a57c6fa13133ae21870">
@@ -67,7 +67,7 @@
 						        </div>
 							</div>
 						</div>
-										
+					</div>		
 				</div>
 			</div>
 		</div>

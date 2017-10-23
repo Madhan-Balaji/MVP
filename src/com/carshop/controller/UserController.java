@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.carshop.model.CarModel;
+import com.carshop.model.ResponseWithCarCollection;
 import com.carshop.model.ResponseWithCarData;
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
@@ -134,7 +135,7 @@ public class UserController {
 	@GET
 	@Produces("application/json")
 	@Path("/getAllCars")
-	public CarModel[] getAllCars() throws UnknownHostException{
+	public ResponseWithCarCollection getAllCars() throws UnknownHostException{
 		CarService carService = new CarServiceImplement();
 		return carService.getAllCarDetails();
 	}

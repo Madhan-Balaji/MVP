@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.mongodb.gridfs.*;
 import com.carshop.model.CarModel;
+import com.carshop.model.ResponseWithCarCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -86,55 +87,47 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		return file;
 	}
 	@Override
-	public CarModel[] fetchAllCars() throws UnknownHostException {
+	public ResponseWithCarCollection fetchAllCars() throws UnknownHostException {
 		DBCollection collection = getCarDetailsCollection();
+		ResponseWithCarCollection response = new ResponseWithCarCollection();
 		int count = collection.find().count();
-		CarModel[] cars = new CarModel[count]; 
-		DBCursor cursor = collection.find();
-		int i = 0;
-		while(cursor.hasNext()){
-			BasicDBObject handler = (BasicDBObject) cursor.next();
-			String id = handler.get("_id").toString();
-			System.out.println(id);
-//			cars[i].setId(id);
-//			cars[i].setBrand(handler.getString("brand"));
-//			cars[i].setType(handler.getString("type"));
-//			cars[i].setName(handler.getString("name"));
-//			cars[i].setModel(handler.getString("model"));
-//			cars[i].setGear(handler.getString("gear"));
-//			cars[i].setSeat(handler.getString("seat"));
-//			cars[i].setColor(handler.getString("color"));
-//			cars[i].setFuel(handler.getString("fuel"));
-//			cars[i].setMilage(handler.getString("milage"));
-//			cars[i].setOwner(handler.getString("owner"));
-//			cars[i].setCc(handler.getString("cc"));
-//			cars[i].setPrice(handler.getString("price"));
-//			cars[i].setCarEntry(handler.getString("entry"));
-//			cars[i].setUser(handler.getString("user"));
-//			cars[i].setUsage(handler.getString("usage"));
-//			cars[i].setAddress(handler.getString("address"));
-//			cars[i].setYear(handler.getString("year"));
-			cars[i].setId("hello");
-			cars[i].setBrand(handler.getString("brand"));
-			cars[i].setType(handler.getString("type"));
-			cars[i].setName(handler.getString("name"));
-			cars[i].setModel(handler.getString("model"));
-			cars[i].setGear(handler.getString("gear"));
-			cars[i].setSeat(handler.getString("seat"));
-			cars[i].setColor(handler.getString("color"));
-			cars[i].setFuel(handler.getString("fuel"));
-			cars[i].setMilage(handler.getString("milage"));
-			cars[i].setOwner(handler.getString("owner"));
-			cars[i].setCc(handler.getString("cc"));
-			cars[i].setPrice(handler.getString("price"));
-			cars[i].setCarEntry(handler.getString("entry"));
-			cars[i].setUser(handler.getString("user"));
-			cars[i].setUsage(handler.getString("usage"));
-			cars[i].setAddress(handler.getString("address"));
-			cars[i].setYear(handler.getString("year"));
-			i++;
+		if(count != 0){
+			CarModel[] cars = new CarModel[count]; 
+			DBCursor cursor = collection.find();
+			int i = 0;
+			while(cursor.hasNext()){
+				BasicDBObject handler = (BasicDBObject) cursor.next();
+				cars[i] = new CarModel();
+				String id = handler.get("_id").toString();
+				cars[i].setId(id);
+				cars[i].setBrand(handler.getString("brand"));
+				cars[i].setType(handler.getString("type"));
+				cars[i].setName(handler.getString("name"));
+				cars[i].setModel(handler.getString("model"));
+				cars[i].setGear(handler.getString("gear"));
+				cars[i].setSeat(handler.getString("seat"));
+				cars[i].setColor(handler.getString("color"));
+				cars[i].setFuel(handler.getString("fule"));
+				cars[i].setMilage(handler.getString("milage"));
+				cars[i].setOwner(handler.getString("owner"));
+				cars[i].setCc(handler.getString("cc"));
+				cars[i].setPrice(handler.getString("price"));
+				cars[i].setCarEntry(handler.getString("entry"));
+				cars[i].setUser(handler.getString("user"));
+				cars[i].setUsage(handler.getString("usage"));
+				cars[i].setAddress(handler.getString("address"));
+				cars[i].setYear(handler.getString("year"));
+				i++;
+			}
+			response.status="success";
+			response.cars = cars;
+			response.rows = count;
+			return response;
 		}
-		return cars;
+		else{
+			response.status="failure";
+			return response;
+		}
 	}
 	
 }

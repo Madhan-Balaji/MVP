@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import com.carshop.dao.CarDetailsDao;
 import com.carshop.dao.CarDetailsDaoImplement;
 import com.carshop.model.CarModel;
+import com.carshop.model.ResponseWithCarCollection;
 import com.carshop.model.ResponseWithCarData;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
@@ -43,8 +44,8 @@ public class CarServiceImplement implements CarService {
 		return mediaStreamer.buildStream(media, range);
 	}
 	@Override
-	public CarModel[] getAllCarDetails() throws UnknownHostException {
-		CarModel[] cars = carDetailsDao.fetchAllCars();
+	public ResponseWithCarCollection getAllCarDetails() throws UnknownHostException {
+		ResponseWithCarCollection cars = carDetailsDao.fetchAllCars();
 		return cars;
 	}
 }

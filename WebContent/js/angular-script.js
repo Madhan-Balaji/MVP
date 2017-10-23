@@ -63,7 +63,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				$state.go('dashboard.search')
 			}
 		})
-		.controller('searchCtrl', function($state,$scope,carServices){
+		.controller('searchCtrl', function($state,$scope, userServices){
 			$( function() {
 				$( "#slider-range" ).slider({
 				  range: true,
@@ -71,15 +71,31 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				  max: 50000000,
 				  values: [ 40000, 10000000 ],
 				  slide: function( event, ui ) {
-					$( "#amount" ).val( "&#8377." + ui.values[ 0 ] + " - &#8377." + ui.values[ 1 ] );
+					$( "#amount" ).val( "RS." + ui.values[ 0 ] + " - RS." + ui.values[ 1 ] );
 				  }
 				});
-				$( "#amount" ).val( "&#8377." + $( "#slider-range" ).slider( "values", 0 ) +
-				  " - &#8377." + $( "#slider-range" ).slider( "values", 1 ) );
+				$( "#amount" ).val( "RS." + $( "#slider-range" ).slider( "values", 0 ) +
+				  " - &RS." + $( "#slider-range" ).slider( "values", 1 ) );
 			  } );
 			  $scope.cars ={};
-			  $scope.firstSearchLoad = function(){
-				  $scope.cars = userServices.fetchAllCars();
+			  $scope.printCars = function(cars, noOfCars){
+				  var i=0;
+				  while(i<noOfCars){
+					  $('#search-area').append("<div class='row'>");
+					  while((i%3 != 0) && (i<noOfCars)){
+						  $('#search-area').append('<div class="thumbnail"><a href="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'"><img src="http://localhost:8080/carshop/Jserv/control/media/59ed8a57c6fa13133ae21870" alt="Nature" style="width:100%"><div class="caption"><h4>Honda City</h4><p>2014</p><h5 style="text-align: right;"><span style="background: #eaeaea;">&#8377 650000</span></h5></div></div>');
+						  i++;
+					  }
+					  $('#search-area').append("</div>");
+					  i++;
+				  }
 			  }
+			  $scope.firstLoad = function(){
+				  $scope.data = userServices.fetchAllCars();
+				  alert($scope.data.cars);
+				  $scope.printCars($scope.data.cars,$scope.rows);
+			  }
+			  $scope.firstLoad();
+			  
 		})
 		

@@ -2,8 +2,10 @@
 		<h2 align="center">Enter the following details</h2>
 		<div class="container-fluid">
 			<div class="row">
+			<form>
 				<div class="col-sm-6">
-					<select class="form-control form-box" ng-model="data.brand">
+				
+					<select required class="form-control form-box" ng-model="data.brand">
 						<option value="">--Select a Brand--</option>
 						<option value="honda">Honda</option>
 						<option value="maruti suzuki">Maruti Suzuki</option>
@@ -15,14 +17,14 @@
 						<option value="volkswagen">Volkswagen</option>
 						<option value="volvo">Volvo</option>
 					</select>
-					<input placeholder="Car Name" class="form-control form-box" type="text" ng-model="data.carName" />
-					<input placeholder="Car Model"  class="form-control form-box" type="text" ng-model="data.carModel" />
-					<input placeholder="Model Year"  class="form-control form-box" type="text" ng-model="data.carYear" />
-					<input placeholder="No. of Gears" class="form-control form-box" type="text" ng-model="data.carGear">
-					<input placeholder="Seating Capacity" class="form-control form-box" type="text" ng-model="data.seat">
+					<input required placeholder="Car Name" class="form-control form-box" type="text" ng-model="data.carName" />
+					<input required placeholder="Car Model"  class="form-control form-box" type="text" ng-model="data.carModel" />
+					<input required placeholder="Model Year"  class="form-control form-box" type="text" ng-model="data.carYear" />
+					<input required placeholder="No. of Gears" class="form-control form-box" type="text" ng-model="data.carGear">
+					<input required placeholder="Seating Capacity" class="form-control form-box" type="text" ng-model="data.seat">
 				</div>
 				<div class="col-sm-6">
-					<select class="form-control form-box" ng-model="data.type">
+					<select required class="form-control form-box" ng-model="data.type">
 						<option value="">--Select Car Type--</option>
 						<option value="hatchback">Hatchback</option>
 						<option value="sedans">Sedans</option>
@@ -37,7 +39,7 @@
 						<option value="wagons">Wagons</option>
 						<option value="pickup trucks">Pickup Trucks</option>
 					</select>
-					<select class="form-control form-box" ng-model="data.color">
+					<select required class="form-control form-box" ng-model="data.color">
 						<option value="" selected="selected">--Select a Color--</option>
 						<option value="white">White</option>
 						<option value="black">Black</option>
@@ -46,28 +48,29 @@
 						<option value="brown">Brown</option>
 						<option value="blue">Blue</option>
 					</select>
-					<select class="form-control form-box" ng-model="data.owner">
+					<select required class="form-control form-box" ng-model="data.owner">
 						<option value="" selected="selected">--Select Ownership--</option>
 						<option value="first">First-Hand</option>
 						<option value="second">Second-Hand</option>
 						<option value="third">Third-Hand</option>
 					</select>
-					<select class="form-control form-box" ng-model="data.fuelType">
+					<select required class="form-control form-box" ng-model="data.fuelType">
 						<option value="" selected="selected">--Select Fuel Type--</option>
-						<option value="pertrol">Petrol</option>
+						<option value="petrol">Petrol</option>
 						<option value="diesel">Diesel</option>
 						<option value="cng">CNG</option>
 						<option value="electric">Electric</option>
 					</select>
-					<input class="form-control form-box" placeholder="Milage" type="text" ng-model="data.milage" />
-					<input class="form-control form-box" placeholder="Engine CC" type="text" ng-model="data.cc" >
+					<input required class="form-control form-box" placeholder="Milage" type="text" ng-model="data.milage" />
+					<input required class="form-control form-box" placeholder="Engine CC" type="text" ng-model="data.cc" >
 				</div>
 				<div class="col-sm-12">
-					<input type="text" class="form-control form-box" style="width: 100%;" ng-model="data.price" placeholder="Expected Price">
-					<textarea placeholder="Address" ng-model="data.address" style="width:100%;" class="form-control form-box"></textarea>
+					<input required type="text" class="form-control form-box" style="width: 100%;" ng-model="data.price" placeholder="Expected Price">
+					<textarea required placeholder="Address" ng-model="data.address" style="width:100%;" class="form-control form-box"></textarea>
 					Upload a photo: <input class="form-control form-box" type="file" id="myFile">
-					<button ng-click="sell()" class="btn btn-success">Sell Car</button>
+					<button ng-click="sell()" type="submit" class="btn btn-success">Sell Car</button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
