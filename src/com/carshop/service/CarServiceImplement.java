@@ -42,4 +42,9 @@ public class CarServiceImplement implements CarService {
 		File media = carDetailsDao.getMedia(id);
 		return mediaStreamer.buildStream(media, range);
 	}
+	@Override
+	public CarModel[] getAllCarDetails() throws UnknownHostException {
+		CarModel[] cars = carDetailsDao.fetchAllCars();
+		return cars;
+	}
 }

@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import com.mongodb.gridfs.*;
 
+import com.mongodb.gridfs.*;
 import com.carshop.model.CarModel;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -84,6 +84,57 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		File file = new File(" .wmv");
 		gridFile.writeTo(file);
 		return file;
+	}
+	@Override
+	public CarModel[] fetchAllCars() throws UnknownHostException {
+		DBCollection collection = getCarDetailsCollection();
+		int count = collection.find().count();
+		CarModel[] cars = new CarModel[count]; 
+		DBCursor cursor = collection.find();
+		int i = 0;
+		while(cursor.hasNext()){
+			BasicDBObject handler = (BasicDBObject) cursor.next();
+			String id = handler.get("_id").toString();
+			System.out.println(id);
+//			cars[i].setId(id);
+//			cars[i].setBrand(handler.getString("brand"));
+//			cars[i].setType(handler.getString("type"));
+//			cars[i].setName(handler.getString("name"));
+//			cars[i].setModel(handler.getString("model"));
+//			cars[i].setGear(handler.getString("gear"));
+//			cars[i].setSeat(handler.getString("seat"));
+//			cars[i].setColor(handler.getString("color"));
+//			cars[i].setFuel(handler.getString("fuel"));
+//			cars[i].setMilage(handler.getString("milage"));
+//			cars[i].setOwner(handler.getString("owner"));
+//			cars[i].setCc(handler.getString("cc"));
+//			cars[i].setPrice(handler.getString("price"));
+//			cars[i].setCarEntry(handler.getString("entry"));
+//			cars[i].setUser(handler.getString("user"));
+//			cars[i].setUsage(handler.getString("usage"));
+//			cars[i].setAddress(handler.getString("address"));
+//			cars[i].setYear(handler.getString("year"));
+			cars[i].setId("hello");
+			cars[i].setBrand(handler.getString("brand"));
+			cars[i].setType(handler.getString("type"));
+			cars[i].setName(handler.getString("name"));
+			cars[i].setModel(handler.getString("model"));
+			cars[i].setGear(handler.getString("gear"));
+			cars[i].setSeat(handler.getString("seat"));
+			cars[i].setColor(handler.getString("color"));
+			cars[i].setFuel(handler.getString("fuel"));
+			cars[i].setMilage(handler.getString("milage"));
+			cars[i].setOwner(handler.getString("owner"));
+			cars[i].setCc(handler.getString("cc"));
+			cars[i].setPrice(handler.getString("price"));
+			cars[i].setCarEntry(handler.getString("entry"));
+			cars[i].setUser(handler.getString("user"));
+			cars[i].setUsage(handler.getString("usage"));
+			cars[i].setAddress(handler.getString("address"));
+			cars[i].setYear(handler.getString("year"));
+			i++;
+		}
+		return cars;
 	}
 	
 }

@@ -63,4 +63,23 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				$state.go('dashboard.search')
 			}
 		})
+		.controller('searchCtrl', function($state,$scope,carServices){
+			$( function() {
+				$( "#slider-range" ).slider({
+				  range: true,
+				  min: 0,
+				  max: 50000000,
+				  values: [ 40000, 10000000 ],
+				  slide: function( event, ui ) {
+					$( "#amount" ).val( "&#8377." + ui.values[ 0 ] + " - &#8377." + ui.values[ 1 ] );
+				  }
+				});
+				$( "#amount" ).val( "&#8377." + $( "#slider-range" ).slider( "values", 0 ) +
+				  " - &#8377." + $( "#slider-range" ).slider( "values", 1 ) );
+			  } );
+			  $scope.cars ={};
+			  $scope.firstSearchLoad = function(){
+				  $scope.cars = userServices.fetchAllCars();
+			  }
+		})
 		

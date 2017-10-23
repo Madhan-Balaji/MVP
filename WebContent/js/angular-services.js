@@ -86,3 +86,15 @@ mainPage.service('userServices',function($rootScope,$state,$http){
     } );
 	}
 })
+
+mainPage.service('carServices',function($scope,$state, $http){
+	this.fetchAllCars = function(){
+		$.post("http://localhost:8080/carshop/Jserv/control/getAllCars",
+		function(data,status){
+			if(status == 'success'){
+				return data.cars;
+			}
+		}
+		)
+	}
+})

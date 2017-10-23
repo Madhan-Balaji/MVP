@@ -37,6 +37,7 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 	})
 	.state('dashboard.search',{
 		url:'/search',
-		templateUrl:'views/search.html'
+		templateUrl:'views/search.html',
+		controller:'searchCtrl'
 	})
 });

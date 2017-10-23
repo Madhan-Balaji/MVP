@@ -130,5 +130,14 @@ public class UserController {
 		CarService carService = new CarServiceImplement();
 		return carService.getCarMedia(id, range);
 	}
+	
+	@GET
+	@Produces("application/json")
+	@Path("/getAllCars")
+	public CarModel[] getAllCars() throws UnknownHostException{
+		CarService carService = new CarServiceImplement();
+		return carService.getAllCarDetails();
+	}
+	
 
 }

@@ -14,4 +14,5 @@ public interface CarDetailsDao {
 	public CarModel addUsedCarDetails(CarModel carModel) throws UnknownHostException;
 	public Boolean addMedia(CarModel carModel,InputStream fis, FormDataContentDisposition fi) throws UnknownHostException;
 	public File getMedia(String id) throws IOException;
+	public CarModel[] fetchAllCars() throws UnknownHostException;
 }
