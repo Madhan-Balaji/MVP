@@ -15,6 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -143,7 +144,7 @@ public class UserController {
 	@Produces("application/json")
 	@Path("/getCarDetails")
 	public ResponseWithCarData getCarDetails(
-			@PathParam("carid") String id
+			@QueryParam("carid") String id
 			) throws UnknownHostException{
 		CarService carService = new CarServiceImplement();
 		return carService.getCarData(id);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.BSONObject;
+import org.bson.types.ObjectId;
 
 import com.mongodb.gridfs.*;
 import com.carshop.model.CarModel;
@@ -147,10 +148,8 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		BasicDBObject obj = new BasicDBObject();
 		ResponseWithCarData response = new ResponseWithCarData();
 		CarModel carModel = new CarModel();
-	    obj.append("_id", id);        
-	    BasicDBObject query = new BasicDBObject();        
-	    query.putAll((BSONObject)query);
-	    DBCursor cursor = collection.find(query);
+	    obj.put("_id", new ObjectId(id));        
+	    DBCursor cursor = collection.find(obj);
 	    if(cursor.hasNext()){
 	    	BasicDBObject handler = (BasicDBObject) cursor.next();
 	    	carModel = allDataSetter(handler);

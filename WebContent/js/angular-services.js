@@ -110,35 +110,35 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var carId = localStorage.getItem("showCar");
 		var datas;
 		
-//		$.ajax({
-//		  type: 'GET',
-//		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails/"+carId,
-//		  async:false,
-//		  success:function(data){
-//				if(data.status == "success"){
-//					localStorage.setItem("dataOb",data.car);
-//					datas = data.car;
-//				}
-//				else{
-//					alert('data failed');
-//				}
-//			} 
-//		  
-//		});
-		$.get("http://localhost:8080/carshop/Jserv/control/getCarDetails",
-				{
-				  carid: carId
-				},
-				function(data,status){
-					if(data.status == "success"){
-						localStorage.setItem("dataOb",data.car);
-						datas = data.car;
-					}
-					else{
-						alert('data failed');
-					}
-					}
-				);
+		$.ajax({
+		  type: 'GET',
+		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails?carid="+carId,
+		  async:false,
+		  success:function(data){
+				if(data.status == "success"){
+					localStorage.setItem("dataOb",data.car);
+					datas = data.car;
+				}
+				else{
+					alert('data failed');
+				}
+			} 
+		  
+		});
+//		$.get("http://localhost:8080/carshop/Jserv/control/getCarDetails",
+//				{
+//				  carid: carId
+//				},
+//				function(data,status){
+//					if(data.status == "success"){
+//						localStorage.setItem("dataOb",data.car);
+//						datas = data.car;
+//					}
+//					else{
+//						alert('data failed');
+//					}
+//					}
+//				);
 		return datas
 	}
 })
