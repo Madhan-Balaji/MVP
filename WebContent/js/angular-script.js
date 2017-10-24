@@ -82,7 +82,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			  $scope.initcap = function(string) {
 					return string.charAt(0).toUpperCase() + string.slice(1);
 				}
-				 $scope.selectCar = function (carId){
+				 $scope.selectCar = function(carId){
 					userServices.setForCarDetail(carId);
 				}
 			  
@@ -94,11 +94,11 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				  while(i<noOfCars){
 					  $scope.scripting += "<div class='row'>";
 					  while((t%3 != 0) && (i<noOfCars)){
-						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><span style="cursor:pointer;" onclick="selectCar(\''+cars[i].id+'\')"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4></span><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background-color: #afffd7; cursor:pointer;">Compare</span> <span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></a></div></div>';
+						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><button onclick="selectCar(\''+cars[i].id+'\')">'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</button><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background-color: #afffd7; cursor:pointer;">Compare</span> <span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></a></div></div>';
 						  i++;t++;
 					  }
 					  if(i<noOfCars){
-						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><span style="cursor:pointer;" onclick="selectCar(\''+cars[i].id+'\')"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4></span><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background-color: #afffd7; cursor:pointer;">Compare</span> <span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
+						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><button onclick="selectCar(\''+cars[i].id+'\')">'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</button></span><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background-color: #afffd7; cursor:pointer;">Compare</span> <span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
 						  i++;
 					  }
 					  $scope.scripting += "</div>";

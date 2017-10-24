@@ -109,22 +109,36 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.getCarDetails = function(){
 		var carId = localStorage.getItem("showCar");
 		var datas;
-		var fd = new FormData();
-		fd.append("car",carId);
-		$.ajax({
-		  type: 'POST',
-		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails",
-		  data: fd,
-		  success:function(data){
-				if(data.status == "success"){
-					datas = data.car;
-				}
-				else{
-					alert('data failed');
-				}
-			} ,
-		  async:false
-		});
+		
+//		$.ajax({
+//		  type: 'GET',
+//		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails/"+carId,
+//		  async:false,
+//		  success:function(data){
+//				if(data.status == "success"){
+//					localStorage.setItem("dataOb",data.car);
+//					datas = data.car;
+//				}
+//				else{
+//					alert('data failed');
+//				}
+//			} 
+//		  
+//		});
+		$.get("http://localhost:8080/carshop/Jserv/control/getCarDetails",
+				{
+				  carid: carId
+				},
+				function(data,status){
+					if(data.status == "success"){
+						localStorage.setItem("dataOb",data.car);
+						datas = data.car;
+					}
+					else{
+						alert('data failed');
+					}
+					}
+				);
 		return datas
 	}
 })
