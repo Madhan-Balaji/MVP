@@ -48,4 +48,8 @@ public class CarServiceImplement implements CarService {
 		ResponseWithCarCollection cars = carDetailsDao.fetchAllCars();
 		return cars;
 	}
+	@Override
+	public ResponseWithCarData getCarData(String id) throws UnknownHostException {
+		return carDetailsDao.getCarDetail(id);
+	}
 }

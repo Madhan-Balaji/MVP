@@ -7,9 +7,12 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.BSONObject;
+
 import com.mongodb.gridfs.*;
 import com.carshop.model.CarModel;
 import com.carshop.model.ResponseWithCarCollection;
+import com.carshop.model.ResponseWithCarData;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -20,6 +23,30 @@ import com.mongodb.gridfs.GridFSInputFile;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class CarDetailsDaoImplement implements CarDetailsDao {
+	public CarModel allDataSetter(BasicDBObject handler){
+		CarModel car = new CarModel();
+		String id = handler.get("_id").toString();
+		car.setId(id);
+		car.setBrand(handler.getString("brand"));
+		car.setType(handler.getString("type"));
+		car.setName(handler.getString("name"));
+		car.setModel(handler.getString("model"));
+		car.setGear(handler.getString("gear"));
+		car.setSeat(handler.getString("seat"));
+		car.setColor(handler.getString("color"));
+		car.setFuel(handler.getString("fule"));
+		car.setMilage(handler.getString("milage"));
+		car.setOwner(handler.getString("owner"));
+		car.setCc(handler.getString("cc"));
+		car.setPrice(handler.getString("price"));
+		car.setCarEntry(handler.getString("entry"));
+		car.setUser(handler.getString("user"));
+		car.setUsage(handler.getString("usage"));
+		car.setAddress(handler.getString("address"));
+		car.setYear(handler.getString("year"));
+		car.setImageUrl("http://localhost:8080/carshop/Jserv/control/media/"+car.getId());
+		return car;
+	}
 	@Override
 	public DBCollection getCarDetailsCollection() throws UnknownHostException{
 		MongoClient mongo = new MongoClient("localhost",27017);
@@ -82,7 +109,7 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		query.put("_id", id);
 		GridFS fileStore = new GridFS(mongoDB, "media");
 		GridFSDBFile gridFile = fileStore.findOne(query);
-		File file = new File(" .wmv");
+		File file = new File(id+".jpg");
 		gridFile.writeTo(file);
 		return file;
 	}
@@ -91,32 +118,17 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		DBCollection collection = getCarDetailsCollection();
 		ResponseWithCarCollection response = new ResponseWithCarCollection();
 		int count = collection.find().count();
+		if(count>15){
+			count=15;
+		}
 		if(count != 0){
 			CarModel[] cars = new CarModel[count]; 
-			DBCursor cursor = collection.find();
+			DBCursor cursor = collection.find().limit(15);
 			int i = 0;
 			while(cursor.hasNext()){
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				cars[i] = new CarModel();
-				String id = handler.get("_id").toString();
-				cars[i].setId(id);
-				cars[i].setBrand(handler.getString("brand"));
-				cars[i].setType(handler.getString("type"));
-				cars[i].setName(handler.getString("name"));
-				cars[i].setModel(handler.getString("model"));
-				cars[i].setGear(handler.getString("gear"));
-				cars[i].setSeat(handler.getString("seat"));
-				cars[i].setColor(handler.getString("color"));
-				cars[i].setFuel(handler.getString("fule"));
-				cars[i].setMilage(handler.getString("milage"));
-				cars[i].setOwner(handler.getString("owner"));
-				cars[i].setCc(handler.getString("cc"));
-				cars[i].setPrice(handler.getString("price"));
-				cars[i].setCarEntry(handler.getString("entry"));
-				cars[i].setUser(handler.getString("user"));
-				cars[i].setUsage(handler.getString("usage"));
-				cars[i].setAddress(handler.getString("address"));
-				cars[i].setYear(handler.getString("year"));
+				cars[i] = allDataSetter(handler);
 				i++;
 			}
 			response.status="success";
@@ -128,6 +140,27 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 			response.status="failure";
 			return response;
 		}
+	}
+	@Override
+	public ResponseWithCarData getCarDetail(String id) throws UnknownHostException {
+		DBCollection collection = getCarDetailsCollection();
+		BasicDBObject obj = new BasicDBObject();
+		ResponseWithCarData response = new ResponseWithCarData();
+		CarModel carModel = new CarModel();
+	    obj.append("_id", id);        
+	    BasicDBObject query = new BasicDBObject();        
+	    query.putAll((BSONObject)query);
+	    DBCursor cursor = collection.find(query);
+	    if(cursor.hasNext()){
+	    	BasicDBObject handler = (BasicDBObject) cursor.next();
+	    	carModel = allDataSetter(handler);
+	    	response.status = "success";
+	    	response.car=carModel;
+	    }
+	    else{
+	    	response.status="failed";
+	    }
+		return response;
 	}
 	
 }

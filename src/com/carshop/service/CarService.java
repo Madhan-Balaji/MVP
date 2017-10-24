@@ -16,4 +16,5 @@ public interface CarService {
 	public Boolean addNewUsedCarImage(CarModel carModel,InputStream fis, FormDataContentDisposition fi) throws UnknownHostException;
 	public Response getCarMedia(String id, String Range) throws Exception;
 	public ResponseWithCarCollection getAllCarDetails() throws UnknownHostException;
+	public ResponseWithCarData getCarData(String id) throws UnknownHostException;
 }

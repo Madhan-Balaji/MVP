@@ -139,6 +139,14 @@ public class UserController {
 		CarService carService = new CarServiceImplement();
 		return carService.getAllCarDetails();
 	}
-	
+	@POST
+	@Produces("application/json")
+	@Path("/getCarDetails")
+	public ResponseWithCarData getCarDetails(
+			@FormParam("car") String id
+			) throws UnknownHostException{
+		CarService carService = new CarServiceImplement();
+		return carService.getCarData(id);
+	}
 
 }

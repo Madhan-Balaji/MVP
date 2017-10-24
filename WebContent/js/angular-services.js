@@ -102,4 +102,29 @@ mainPage.service('userServices',function($rootScope,$state,$http){
     } );
 	return avail;
 	}
+	this.setForCarDetail=function(carId){
+		localStorage.setItem("showCar",carId);
+		$state.go('dashboard.car');
+	}
+	this.getCarDetails = function(){
+		var carId = localStorage.getItem("showCar");
+		var datas;
+		var fd = new FormData();
+		fd.append("car",carId);
+		$.ajax({
+		  type: 'POST',
+		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails",
+		  data: fd,
+		  success:function(data){
+				if(data.status == "success"){
+					datas = data.car;
+				}
+				else{
+					alert('data failed');
+				}
+			} ,
+		  async:false
+		});
+		return datas
+	}
 })

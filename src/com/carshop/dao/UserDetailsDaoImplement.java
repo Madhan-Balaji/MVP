@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
+import com.carshop.model.ResponseWithCarData;
 import com.carshop.model.UserModel;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;

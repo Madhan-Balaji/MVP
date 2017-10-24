@@ -70,6 +70,7 @@ public class MediaStreamer implements StreamingOutput {
                     }
                 }
             };
+            //.status(200).header(HttpHeaders.CONTENT_LENGTH, asset.length())
             return Response.ok(streamer).status(200).header(HttpHeaders.CONTENT_LENGTH, asset.length()).build();
         }
 

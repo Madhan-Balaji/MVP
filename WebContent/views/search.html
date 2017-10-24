@@ -34,9 +34,24 @@
 				 
 				<div id="slider-range"></div>
 			</div>
-			<div class="col-sm-9">
-				<div class="col-sm-12" id="search-area" style="padding-top: 10px;">
-					
+			<div class="col-sm-9" >
+				<div class="col-sm-12" id="search-area" style="padding-top: 10px;" ng-init="temp = temp+1" ng-repeat="car in cars">
+					<div class="row">
+					<div class="col-sm-4">
+						<div class="thumbnail">
+							
+								<img src="{{car.imageUrl}}" alt="Nature" style="width:100%">
+								<div class="caption">
+								<button  ng-click="selectCar(car.id)">{{car.brand}} {{car.name}}</button>
+							
+							<p>{{car.year}}</p>
+							<h5 style="text-align: right;">
+								<span style="background-color: #afffd7; cursor:pointer;">Compare</span>
+								<span style="background: #eaeaea;">&#8377 {{car.price}}</span>
+							</h5>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

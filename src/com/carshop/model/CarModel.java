@@ -19,6 +19,13 @@ public class CarModel {
 	private String brand;
 	private String type;
 	private String price;
+	private String imageUrl;
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	public String getPrice() {
 		return price;
 	}

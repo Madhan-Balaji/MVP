@@ -76,23 +76,29 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				});
 				$( "#amount" ).val( "RS." + $( "#slider-range" ).slider( "values", 0 ) +
 				  " - &RS." + $( "#slider-range" ).slider( "values", 1 ) );
+				  
 			  } );
+			  $scope.temp = 0;
 			  $scope.initcap = function(string) {
 					return string.charAt(0).toUpperCase() + string.slice(1);
 				}
-			  $scope.cars ={};
+				 $scope.selectCar = function (carId){
+					userServices.setForCarDetail(carId);
+				}
+			  
 			  $scope.printCars = function(cars, noOfCars){
+				  
 				  var i=0;
 				  var t=1;
 				  $scope.scripting ="";
 				  while(i<noOfCars){
 					  $scope.scripting += "<div class='row'>";
 					  while((t%3 != 0) && (i<noOfCars)){
-						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><a href="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
+						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><span style="cursor:pointer;" onclick="selectCar(\''+cars[i].id+'\')"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4></span><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background-color: #afffd7; cursor:pointer;">Compare</span> <span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></a></div></div>';
 						  i++;t++;
 					  }
 					  if(i<noOfCars){
-						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><a href="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
+						  $scope.scripting += '<div class="col-sm-4"><div class="thumbnail"><span style="cursor:pointer;" onclick="selectCar(\''+cars[i].id+'\')"><img src="http://localhost:8080/carshop/Jserv/control/media/'+cars[i].id+'" alt="Nature" style="width:100%"><div class="caption"><h4>'+$scope.initcap(cars[i].brand)+' '+$scope.initcap(cars[i].name)+'</h4></span><p>'+cars[i].year+'</p><h5 style="text-align: right;"><span style="background-color: #afffd7; cursor:pointer;">Compare</span> <span style="background: #eaeaea;">&#8377 '+cars[i].price+'</span></h5></div></div></div>';
 						  i++;
 					  }
 					  $scope.scripting += "</div>";
@@ -102,9 +108,14 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			  }
 			  $scope.firstLoad = function(){
 				  $scope.data = userServices.fetchAllCars();
-				  $scope.printCars($scope.data.cars,$scope.data.rows);
+				  //$scope.printCars($scope.data.cars,$scope.data.rows);
+				  $scope.cars = $scope.data.cars;
 			  }
 			  $scope.firstLoad();
 			  
+			  
+		})
+		.controller('carDetailCtrl', function($state, $scope, userServices){
+			$scope.data = userServices.getCarDetails();
 		})
 		

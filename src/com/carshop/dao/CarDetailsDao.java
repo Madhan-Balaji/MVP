@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 
 import com.carshop.model.CarModel;
 import com.carshop.model.ResponseWithCarCollection;
+import com.carshop.model.ResponseWithCarData;
 import com.mongodb.DBCollection;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
@@ -16,4 +17,5 @@ public interface CarDetailsDao {
 	public Boolean addMedia(CarModel carModel,InputStream fis, FormDataContentDisposition fi) throws UnknownHostException;
 	public File getMedia(String id) throws IOException;
 	public ResponseWithCarCollection fetchAllCars() throws UnknownHostException;
+	public ResponseWithCarData getCarDetail(String id) throws UnknownHostException;
 }

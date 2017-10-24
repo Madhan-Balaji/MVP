@@ -40,4 +40,9 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		templateUrl:'views/search.html',
 		controller:'searchCtrl'
 	})
+	.state('dashboard.car',{
+		url:'/car',
+		templateUrl:'views/carDetails.html',
+		controller:'carDetailCtrl'
+	})
 });
