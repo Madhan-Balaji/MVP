@@ -121,6 +121,53 @@ public class UserController {
 		carModel.setCc(cc);
 		carModel.setAddress(address);
 		carModel.setPrice(price);
+		carModel.setUsage("used");
+		return carService.addNewUsedCar(carModel, fileInputStream, fileInputDetails,req);
+	}
+	
+	@POST
+	@Path("/newCar")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("application/json")
+	public ResponseWithCarData uploadNewFile(		
+			@FormDataParam("file") InputStream fileInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileInputDetails,
+			@FormDataParam("name") String  name,
+			@FormDataParam("model") String  model,
+			@FormDataParam("year") String  year,
+			@FormDataParam("gear") String  gear,
+			@FormDataParam("seat") String  seat,
+			@FormDataParam("color") String  color,
+			@FormDataParam("owner") String  owner,
+			@FormDataParam("fuelType") String  fuel,
+			@FormDataParam("milage") String  milage,
+			@FormDataParam("cc") String  cc,
+			@FormDataParam("address") String  address,
+			@FormDataParam("brand") String  brand,
+			@FormDataParam("type") String  type,
+			@FormDataParam("price") String  price,
+			@Context HttpServletRequest req
+			) throws UnknownHostException {
+		
+		System.out.println(" File name is :"+fileInputDetails.getFileName());
+		
+		CarService carService = new CarServiceImplement();
+		CarModel carModel = new CarModel();
+		carModel.setBrand(brand);
+		carModel.setType(type);
+		carModel.setName(name);
+		carModel.setModel(model);
+		carModel.setYear(year);
+		carModel.setGear(gear);
+		carModel.setSeat(seat);
+		carModel.setColor(color);
+		carModel.setOwner(owner);
+		carModel.setFuel(fuel);
+		carModel.setMilage(milage);
+		carModel.setCc(cc);
+		carModel.setAddress(address);
+		carModel.setPrice(price);
+		carModel.setUsage("new");
 		return carService.addNewUsedCar(carModel, fileInputStream, fileInputDetails,req);
 	}
 	@GET
@@ -148,6 +195,15 @@ public class UserController {
 			) throws UnknownHostException{
 		CarService carService = new CarServiceImplement();
 		return carService.getCarData(id);
+	}
+	
+	@Path("/getRidOfSession")
+	@GET
+	public Response signOutUser(
+			@Context HttpServletRequest req
+			){
+		UserService userService = new UserServiceImplement();
+		return userService.lossSession(req);
 	}
 
 }

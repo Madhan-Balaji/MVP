@@ -45,7 +45,10 @@ body{
 	text-decoration: none;
 }
 .user-note{
-	position: relative;
+	top: 0;
+    right: 0;
+    position: absolute;
+    float: right;
 }
 .car-data-edit{
 	width: 50%;

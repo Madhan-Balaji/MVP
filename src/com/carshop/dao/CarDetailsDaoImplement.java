@@ -7,7 +7,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.BSONObject;
 import org.bson.types.ObjectId;
 
 import com.mongodb.gridfs.*;
@@ -61,7 +60,6 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		dummy.put("user", carModel.getUser());
 		int count = collection.find(dummy).count();
 		carModel.setCarEntry(""+(count+1));
-		carModel.setUsage("used");
 		BasicDBObject document = new BasicDBObject();
 		document.append("brand", carModel.getBrand());
 		document.append("type", carModel.getType());

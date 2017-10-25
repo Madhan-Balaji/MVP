@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Response;
 
 import com.carshop.dao.UserDetailsDao;
 import com.carshop.dao.UserDetailsDaoImplement;
@@ -84,6 +85,14 @@ public class UserServiceImplement implements UserService {
 		else {
 			return "failed";
 		}
+	}
+
+
+	@Override
+	public Response lossSession(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute("user","");
+		return null;
 	}
 	
 }

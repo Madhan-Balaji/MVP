@@ -85,12 +85,19 @@ mainPage.service('userServices',function($rootScope,$state,$http){
       }
     } );
 	}
+	this.sellNewCar = function(formdata){
+		$.ajax( {
+      url: 'http://localhost:8080/carshop/Jserv/control/newCar',
+      type: 'POST',
+      data: formdata,
+      processData: false,
+      contentType: false,
+      success: function(data){
+      	alert(data.status)
+      }
+    } );
+	}
 	this.fetchAllCars = function(){
-		/*return $.ajax({
-        type: "GET",
-        url: 'http://localhost:8080/carshop/Jserv/control/getAllCars',
-        async: false
-    }).responseText;*/
 		var avail; 
 		$.ajax( {
       url: 'http://localhost:8080/carshop/Jserv/control/getAllCars',
@@ -125,20 +132,33 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 			} 
 		  
 		});
-//		$.get("http://localhost:8080/carshop/Jserv/control/getCarDetails",
-//				{
-//				  carid: carId
-//				},
-//				function(data,status){
-//					if(data.status == "success"){
-//						localStorage.setItem("dataOb",data.car);
-//						datas = data.car;
-//					}
-//					else{
-//						alert('data failed');
-//					}
-//					}
-//				);
 		return datas
+	}
+	this.getCarDetailCmp = function(carId){
+		var datas;
+		
+		$.ajax({
+		  type: 'GET',
+		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails?carid="+carId,
+		  async:false,
+		  success:function(data){
+				if(data.status == "success"){
+					localStorage.setItem("dataOb",data.car);
+					datas = data.car;
+				}
+				else{
+					alert('data failed');
+				}
+			} 
+		  
+		});
+		return datas
+	}
+	this.signingOut = function(){
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/getRidOfSession",
+			  });
+		$state.go('signin');
 	}
 })

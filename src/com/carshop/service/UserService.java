@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Response;
 
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
@@ -17,4 +18,5 @@ public interface UserService {
 	public ResponseWithUserData userLoginCheck(UserModel user, HttpServletRequest req) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException, URISyntaxException;
 	public void setUserSession(HttpServletRequest req, UserModel user);
 	public String checkUserSession(String availedSession, HttpServletRequest req);
+	public Response lossSession(HttpServletRequest req);
 }

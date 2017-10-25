@@ -45,4 +45,14 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		templateUrl:'views/carDetails.html',
 		controller:'carDetailCtrl'
 	})
+	.state('dashboard.compare',{
+		url:'/compare',
+		templateUrl:'views/compare.html',
+		controller:'compareCtrl'
+	})
+	.state('dashboard.sellNew',{
+		url:'/post-a-car',
+		templateUrl:'views/newCar.html',
+		controller:'newSellCtrl'
+	})
 });

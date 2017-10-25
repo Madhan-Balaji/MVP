@@ -6,19 +6,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			}
 			
 		})
-//		.directive('ngFiles', ['$parse', function ($parse) {
-//
-//            function fn_link(scope, element, attrs) {
-//                var onChange = $parse(attrs.ngFiles);
-//                element.on('change', function (event) {
-//                    onChange(scope, { $files: event.target.files });
-//                });
-//            };
-//
-//            return {
-//                link: fn_link
-//            }
-//        } ])
+		
 		.controller('signupCtrl',function($scope,userServices){
 			$scope.email;
 			$scope.name;
@@ -29,8 +17,10 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				userServices.userSignUp($scope.email,$scope.name,$scope.pwd,$scope.phone,$scope.region);
 			}
 		})
-		.controller('dashboardCtrl',function($scope,$rootScope,userServices){
+		
+		.controller('dashboardCtrl',function($scope,$state,$rootScope,userServices){
 			userServices.checkSession();
+			$scope.signOut = function(){userServices.signingOut();}
 			$rootScope.compare=[];
 			$rootScope.compareName=[];
 			$rootScope.setCompare = function(id,name){
@@ -63,8 +53,13 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				}
 				
 			}
+			$scope.goCompare = function(){
+				$state.go('dashboard.compare');
+			}
 		})
+		
 		.controller('sellCtrl',function($scope,userServices){
+			userServices.checkSession();
 			$scope.data={};
 			$scope.sell = function(){
 				var files = $('#myFile').prop('files');
@@ -88,15 +83,19 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				userServices.sellCar(fd);
 			}
 		})
-		.controller('userPanelCtrl',function($state,$scope){
+		
+		.controller('userPanelCtrl',function($state,$scope,userServices){
+			userServices.checkSession();
 			$scope.sellPage=function(){
-				$state.go('dashboard.sell')
+				$state.go('dashboard.sell');
 			}
 			$scope.searchPage=function(){
-				$state.go('dashboard.search')
+				$state.go('dashboard.search');
 			}
 		})
+		
 		.controller('searchCtrl', function($state,$scope, $rootScope, userServices){
+			userServices.checkSession();
 			$scope.carNames=[];
 			$scope.carBrand=[];
 			$( function() {
@@ -152,7 +151,83 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			  
 			  
 		})
+		
 		.controller('carDetailCtrl', function($state, $scope, userServices){
+			userServices.checkSession();
 			$scope.data = userServices.getCarDetails();
+		})
+		
+		.controller('compareCtrl', function($state,$scope,$rootScope,userServices){
+			userServices.checkSession();
+			$scope.compCars = [];
+			for(i=0;i<$rootScope.compare.length;i++){
+				$scope.data = userServices.getCarDetailCmp($rootScope.compare[i]);
+				$scope.compCars.push($scope.data);
+			}
+			$scope.loadPage = function(){
+				$scope.scripting = "";
+				for(i=0;i<$scope.compCars.length;i++){
+					$scope.scripting += "<div class='col-sm-"+(12/$scope.compCars.length)+"'><img style='max-height: 500px;width: 100%;' src='"+$scope.compCars[i].imageUrl+"'></div>";
+				}
+				$('#cmp-img').append($scope.scripting);
+				$scope.scripting = "";
+				for(i=0;i<$scope.compCars.length;i++){
+					brand = $rootScope.initcap($scope.compCars[i].brand);
+					name = $rootScope.initcap($scope.compCars[i].name);
+					model =$rootScope.initcap($scope.compCars[i].model);
+					year = $rootScope.initcap($scope.compCars[i].year);
+					gear = $rootScope.initcap($scope.compCars[i].gear);
+					seat = $rootScope.initcap($scope.compCars[i].seat);
+					type = $rootScope.initcap($scope.compCars[i].type);
+					color = $rootScope.initcap($scope.compCars[i].color);
+					owner =$rootScope.initcap($scope.compCars[i].owner);
+					fuel =$rootScope.initcap($scope.compCars[i].fuel);
+					milage =$rootScope.initcap($scope.compCars[i].milage);
+					cc =$rootScope.initcap($scope.compCars[i].cc);
+					price = $rootScope.initcap($scope.compCars[i].price);
+					$('#heading').append("<th style='text-align:center;'>"+$rootScope.initcap(brand)+" "+$rootScope.initcap(name)+"</th>")
+					$('#brand').append("<td style='text-align:center;'>"+brand+"</td>");
+					$('#name').append("<td style='text-align:center;'>"+name+"</td>");
+					$('#model').append("<td style='text-align:center;'>"+model+"</td>");
+					$('#year').append("<td style='text-align:center;'>"+year+"</td>");
+					$('#gear').append("<td style='text-align:center;'>"+gear+"</td>");
+					$('#seat').append("<td style='text-align:center;'>"+seat+"</td>");
+					$('#type').append("<td style='text-align:center;'>"+type+"</td>");
+					$('#color').append("<td style='text-align:center;'>"+color+"</td>");
+					$('#owner').append("<td style='text-align:center;'>"+owner+"</td>");
+					$('#fuel').append("<td style='text-align:center;'>"+fuel+"</td>");
+					$('#milage').append("<td style='text-align:center;'>"+milage+"</td>");
+					$('#cc').append("<td style='text-align:center;'>"+cc+"</td>");
+					$('#price').append("<td style='text-align:center;'>"+price+"</td>");
+				}
+				
+			}
+			$scope.loadPage();
+		})
+		.controller('newSellCtrl',function($scope,userServices){
+			userServices.checkSession();
+			$scope.data={};
+			$scope.sellNew = function(){
+				var files = $('#myFile').prop('files');
+				// alert(files[0].name);
+				var fd = new FormData();
+				fd.append('price',$scope.data.price)
+				fd.append('brand',$scope.data.brand);
+				fd.append('type',$scope.data.type);
+				fd.append('name',$scope.data.carName);
+				fd.append('model',$scope.data.carModel);
+				fd.append('year',$scope.data.carYear);
+				fd.append('gear',$scope.data.carGear);
+				fd.append('seat',$scope.data.seat);
+				fd.append('color',$scope.data.color);
+				fd.append('owner',$scope.data.owner);
+				fd.append('fuelType',$scope.data.fuelType);
+				fd.append('milage',$scope.data.milage);
+				fd.append('cc',$scope.data.cc);
+				fd.append('address',$scope.data.address);
+				fd.append('file',files[0]);
+				userServices.sellNewCar(fd);
+			}
+			
 		})
 		
