@@ -107,3 +107,10 @@ body{
 	border-radius: 10px;
 	margin: 10px 0;
 }
+.comparer{
+	position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(81,81,81,0.5);
+    padding:10px;
+}

@@ -4,20 +4,21 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			$scope.login = function(){
 				userServices.checkLogin($scope.email, $scope.pwd);
 			}
+			
 		})
-		.directive('ngFiles', ['$parse', function ($parse) {
-
-            function fn_link(scope, element, attrs) {
-                var onChange = $parse(attrs.ngFiles);
-                element.on('change', function (event) {
-                    onChange(scope, { $files: event.target.files });
-                });
-            };
-
-            return {
-                link: fn_link
-            }
-        } ])
+//		.directive('ngFiles', ['$parse', function ($parse) {
+//
+//            function fn_link(scope, element, attrs) {
+//                var onChange = $parse(attrs.ngFiles);
+//                element.on('change', function (event) {
+//                    onChange(scope, { $files: event.target.files });
+//                });
+//            };
+//
+//            return {
+//                link: fn_link
+//            }
+//        } ])
 		.controller('signupCtrl',function($scope,userServices){
 			$scope.email;
 			$scope.name;
@@ -28,8 +29,40 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				userServices.userSignUp($scope.email,$scope.name,$scope.pwd,$scope.phone,$scope.region);
 			}
 		})
-		.controller('dashboardCtrl',function($scope,userServices){
+		.controller('dashboardCtrl',function($scope,$rootScope,userServices){
 			userServices.checkSession();
+			$rootScope.compare=[];
+			$rootScope.compareName=[];
+			$rootScope.setCompare = function(id,name){
+				if($rootScope.compare.length < 3){
+					exist =0;
+					for(i=0; i<$rootScope.compare.length;i++){
+						if($rootScope.compare[i] == id){
+							exist++;
+							break;
+						}
+					}
+					if(exist == 0){
+						$rootScope.compare.push(id);
+						$rootScope.compareName.push(name);
+					}
+					else{
+						alert("Data already available for compare");
+					}
+				}
+				else{
+					alert("Maximum comparison limit reached");
+				}
+			}
+			$rootScope.removeCompare = function(name){
+				for(i=0;i<$rootScope.compareName.length;i++){
+					if($rootScope.compareName[i] == name){
+						$rootScope.compare.splice(i,1);
+						$rootScope.compareName.splice(i,1);
+					}
+				}
+				
+			}
 		})
 		.controller('sellCtrl',function($scope,userServices){
 			$scope.data={};
@@ -63,7 +96,9 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				$state.go('dashboard.search')
 			}
 		})
-		.controller('searchCtrl', function($state,$scope, userServices){
+		.controller('searchCtrl', function($state,$scope, $rootScope, userServices){
+			$scope.carNames=[];
+			$scope.carBrand=[];
 			$( function() {
 				$( "#slider-range" ).slider({
 				  range: true,
@@ -79,7 +114,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				  
 			  } );
 			  $scope.temp = 0;
-			  $scope.initcap = function(string) {
+			  $rootScope.initcap = function(string) {
 					return string.charAt(0).toUpperCase() + string.slice(1);
 				}
 				 $scope.selectCar = function(carId){
@@ -106,10 +141,12 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				  }
 				  $('#search-area').append($scope.scripting);
 			  }
+			  
 			  $scope.firstLoad = function(){
 				  $scope.data = userServices.fetchAllCars();
 				  //$scope.printCars($scope.data.cars,$scope.data.rows);
 				  $scope.cars = $scope.data.cars;
+				 
 			  }
 			  $scope.firstLoad();
 			  

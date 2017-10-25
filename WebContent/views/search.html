@@ -34,42 +34,24 @@
 				 
 				<div id="slider-range"></div>
 			</div>
-			<div class="col-sm-9" ng-init="counter = 1">
-				<!-- <div class="col-sm-12" id="search-area" style="padding-top: 10px;"> -->
+			<div class="col-sm-9">
 				<div class="col-sm-12" id="search-area" style="padding-top: 10px;">
-					<!-- <span ng-if="">
-						<div class="col-sm-4">
-							<div class="thumbnail">
-								<img src="{{car.imageUrl}}" alt="Nature" style="width:100%">
-								<div class="caption">
-									<button  ng-click="selectCar(car.id)">{{car.brand}} {{car.name}}</button>
+					<div style="display:inline-block;width:25%;height:25%;margin:20px;" ng-repeat="car in cars" >
+						<div class="thumbnail" >
 							
-									<p>{{car.year}}</p>
-									<h5 style="text-align: right;">
-										<span style="background-color: #afffd7; cursor:pointer;">Compare</span>
-										<span style="background: #eaeaea;">&#8377 {{car.price}}</span>
-									</h5>
-								</div>
-							</div>
-						</div>
-					</span> -->
-					
-					<div class="col-sm-4"  ng-repeat="car in cars">
-						<div class="thumbnail">
-							
-								<img src="{{car.imageUrl}}" alt="Nature" style="width:100%">
-								<div class="caption">
-								<button  ng-click="selectCar(car.id)">{{car.brand}} {{car.name}}</button>
+							<img src="{{car.imageUrl}}" alt="Nature" style="width:100%">
+							<div class="caption">
+							<button  ng-click="selectCar(car.id)">{{initcap(car.brand)}} {{initcap(car.name)}}</button>
 							
 							<p>{{car.year}}</p>
 							<h5 style="text-align: right;">
-								<span style="background-color: #afffd7; cursor:pointer;">Compare</span>
+								<span ng-click="setCompare(car.id,initcap(car.brand)+' '+initcap(car.name))" style="background-color: #afffd7; cursor:pointer;">Compare</span>
 								<span style="background: #eaeaea;">&#8377 {{car.price}}</span>
 							</h5>
 							</div>
 						</div>
 					</div>
-				
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
