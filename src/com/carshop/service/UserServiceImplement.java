@@ -94,5 +94,11 @@ public class UserServiceImplement implements UserService {
 		session.setAttribute("user","");
 		return null;
 	}
+
+
+	@Override
+	public String getCompany(String id) throws UnknownHostException {
+		return userDetails.getUserCompany(id);
+	}
 	
 }

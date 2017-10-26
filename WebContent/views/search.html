@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 filter-region">
-				<input type="text" id="search-box"  placeholder="Search" class="form-control form-box">
+				<input type="text" id="search-box" ng-change="searchTheTerm()" ng-model="searchTerm"  placeholder="Search" class="form-control form-box">
 				<div class="filter-ops">
 					<h4>Select Usage</h4>
 					<input type="checkbox" ng-model="used" ng-click="usedClicked()"> Used<br>

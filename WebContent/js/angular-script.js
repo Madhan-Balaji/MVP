@@ -95,6 +95,10 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 		})
 		
 		.controller('searchCtrl', function($state,$scope, $rootScope, userServices){
+			$scope.searchTerm;
+			$scope.searchTheTerm = function(){
+				$scope.cars = userServices.searchCarByTerm($scope.searchTerm);
+			}
 			userServices.checkSession();
 			$scope.carNames=[];
 			$scope.carBrand=[];
@@ -210,24 +214,29 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			$scope.sellNew = function(){
 				var files = $('#myFile').prop('files');
 				// alert(files[0].name);
-				var fd = new FormData();
-				fd.append('price',$scope.data.price)
-				fd.append('brand',$scope.data.brand);
-				fd.append('type',$scope.data.type);
-				fd.append('name',$scope.data.carName);
-				fd.append('model',$scope.data.carModel);
-				fd.append('year',$scope.data.carYear);
-				fd.append('gear',$scope.data.carGear);
-				fd.append('seat',$scope.data.seat);
-				fd.append('color',$scope.data.color);
-				fd.append('owner',$scope.data.owner);
-				fd.append('fuelType',$scope.data.fuelType);
-				fd.append('milage',$scope.data.milage);
-				fd.append('cc',$scope.data.cc);
-				fd.append('address',$scope.data.address);
-				fd.append('file',files[0]);
+				var fds = new FormData();
+				fds.append('price',$scope.data.price)
+				fds.append('brand',$scope.data.brand);
+				fds.append('type',$scope.data.type);
+				fds.append('name',$scope.data.carName);
+				fds.append('model',$scope.data.carModel);
+				fds.append('year',$scope.data.carYear);
+				fds.append('gear',$scope.data.carGear);
+				fds.append('seat',$scope.data.seat);
+				fds.append('color',$scope.data.color);
+				fds.append('owner',$scope.data.owner);
+				fds.append('fuelType',$scope.data.fuelType);
+				fds.append('milage',$scope.data.milage);
+				fds.append('cc',$scope.data.cc);
+				fds.append('address',$scope.data.address);
+				fds.append('file',files[0]);
 				userServices.sellNewCar(fd);
 			}
 			
 		})
-		
+		.controller('newInsuCtrl',function($scope, userServices){
+			$scope.insurance = {};
+			$scope.sellInsu = function(){
+				userServices.submitNewInsurance($scope.insurance);
+			}
+		})

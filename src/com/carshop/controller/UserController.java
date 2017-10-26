@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -21,12 +22,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.carshop.model.CarModel;
+import com.carshop.model.InsuranceModel;
 import com.carshop.model.ResponseWithCarCollection;
 import com.carshop.model.ResponseWithCarData;
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 import com.carshop.service.CarService;
 import com.carshop.service.CarServiceImplement;
+import com.carshop.service.InsuranceService;
+import com.carshop.service.InsuranceServiceImplement;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -204,6 +208,47 @@ public class UserController {
 			){
 		UserService userService = new UserServiceImplement();
 		return userService.lossSession(req);
+	}
+	
+	@GET
+	@Path("searchByTerm")
+	@Produces("application/json")
+	public ResponseWithCarCollection searchByTerm(
+			@QueryParam("term") String term
+			) throws UnknownHostException{
+		CarService carService = new CarServiceImplement();
+		return carService.searchCarTerm(term);
+	}
+	
+	@POST
+	@Path("/saveNewInsurance")
+	@Produces("application/json")
+	public String addInsurance(
+			@FormParam("name") String name,
+			@FormParam("val") String val,
+			@FormParam("prem") String prem,
+			@FormParam("zDep") String zDep,
+			@FormParam("claim") String claim,
+			@FormParam("own") String own,
+			@FormParam("owner") String owner,
+			@FormParam("lib") String lib,
+			@FormParam("cd") String cd,
+			@Context HttpServletRequest req
+			) throws UnknownHostException{
+		InsuranceService InsuranceService = new InsuranceServiceImplement();
+		InsuranceModel insuranceModel = new InsuranceModel();
+		HttpSession session = req.getSession();
+		insuranceModel.setPostby((String)session.getAttribute("user"));
+		insuranceModel.setName(name);
+		insuranceModel.setVal(val);
+		insuranceModel.setPrem(prem);
+		insuranceModel.setzDep(zDep);
+		insuranceModel.setClaim(claim);
+		insuranceModel.setOwn(own);
+		insuranceModel.setOwner(owner);
+		insuranceModel.setLib(lib);
+		insuranceModel.setCd(cd);
+		return InsuranceService.addNewInsurance(insuranceModel);
 	}
 
 }

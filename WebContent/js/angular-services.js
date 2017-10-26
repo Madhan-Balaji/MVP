@@ -161,4 +161,46 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 			  });
 		$state.go('signin');
 	}
+	this.searchCarByTerm = function(terms){
+		var datas;
+		
+		$.ajax({
+		  type: 'GET',
+		  url: "http://localhost:8080/carshop/Jserv/control/searchByTerm?term="+terms,
+		  async:false,
+		  success:function(data){
+				if(data.status == "success"){
+					//localStorage.setItem("dataOb",data.car);
+					datas = data.cars;
+				}
+				else{
+					alert('No car found');
+				}
+			} 
+		  
+		});
+		return datas
+	}
+	this.submitNewInsurance = function(insurance){
+		
+		$.post("http://localhost:8080/carshop/Jserv/control/saveNewInsurance",
+				{
+					name:insurance.name,
+					val:insurance.value,
+					prem:insurance.prem,
+					zDep:insurance.zDep,
+					claim:insurance.claims,
+					own:insurance.own,
+					owner:insurance.owner,
+					lib:insurance.tLiable,
+					cd:insurance.cd
+				},
+				function(data,status)
+				{
+					if(status == "success"){
+						alert(data);
+					}
+				}
+		)
+	}
 })

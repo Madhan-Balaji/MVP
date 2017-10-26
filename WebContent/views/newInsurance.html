@@ -1,35 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>CarShop - Login</title>
-<link rel="stylesheet" href="libraries/css/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="libraries/js/jquery-ui/jquery-ui.theme.min.css">
-<link rel="stylesheet" href="libraries/js/jquery-ui/jquery-ui.structure.min.css">
-<script src="libraries/js/angular.min.js"></script>
-<script src="libraries/js/jquery-ui/external/jquery/jquery.js"></script>
-<script src="libraries/js/jquery-ui/jquery-ui.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
-<script src="js/script.js"></script>
-<script src="js/angular-routing.js"></script>
-<script src="js/angular-services.js"></script>
-<script src="js/angular-script.js"></script>
-</head>
-<body ng-app="mainPage">
-	<div class="header">
-		<h1 align="center">CarShop</h1>
-	</div>
-	<div class="set-middle car-data-edit">
+<div class="set-middle car-data-edit">
 		<h2 align="center">Enter the following details</h2>
 		<div class="container-fluid">
 			<div class="row">
 			<form>
 				<div class="col-sm-12">
-					<input type="text" class="form-control form-box" ng-model="insurance.name" placeholder="Insurance name">
-				</div>
+						<input type="text" class="form-control form-box" ng-model="insurance.name" placeholder="Insurance name">
+					</div>
 				<div class="col-sm-6">
-				
 					<input type="text" placeholder="Declared Value" ng-model="insurance.value" class="form-control form-box"> 
 					<input type="text" placeholder="Premium" ng-model="insurance.prem" class="form-control form-box">
 					<select class="form-control form-box" ng-model="insurance.zDep">
@@ -73,5 +50,3 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>

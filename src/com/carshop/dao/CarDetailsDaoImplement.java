@@ -7,6 +7,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
+
 import org.bson.types.ObjectId;
 
 import com.mongodb.gridfs.*;
@@ -158,6 +160,37 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 	    	response.status="failed";
 	    }
 		return response;
+	}
+	@Override
+	public ResponseWithCarCollection searchInStrings(String term) throws UnknownHostException {
+		DBCollection collection = getCarDetailsCollection();
+		ResponseWithCarCollection response = new ResponseWithCarCollection();
+		BasicDBObject search = new BasicDBObject();
+		List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+		obj.add(new BasicDBObject("model", java.util.regex.Pattern.compile(term)));
+		obj.add(new BasicDBObject("name", java.util.regex.Pattern.compile(term)));
+		obj.add(new BasicDBObject("brand", java.util.regex.Pattern.compile(term)));
+		search.put("$or", obj);
+		int count = collection.find(search).count();
+		if(count != 0){
+			CarModel[] cars = new CarModel[count]; 
+			DBCursor cursor = collection.find(search);
+			int i = 0;
+			while(cursor.hasNext()){
+				BasicDBObject handler = (BasicDBObject) cursor.next();
+				cars[i] = new CarModel();
+				cars[i] = allDataSetter(handler);
+				i++;
+			}
+			response.status="success";
+			response.cars = cars;
+			response.rows = count;
+			return response;
+		}
+		else{
+			response.status="failure";
+			return response;
+		}
 	}
 	
 }

@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
+import com.carshop.model.InsuranceModel;
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 
@@ -19,4 +20,5 @@ public interface UserService {
 	public void setUserSession(HttpServletRequest req, UserModel user);
 	public String checkUserSession(String availedSession, HttpServletRequest req);
 	public Response lossSession(HttpServletRequest req);
+	public String getCompany(String id) throws UnknownHostException;
 }

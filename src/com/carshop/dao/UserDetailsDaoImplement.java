@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
+import org.bson.types.ObjectId;
+
 import com.carshop.model.UserModel;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
@@ -64,5 +66,14 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 			gotUser.setRole(holder.getString("role"));
 		}
 		return gotUser;
+	}
+	@Override
+	public String getUserCompany(String id) throws UnknownHostException {
+		DBCollection collection = getUserDetailsCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(id));
+		DBCursor cursor = collection.find(search);
+		BasicDBObject handler = (BasicDBObject) cursor.next();
+		return handler.getString("company");
 	}
 }

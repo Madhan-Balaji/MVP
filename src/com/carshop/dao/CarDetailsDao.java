@@ -18,4 +18,5 @@ public interface CarDetailsDao {
 	public File getMedia(String id) throws IOException;
 	public ResponseWithCarCollection fetchAllCars() throws UnknownHostException;
 	public ResponseWithCarData getCarDetail(String id) throws UnknownHostException;
+	public ResponseWithCarCollection searchInStrings(String term) throws UnknownHostException;
 }
