@@ -23,14 +23,19 @@ import javax.ws.rs.core.Response;
 
 import com.carshop.model.CarModel;
 import com.carshop.model.InsuranceModel;
+import com.carshop.model.NewsModel;
 import com.carshop.model.ResponseWithCarCollection;
 import com.carshop.model.ResponseWithCarData;
+import com.carshop.model.ResponseWithNewsCollection;
+import com.carshop.model.ResponseWithNewsData;
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 import com.carshop.service.CarService;
 import com.carshop.service.CarServiceImplement;
 import com.carshop.service.InsuranceService;
 import com.carshop.service.InsuranceServiceImplement;
+import com.carshop.service.NewsService;
+import com.carshop.service.NewsServiceImplement;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -250,5 +255,43 @@ public class UserController {
 		insuranceModel.setCd(cd);
 		return InsuranceService.addNewInsurance(insuranceModel);
 	}
-
+	
+	@POST
+	@Path("/saveNewNews")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("application/json")
+	public String saveNews(		
+			@FormDataParam("file") InputStream fileInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileInputDetails,
+			@FormDataParam("head") String  head,
+			@FormDataParam("content") String  content,
+			@Context HttpServletRequest req
+			) throws UnknownHostException {
+		
+		System.out.println(" File name is :"+fileInputDetails.getFileName());
+		HttpSession session = req.getSession();
+		NewsModel newsModel = new NewsModel();
+		NewsService newService = new NewsServiceImplement();
+		newsModel.setHeading(head);
+		newsModel.setContent(content);
+		newsModel.setNewsBy((String) session.getAttribute("user"));
+		return newService.addNews(newsModel, fileInputStream, fileInputDetails);
+	}
+	
+	@GET
+	@Path("/getStarterNews")
+	@Produces("application/json")
+	public ResponseWithNewsCollection getStarterNews() throws UnknownHostException{
+		NewsService newsService = new NewsServiceImplement();
+		return newsService.getSomeNews();
+	}
+	@POST
+	@Path("/getNews")
+	@Produces("application/json")
+	public ResponseWithNewsData getNews(
+			@FormParam("id") String id
+			) throws UnknownHostException{
+		NewsService newsService = new NewsServiceImplement();
+		return newsService.getNews(id);
+	}
 }

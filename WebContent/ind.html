@@ -20,58 +20,6 @@
 	<div class="header">
 		<h1 align="center">CarShop</h1>
 	</div>
-	<div class="set-middle car-data-edit">
-		<h2 align="center">Enter the following details</h2>
-		<div class="container-fluid">
-			<div class="row">
-			<form>
-				<div class="col-sm-12">
-					<input type="text" class="form-control form-box" ng-model="insurance.name" placeholder="Insurance name">
-				</div>
-				<div class="col-sm-6">
-				
-					<input type="text" placeholder="Declared Value" ng-model="insurance.value" class="form-control form-box"> 
-					<input type="text" placeholder="Premium" ng-model="insurance.prem" class="form-control form-box">
-					<select class="form-control form-box" ng-model="insurance.zDep">
-						<option value="">--Select Zero Depreciaton--</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-					<select class="form-control form-box" ng-model="insurance.claims">
-						<option value="">--Select Claims per year--</option>
-						<option value="1">1 Time</option>
-						<option value="2">2 Times</option>
-						<option value="none">None</option>
-					</select>
-				</div>
-				<div class="col-sm-6">
-					<select class="form-control form-box" ng-model="insurance.own">
-						<option value="">--Select Own Damage--</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-					<select class="form-control form-box" ng-model="insurance.owner">
-						<option value="">--Select Owner Damage--</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-					<select class="form-control form-box" ng-model="insurance.tLiable">
-						<option value="">--Select Third party liability--</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-					<select class="form-control form-box" ng-model="insurance.cd">
-						<option value="">--Select Third party coverage damage--</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-				</div>
-				<div class="col-sm-12">
-					<button ng-click="sellInsu()" type="submit" class="btn btn-success">Sell Insurance</button>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
+	
 </body>
 </html>

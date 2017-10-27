@@ -203,4 +203,53 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 				}
 		)
 	}
+	this.postNews = function(newsDetails){
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/saveNewNews',
+		      type: 'POST',
+		      data: newsDetails,
+		      processData: false,
+		      contentType: false,
+		      success: function(data){
+		      	alert(data.status)
+		      }
+		    } );
+	}
+	this.loadDailyNews = function(){
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/getStarterNews",
+			  async:false,
+			  success:function(data){
+					if(data.status == "success"){
+						//localStorage.setItem("dataOb",data.car);
+						datas = data.news;
+					}
+					else{
+						alert('No News found');
+					}
+				} 
+			  
+			});
+			return datas
+	}
+	this.getNewsData = function(ids){
+		var newsData;
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/getNews',
+		      type: 'POST',
+		      data: {id:ids},
+		      processData: false,
+		      contentType: false,
+		      success: function(data){
+		      	if(data.status == "success"){
+		      		newsData = data.news;
+		      	}
+		      	else{
+		      		alert("Data not recived");
+		      	}
+		      }
+		    } );
+		return newsData;
+	}
 })

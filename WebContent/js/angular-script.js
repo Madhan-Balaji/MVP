@@ -92,6 +92,17 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			$scope.searchPage=function(){
 				$state.go('dashboard.search');
 			}
+			$scope.loadNews = function(){
+				$scope.dailyNews = userServices.loadDailyNews();
+			}
+			$scope.loadInsurance = function(){
+				$scope.insurances = userServices.loadHomeInsurance();
+			}
+			$scope.showNews = function(id){
+				localStorage.setItem("show-news",id);
+				$state.go('dashboard.news');
+			}
+			$scope.loadNews();
 		})
 		
 		.controller('searchCtrl', function($state,$scope, $rootScope, userServices){
@@ -239,4 +250,24 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			$scope.sellInsu = function(){
 				userServices.submitNewInsurance($scope.insurance);
 			}
+		})
+		.controller('newNewsCtrl',function($scope, userServices){
+			$scope.news = {};
+			$scope.publishNews = function(){
+				var files = $('#myFile').prop('files');
+				$scope.news.file = files[0];
+				var data = new FormData();
+				data.append("head",$scope.news.heading);
+				data.append("content", $scope.news.content);
+				data.append("file", $scope.news.file);
+				 userServices.postNews(data);
+			}
+			
+		})
+		.controller('viewNews',function($scope, userServices){
+			$scope.news = {};
+			$scope.loadNews = function(){
+				$scope.news = userServices.getNewsData(localStorage.getItem("show-news"));
+			}
+			$scope.loadNews();
 		})
