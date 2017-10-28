@@ -29,10 +29,11 @@
 	<h2>Insurance</h2>
 	<div class="row">
 		<div style="display:inline-block;width:20%;height:25%;margin:20px;" ng-repeat="insurance in insurances" >
-			<div class="thumbnail" >
-				<img src="{{insurance.image}}" alt="images/noimg.jpg" style="width:100%">
+			<div class="thumbnail" ng-click="showInsurance(insurance.id)">
+				<h1 style="padding: 10px; ">{{insurance.name}}</h1>
 				<div class="caption">
-					<h3>{{insurance.name}}</h3>
+					<h4>Value: {{insurance.val}}</h4>
+					<h5>Premium: {{insurance.prem}}</h5>
 				</div>
 			</div>
 		</div>

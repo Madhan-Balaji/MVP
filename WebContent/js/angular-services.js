@@ -238,9 +238,8 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		$.ajax( {
 		      url: 'http://localhost:8080/carshop/Jserv/control/getNews',
 		      type: 'POST',
-		      data: {id:ids},
-		      processData: false,
-		      contentType: false,
+		      data: {'id':ids},
+		      async:false,
 		      success: function(data){
 		      	if(data.status == "success"){
 		      		newsData = data.news;
@@ -251,5 +250,44 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		      }
 		    } );
 		return newsData;
+	}
+	this.loadHomeInsurance = function(){
+		var datas;
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/getInsurances",
+			  async:false,
+			  success:function(data){
+					if(data.status == "success"){
+						//localStorage.setItem("dataOb",data.car);
+						datas = data.insurances;
+					}
+					else{
+						alert('No News found');
+					}
+				} 
+			  
+			});
+			return datas
+	}
+	this.loadInsuData = function(){
+		var ids = localStorage.getItem('show-insu');
+		var newsData;
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/getInsu',
+		      type: 'POST',
+		      data: {'id':ids},
+		      async:false,
+		      success: function(data){
+		      	if(data.status == "success"){
+		      		newsData = data.insurance;
+		      	}
+		      	else{
+		      		alert("Data not recived");
+		      	}
+		      }
+		    } );
+		return newsData;
+		
 	}
 })

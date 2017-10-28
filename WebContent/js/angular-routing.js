@@ -69,6 +69,10 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		url: '/news',
 		templateUrl: 'views/news.html',
 		controller: 'viewNews'
-		
+	})
+	.state('dashboard.showInsurance',{
+		url:'/insurance',
+		templateUrl:'views/showInsurance.html',
+		controller: 'insuranceCtrl'
 	})
 });

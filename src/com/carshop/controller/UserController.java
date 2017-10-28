@@ -26,6 +26,8 @@ import com.carshop.model.InsuranceModel;
 import com.carshop.model.NewsModel;
 import com.carshop.model.ResponseWithCarCollection;
 import com.carshop.model.ResponseWithCarData;
+import com.carshop.model.ResponseWithInsurance;
+import com.carshop.model.ResponseWithInsuranceCollection;
 import com.carshop.model.ResponseWithNewsCollection;
 import com.carshop.model.ResponseWithNewsData;
 import com.carshop.model.ResponseWithUserData;
@@ -293,5 +295,21 @@ public class UserController {
 			) throws UnknownHostException{
 		NewsService newsService = new NewsServiceImplement();
 		return newsService.getNews(id);
+	}
+	@GET
+	@Path("/getInsurances")
+	@Produces("application/json")
+	public ResponseWithInsuranceCollection getInsurances() throws UnknownHostException{
+		InsuranceService insuranceService = new InsuranceServiceImplement();
+		return insuranceService.getSomeInsurances();
+	}
+	@POST
+	@Path("/getInsu")
+	@Produces("application/json")
+	public ResponseWithInsurance getInsurance(
+			@FormParam("id") String id
+			) throws UnknownHostException{
+		InsuranceService insuranceService = new InsuranceServiceImplement();
+		return insuranceService.getInsu(id);
 	}
 }

@@ -102,7 +102,12 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				localStorage.setItem("show-news",id);
 				$state.go('dashboard.news');
 			}
+			$scope.showInsurance = function(id){
+				localStorage.setItem("show-insu",id);
+				$state.go('dashboard.showInsurance');
+			}
 			$scope.loadNews();
+			$scope.loadInsurance();
 		})
 		
 		.controller('searchCtrl', function($state,$scope, $rootScope, userServices){
@@ -270,4 +275,11 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				$scope.news = userServices.getNewsData(localStorage.getItem("show-news"));
 			}
 			$scope.loadNews();
+		})
+		.controller('insuranceCtrl',function($scope, userServices){
+			$scope.insurance = {};
+			$scope.loadData = function(){
+				$scope.insurance = userServices.loadInsuData();
+			}
+			$scope.loadData();
 		})
