@@ -19,4 +19,5 @@ public interface CarDetailsDao {
 	public ResponseWithCarCollection fetchAllCars() throws UnknownHostException;
 	public ResponseWithCarData getCarDetail(String id) throws UnknownHostException;
 	public ResponseWithCarCollection searchInStrings(String term) throws UnknownHostException;
+	public String addReview(String carId, String userId, String review);
 }

@@ -56,4 +56,8 @@ public class CarServiceImplement implements CarService {
 	public ResponseWithCarCollection searchCarTerm(String term) throws UnknownHostException {
 		return carDetailsDao.searchInStrings(term);
 	}
+	@Override
+	public String addReview(String carId, String userId, String review) {
+		return carDetailsDao.addReview(carId, userId, review);
+	}
 }

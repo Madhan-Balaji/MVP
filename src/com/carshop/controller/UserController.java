@@ -312,4 +312,17 @@ public class UserController {
 		InsuranceService insuranceService = new InsuranceServiceImplement();
 		return insuranceService.getInsu(id);
 	}
+	@POST
+	@Path("/addReview")
+	@Produces("application/json")
+	public String addReview(
+			@FormParam("id") String carId,
+			@FormParam("review") String review,
+			@Context HttpServletRequest req
+			){
+		CarService carService = new CarServiceImplement();
+		HttpSession session = req.getSession();
+		String userId = (String) session.getAttribute("user");
+		return carService.addReview(carId, userId, review);
+	}
 }
