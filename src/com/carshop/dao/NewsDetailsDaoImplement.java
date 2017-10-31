@@ -81,7 +81,7 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		}
 		if(count != 0){
 			NewsModel[] news = new NewsModel[count]; 
-			DBCursor cursor = collection.find().limit(8);
+			DBCursor cursor = collection.find().sort(new BasicDBObject("_id",-1)).limit(8);
 			int i = 0;
 			while(cursor.hasNext()){
 				BasicDBObject handler = (BasicDBObject) cursor.next();

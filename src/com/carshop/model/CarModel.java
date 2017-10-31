@@ -20,6 +20,13 @@ public class CarModel {
 	private String type;
 	private String price;
 	private String imageUrl;
+	private String video;
+	public String getVideo() {
+		return video;
+	}
+	public void setVideo(String video) {
+		this.video = video;
+	}
 	public String getImageUrl() {
 		return imageUrl;
 	}

@@ -211,7 +211,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		      processData: false,
 		      contentType: false,
 		      success: function(data){
-		      	alert(data.status)
+		      	alert("News upload " + data)
 		      }
 		    } );
 	}

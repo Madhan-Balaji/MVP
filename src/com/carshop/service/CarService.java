@@ -21,4 +21,7 @@ public interface CarService {
 	public ResponseWithCarCollection getCarsUser(String id) throws UnknownHostException;
 	public String removeCar(String id) throws UnknownHostException;
 	public String addReview(String carId, String userId, String review);
+	public boolean uploadVideo(InputStream videoInputStream,
+			FormDataContentDisposition videoInputDetails, String id) throws UnknownHostException;
+	public Response getCarVideo(String id, String range) throws Exception;
 }

@@ -67,7 +67,7 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 		}
 		if(count != 0){
 			InsuranceModel[] insurance = new InsuranceModel[count]; 
-			DBCursor cursor = collection.find().limit(8);
+			DBCursor cursor = collection.find().sort(new BasicDBObject("_id",-1)).limit(8);
 			int i = 0;
 			while(cursor.hasNext()){
 				BasicDBObject handler = (BasicDBObject) cursor.next();

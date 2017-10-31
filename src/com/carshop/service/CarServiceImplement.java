@@ -66,4 +66,16 @@ public class CarServiceImplement implements CarService {
 	public String addReview(String carId, String userId, String review) {
 		return carDetailsDao.addReview(carId, userId, review);
 	}
+	@Override
+	public boolean uploadVideo(InputStream videoInputStream,
+			FormDataContentDisposition videoInputDetails, String id) throws UnknownHostException {
+		return carDetailsDao.addVideo(videoInputStream, videoInputDetails, id);
+		
+	}
+	@Override
+	public Response getCarVideo(String id, String range) throws Exception {
+		MediaStreamer mediaStreamer = new MediaStreamer();
+		File media = carDetailsDao.getVideo(id);
+		return mediaStreamer.buildStream(media, range);
+	}
 }

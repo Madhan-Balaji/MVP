@@ -157,6 +157,7 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 	    	BasicDBObject handler = (BasicDBObject) cursor.next();
 	    	carModel = allDataSetter(handler);
 	    	response.status = "success";
+	    	carModel.setVideo("http://localhost:8080/carshop/Jserv/control/video/"+carModel.getId());
 	    	response.car=carModel;
 	    }
 	    else{
@@ -236,6 +237,30 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 	public String addReview(String carId, String userId, String review) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public boolean addVideo(InputStream videoInputStream,
+			FormDataContentDisposition videoInputDetails, String id) throws UnknownHostException {
+		MongoClient mongo = new MongoClient("localhost",27017);
+		DB mongoDB = mongo.getDB("carshop");
+		GridFS fileStore = new GridFS(mongoDB, "video");
+		GridFSInputFile inputFile = fileStore.createFile(videoInputStream);
+		inputFile.setId(id);
+		inputFile.setFilename(videoInputDetails.getFileName());
+		inputFile.save();
+		return true;
+	}
+	@Override
+	public File getVideo(String id) throws IOException {
+		MongoClient mongoClient = new MongoClient("localhost", 27017);
+		DB mongoDB = mongoClient.getDB("carshop");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", id);
+		GridFS fileStore = new GridFS(mongoDB, "video");
+		GridFSDBFile gridFile = fileStore.findOne(query);
+		File file = new File(id+".wmv");
+		gridFile.writeTo(file);
+		return file;
 	}
 	
 }

@@ -22,4 +22,7 @@ public interface CarDetailsDao {
 	public ResponseWithCarCollection getAllUserCars(String id) throws UnknownHostException;
 	public String removeCar(String id) throws UnknownHostException;
 	public String addReview(String carId, String userId, String review);
+	public boolean addVideo(InputStream videoInputStream,
+			FormDataContentDisposition videoInputDetails, String id) throws UnknownHostException;
+	public File getVideo(String id) throws IOException;
 }

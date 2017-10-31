@@ -355,6 +355,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			$scope.data={};
 			$scope.sellNew = function(){
 				var files = $('#myFile').prop('files');
+				var videos = $('#videoFile').prop('files');
 				// alert(files[0].name);
 				var fds = new FormData();
 				fds.append('price',$scope.data.price)
@@ -372,7 +373,8 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				fds.append('cc',$scope.data.cc);
 				fds.append('address',$scope.data.address);
 				fds.append('file',files[0]);
-				userServices.sellNewCar(fd);
+				fds.append('video',videos[0])
+				userServices.sellNewCar(fds);
 			}
 			
 		})
@@ -416,15 +418,17 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			}
 			$scope.loadYourCars();
 			$scope.removeCar = function(id){
-				if(userServices.removeACar(id)){
-					var remv;
-					for(i=0; i<$scope.cars.length; i++){
-						if($scope.cars[i].id == id){
-							remv = i;
-							break;
+				if(confirm("Delet the car?")){
+					if(userServices.removeACar(id)){
+						var remv;
+						for(i=0; i<$scope.cars.length; i++){
+							if($scope.cars[i].id == id){
+								remv = i;
+								break;
+							}
 						}
+						$scope.cars.splice(remv,1);
 					}
-					$scope.cars.splice(remv,1);
 				}
 			} 
 		})

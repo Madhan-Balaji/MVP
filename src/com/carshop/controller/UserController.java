@@ -143,6 +143,8 @@ public class UserController {
 	public ResponseWithCarData uploadNewFile(		
 			@FormDataParam("file") InputStream fileInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileInputDetails,
+			@FormDataParam("video") InputStream videoInputStream,
+			@FormDataParam("video") FormDataContentDisposition videoInputDetails,
 			@FormDataParam("name") String  name,
 			@FormDataParam("model") String  model,
 			@FormDataParam("year") String  year,
@@ -161,7 +163,7 @@ public class UserController {
 			) throws UnknownHostException {
 		
 		System.out.println(" File name is :"+fileInputDetails.getFileName());
-		
+		System.out.println(" video name is :"+videoInputDetails.getFileName());
 		CarService carService = new CarServiceImplement();
 		CarModel carModel = new CarModel();
 		carModel.setBrand(brand);
@@ -179,7 +181,9 @@ public class UserController {
 		carModel.setAddress(address);
 		carModel.setPrice(price);
 		carModel.setUsage("new");
-		return carService.addNewUsedCar(carModel, fileInputStream, fileInputDetails,req);
+		ResponseWithCarData car = carService.addNewUsedCar(carModel, fileInputStream, fileInputDetails,req);
+		carService.uploadVideo(videoInputStream, videoInputDetails, car.car.getId());
+		return car;
 	}
 	@GET
 	@Produces("video/mp4")
@@ -189,6 +193,15 @@ public class UserController {
 			) throws Exception{
 		CarService carService = new CarServiceImplement();
 		return carService.getCarMedia(id, range);
+	}
+	@GET
+	@Produces("video/mp4")
+	@Path("/video/{id}")
+	public Response streamVideo(@HeaderParam("Range") String range,
+			@PathParam ("id") String id
+			) throws Exception{
+		CarService carService = new CarServiceImplement();
+		return carService.getCarVideo(id, range);
 	}
 	
 	@GET
