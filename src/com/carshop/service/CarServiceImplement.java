@@ -57,11 +57,16 @@ public class CarServiceImplement implements CarService {
 		return carDetailsDao.searchInStrings(term);
 	}
 	@Override
+<<<<<<< HEAD
 	public ResponseWithCarCollection getCarsUser(String id) throws UnknownHostException {
 		return carDetailsDao.getAllUserCars(id);
 	}
 	@Override
 	public String removeCar(String id) throws UnknownHostException {
 		return carDetailsDao.removeCar(id);
+=======
+	public String addReview(String carId, String userId, String review) {
+		return carDetailsDao.addReview(carId, userId, review);
+>>>>>>> branch 'master' of https://github.com/Madhan-Balaji/MVP.git
 	}
 }

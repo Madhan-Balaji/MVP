@@ -313,6 +313,7 @@ public class UserController {
 		return insuranceService.getInsu(id);
 	}
 	@POST
+<<<<<<< HEAD
 	@Path("/getMyCars")
 	@Produces("application/json")
 	public ResponseWithCarCollection getMyCars(
@@ -331,5 +332,18 @@ public class UserController {
 			) throws UnknownHostException{
 		CarService carService = new CarServiceImplement();
 		return carService.removeCar(id);
+=======
+	@Path("/addReview")
+	@Produces("application/json")
+	public String addReview(
+			@FormParam("id") String carId,
+			@FormParam("review") String review,
+			@Context HttpServletRequest req
+			){
+		CarService carService = new CarServiceImplement();
+		HttpSession session = req.getSession();
+		String userId = (String) session.getAttribute("user");
+		return carService.addReview(carId, userId, review);
+>>>>>>> branch 'master' of https://github.com/Madhan-Balaji/MVP.git
 	}
 }
