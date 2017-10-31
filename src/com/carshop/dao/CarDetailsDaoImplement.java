@@ -196,7 +196,6 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		}
 	}
 	@Override
-<<<<<<< HEAD
 	public ResponseWithCarCollection getAllUserCars(String id) throws UnknownHostException {
 		DBCollection collection = getCarDetailsCollection();
 		ResponseWithCarCollection cars = new ResponseWithCarCollection();
@@ -233,11 +232,10 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		search.put("_id", id);
 		media.remove(search);
 		return "success";
-=======
+	}
 	public String addReview(String carId, String userId, String review) {
 		// TODO Auto-generated method stub
 		return null;
->>>>>>> branch 'master' of https://github.com/Madhan-Balaji/MVP.git
 	}
 	
 }

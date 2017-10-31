@@ -18,10 +18,7 @@ public interface CarService {
 	public ResponseWithCarCollection getAllCarDetails() throws UnknownHostException;
 	public ResponseWithCarData getCarData(String id) throws UnknownHostException;
 	public ResponseWithCarCollection searchCarTerm(String term) throws UnknownHostException;
-<<<<<<< HEAD
 	public ResponseWithCarCollection getCarsUser(String id) throws UnknownHostException;
 	public String removeCar(String id) throws UnknownHostException;
-=======
 	public String addReview(String carId, String userId, String review);
->>>>>>> branch 'master' of https://github.com/Madhan-Balaji/MVP.git
 }

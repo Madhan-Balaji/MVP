@@ -19,10 +19,7 @@ public interface CarDetailsDao {
 	public ResponseWithCarCollection fetchAllCars() throws UnknownHostException;
 	public ResponseWithCarData getCarDetail(String id) throws UnknownHostException;
 	public ResponseWithCarCollection searchInStrings(String term) throws UnknownHostException;
-<<<<<<< HEAD
 	public ResponseWithCarCollection getAllUserCars(String id) throws UnknownHostException;
 	public String removeCar(String id) throws UnknownHostException;
-=======
 	public String addReview(String carId, String userId, String review);
->>>>>>> branch 'master' of https://github.com/Madhan-Balaji/MVP.git
 }
