@@ -290,4 +290,39 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		return newsData;
 		
 	}
+	this.loadUserCars = function(){
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/getMyCars',
+		      type: 'POST',
+		      async:false,
+		      success: function(data){
+		      	if(data.status == "success"){
+		      		newsData = data.cars;
+		      	}
+		      	else{
+		      		alert("Data not recived");
+		      	}
+		      }
+		    } );
+		return newsData;
+	}
+	this.removeACar = function(ids){
+		var newsData;
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/removeCar',
+		      type: 'POST',
+		      data: {'id':ids},
+		      async:false,
+		      success: function(data){
+		      	if(data == "success"){
+		      		newsData = true;
+		      	}
+		      	else{
+		      		alert("Data not recived");
+		      		newsData = false;
+		      	}
+		      }
+		    } );
+		return newsData;
+	}
 })

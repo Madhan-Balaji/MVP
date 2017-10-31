@@ -18,4 +18,6 @@ public interface CarService {
 	public ResponseWithCarCollection getAllCarDetails() throws UnknownHostException;
 	public ResponseWithCarData getCarData(String id) throws UnknownHostException;
 	public ResponseWithCarCollection searchCarTerm(String term) throws UnknownHostException;
+	public ResponseWithCarCollection getCarsUser(String id) throws UnknownHostException;
+	public String removeCar(String id) throws UnknownHostException;
 }

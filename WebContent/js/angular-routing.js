@@ -75,4 +75,9 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		templateUrl:'views/showInsurance.html',
 		controller: 'insuranceCtrl'
 	})
+	.state('dashboard.yours',{
+		url:'/yourCars',
+		templateUrl:'views/newCarList.html',
+		controller: 'carListCtrl'
+	})
 });

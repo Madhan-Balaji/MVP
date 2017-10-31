@@ -8,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
-import com.carshop.model.InsuranceModel;
 import com.carshop.model.ResponseWithUserData;
 import com.carshop.model.UserModel;
 

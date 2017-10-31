@@ -1,0 +1,11 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<div style="padding:5px; background: white; margin:3px; border-radius: 10px;" ng-repeat="car in cars">
+				{{car.name}} <span style="color: orange;">[{{car.usage}}]</span><i ng-click="removeCar(car.id)" class="glyphicon glyphicon-remove-circle" style="float:right; text-align:right; color:red;" ></i>
+			</div>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>

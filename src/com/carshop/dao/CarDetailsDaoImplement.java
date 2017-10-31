@@ -53,6 +53,11 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		DB mongoDB = mongo.getDB("carshop");
 		return mongoDB.getCollection("car_details");
 	}
+	public DBCollection getCarMediaDetailsCollection() throws UnknownHostException{
+		MongoClient mongo = new MongoClient("localhost",27017);
+		DB mongoDB = mongo.getDB("carshop");
+		return mongoDB.getCollection("media");
+	}
 	@Override
 	public CarModel addUsedCarDetails(CarModel carModel) throws UnknownHostException {
 		DBCollection collection = getCarDetailsCollection();
@@ -189,6 +194,44 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 			response.status="failure";
 			return response;
 		}
+	}
+	@Override
+	public ResponseWithCarCollection getAllUserCars(String id) throws UnknownHostException {
+		DBCollection collection = getCarDetailsCollection();
+		ResponseWithCarCollection cars = new ResponseWithCarCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("user", id);
+		int count = collection.find(search).count();
+		DBCursor cursor = collection.find(search).sort(new BasicDBObject("_id",-1));
+		int i=0;
+		if(cursor.hasNext()) {
+			CarModel carModel[] = new CarModel[count];
+			while(cursor.hasNext()) {
+				carModel[i] = new CarModel();
+				BasicDBObject handler = (BasicDBObject) cursor.next();
+				carModel[i] = allDataSetter(handler);
+				i++;
+				
+			}
+			cars.status = "success";
+			cars.cars = carModel;
+		}
+		else {
+			cars.status = "failed";
+		}
+		return cars;
+	}
+	@Override
+	public String removeCar(String id) throws UnknownHostException {
+		DBCollection collection = getCarDetailsCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(id));
+		collection.remove(search);
+		search.clear();
+		DBCollection media = getCarMediaDetailsCollection();
+		search.put("_id", id);
+		media.remove(search);
+		return "success";
 	}
 	
 }

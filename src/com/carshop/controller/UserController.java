@@ -312,4 +312,24 @@ public class UserController {
 		InsuranceService insuranceService = new InsuranceServiceImplement();
 		return insuranceService.getInsu(id);
 	}
+	@POST
+	@Path("/getMyCars")
+	@Produces("application/json")
+	public ResponseWithCarCollection getMyCars(
+			@Context HttpServletRequest req
+			) throws UnknownHostException {
+		HttpSession session = req.getSession();
+		String id = (String) session.getAttribute("user");
+		CarService carService = new CarServiceImplement();
+		return carService.getCarsUser(id);
+	}
+	@POST
+	@Path("/removeCar")
+	@Produces("application/json")
+	public String removeCar(
+			@FormParam("id") String id
+			) throws UnknownHostException{
+		CarService carService = new CarServiceImplement();
+		return carService.removeCar(id);
+	}
 }
