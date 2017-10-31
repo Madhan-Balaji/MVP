@@ -1,0 +1,23 @@
+<div class="set-middle login-box">
+	<form>
+		<select required class="form-control form-box" ng-model="loan.brand">
+			<option value="">--Select a Brand--</option>
+			<option value="honda">Honda</option>
+			<option value="maruti suzuki">Maruti Suzuki</option>
+			<option value="hundai">Hundai</option>
+			<option value="toyota">Toyota</option>
+			<option value="benz">Benz</option>
+			<option value="bmw">BMW</option>
+			<option value="ford">Ford</option>
+			<option value="volkswagen">Volkswagen</option>
+			<option value="volvo">Volvo</option>
+		</select>
+		<input type="text" ng-model="loan.bank" class="form-control form-box" placeholder="Bank Name">
+		<input type="text" ng-model="loan.iFrom" class="form-control form-box" placeholder="Interest From %">
+		<input type="text" ng-model="loan.iTo" class="form-control form-box" placeholder="Interest To %">
+		<input type="text" ng-model="loan.fee" class="form-control form-box" placeholder="Processing Fee">
+		<input type="text" ng-model="loan.amt" class="form-control form-box" placeholder="Minimum Loan Amount">
+		<input type="text" ng-model="loan.time" class="form-control form-box" placeholder="Tenure Range (eg 1-7 years)">
+		<button type="submit" ng-click="uploadNewLoan()" class="btn btn-success">Submit</button>
+	</form>
+</div>

@@ -325,4 +325,36 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		    } );
 		return newsData;
 	}
+	this.createNewLoan = function(loanData){
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/saveNewLoan',
+		      type: 'POST',
+		      data: loanData,
+		      processData: false,
+		      contentType: false,
+		      success: function(data){
+		      	alert("Loan upload " + data)
+		      }
+		    } );
+	}
+	this.getLoans = function(){
+		var brands = localStorage.getItem("brand");
+		var datas;
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/getLoans",
+			  data:{brand:brands},
+			  async:false,
+			  success:function(data){
+					if(data.status == "success"){
+						datas = data.loans;
+					}
+					else{
+						alert('No News found');
+					}
+				} 
+			  
+			});
+			return datas
+	}
 })

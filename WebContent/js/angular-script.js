@@ -301,6 +301,10 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 		.controller('carDetailCtrl', function($state, $scope, userServices){
 			userServices.checkSession();
 			$scope.data = userServices.getCarDetails();
+			$scope.seeLoans = function(brand){
+				localStorage.setItem("brand", brand);
+				$state.go("dashboard.loans")
+			}
 		})
 		
 		.controller('compareCtrl', function($state,$scope,$rootScope,userServices){
@@ -431,4 +435,23 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 					}
 				}
 			} 
+		})
+		.controller('newLoanCtrl', function($state, $scope, userServices){
+			$scope.uploadNewLoan = function(){
+				var loanData = new FormData();
+				loanData.append("brand", $scope.loan.brand);
+				loanData.append("bank", $scope.loan.bank);
+				loanData.append("iFrom", $scope.loan.iFrom);
+				loanData.append("iTo", $scope.loan.iTo);
+				loanData.append("fee", $scope.loan.fee);
+				loanData.append("amount", $scope.loan.amt);
+				loanData.append("time", $scope.loan.time);
+				userServices.createNewLoan(loanData);
+			}
+		})
+		.controller('viewLoans',function($state, $scope, userServices){
+			$scope.firstLoad = function(){
+				$scope.data = userServices.getLoans();
+			}
+			$scope.firstLoad();
 		})

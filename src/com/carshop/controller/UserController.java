@@ -23,11 +23,13 @@ import javax.ws.rs.core.Response;
 
 import com.carshop.model.CarModel;
 import com.carshop.model.InsuranceModel;
+import com.carshop.model.LoanModel;
 import com.carshop.model.NewsModel;
 import com.carshop.model.ResponseWithCarCollection;
 import com.carshop.model.ResponseWithCarData;
 import com.carshop.model.ResponseWithInsurance;
 import com.carshop.model.ResponseWithInsuranceCollection;
+import com.carshop.model.ResponseWithLoanCollection;
 import com.carshop.model.ResponseWithNewsCollection;
 import com.carshop.model.ResponseWithNewsData;
 import com.carshop.model.ResponseWithUserData;
@@ -36,6 +38,8 @@ import com.carshop.service.CarService;
 import com.carshop.service.CarServiceImplement;
 import com.carshop.service.InsuranceService;
 import com.carshop.service.InsuranceServiceImplement;
+import com.carshop.service.LoanService;
+import com.carshop.service.LoanServiceImplement;
 import com.carshop.service.NewsService;
 import com.carshop.service.NewsServiceImplement;
 import com.carshop.service.UserService;
@@ -356,5 +360,38 @@ public class UserController {
 		HttpSession session = req.getSession();
 		String userId = (String) session.getAttribute("user");
 		return carService.addReview(carId, userId, review);
+	}
+	@Path("/saveNewLoan")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("application/json")
+	public String saveNewLoan(
+			@FormDataParam("brand") String brand,
+			@FormDataParam("bank") String bank,
+			@FormDataParam("iFrom") String iFrom,
+			@FormDataParam("iTo") String iTo,
+			@FormDataParam("fee") String fee,
+			@FormDataParam("amount") String amt,
+			@FormDataParam("time") String time
+			) throws UnknownHostException {
+		LoanModel loanModel = new LoanModel();
+		loanModel.setBrand(brand);
+		loanModel.setBank(bank);
+		loanModel.setiFrom(iFrom);
+		loanModel.setiTo(iTo);
+		loanModel.setFee(fee);
+		loanModel.setAmt(amt);
+		loanModel.setTime(time);
+		LoanService loanService = new LoanServiceImplement();
+		return loanService.setLoan(loanModel);
+	}
+	@GET
+	@Path("/getLoans")
+	@Produces("application/json")
+	public ResponseWithLoanCollection getLoans(
+			@QueryParam("brand") String brand
+			) throws UnknownHostException {
+		LoanService loanService = new LoanServiceImplement();
+		return loanService.obtainLoans(brand);
 	}
 }

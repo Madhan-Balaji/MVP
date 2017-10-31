@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<table class="table table-striped table-responsive">
+			<tr>
+				<th>Bank</th>
+				<th>Interest</th>
+				<th>Processing Fee (Max.)</th>
+				<th>Loan Amount (Min)</th>
+				<th>Tenure Range (Years)</th>
+			</tr>
+			<tr ng-repeat="loan in data">
+				<td>{{loan.bank}}</td>
+				<td>{{loan.iFrom}} - {{loan.iTo}} %</td>
+				<td>{{loan.fee}}</td>
+				<td>Rs. {{loan.amt}}</td>
+				<td>{{loan.time}}</td>
+			</tr>
+			</table>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+</div>

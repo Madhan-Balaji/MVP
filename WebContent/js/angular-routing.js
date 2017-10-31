@@ -80,4 +80,14 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		templateUrl:'views/newCarList.html',
 		controller: 'carListCtrl'
 	})
+	.state('dashboard.newLoan', {
+		url:'/post-a-loan',
+		templateUrl:'views/newLoan.html',
+		controller: 'newLoanCtrl'
+	})
+	.state('dashboard.loans',{
+		url:'/loans',
+		templateUrl: 'views/viewLoans.html',
+		controller: 'viewLoans'
+	})
 });
