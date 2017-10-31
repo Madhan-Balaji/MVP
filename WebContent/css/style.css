@@ -1,6 +1,14 @@
 body{
 	background:#efefef;
 	padding-bottom: 15px;
+	background: url('../images/bg.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+table{
+	background:#e2e2e2;
 }
 
 .set-middle{
@@ -27,6 +35,8 @@ body{
 .header{
 	padding:15px;
 	margin-bottom: 20px;
+	background: rgba(0,0,0,0.5);
+	color:white;
 }
 .options-first{
 	border-right: 1px solid black;
