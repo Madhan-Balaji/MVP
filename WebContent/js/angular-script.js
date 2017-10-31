@@ -111,27 +111,154 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 		})
 		
 		.controller('searchCtrl', function($state,$scope, $rootScope, userServices){
+			$scope.filterFuel = [];
+			$scope.filterUsage = [];
+			$scope.checkUsageAlreadyExist = function(usage){
+				result = true;
+				for(i=0;i<$scope.filterUsage.length;i++){
+					if($scope.filterUsage[i] == usage){
+						result = false;
+						break;
+					}
+				}
+				return result;
+			}
+			$scope.checkFuelAlreadyExist = function(fuel){
+				result = true;
+				for(i=0;i<$scope.filterFuel.length;i++){
+					if($scope.filterFuel[i] == fuel){
+						result = false;
+						break;
+					}
+				}
+				return result;
+			}
+			$scope.getIndexUsageFilter = function(usage){
+				var index;
+				for(i=0;i<$scope.filterUsage.length;i++){
+					if($scope.filterUsage[i] == usage){
+						index = i;
+						break;
+					}
+				}
+				return index;
+			}
+			
+			$scope.getIndexFuelFilter = function(fuel){
+				var index;
+				for(i=0;i<$scope.filterFuel.length;i++){
+					if($scope.filterFuel[i] == fuel){
+						index = i;
+						break;
+					}
+				}
+				return index;
+			}
+			$scope.updateFilter = function(){
+				// Adding and removing usage from filter
+				if($scope.used == true){
+					if($scope.checkUsageAlreadyExist("used")){
+						$scope.filterUsage.push("used")
+					}
+				}
+				else{
+					if(!$scope.checkUsageAlreadyExist("used")){
+						$scope.filterUsage.splice($scope.getIndexUsageFilter("used"),1);
+					}
+				}
+				if($scope.newv == true){
+					if($scope.checkUsageAlreadyExist("new")){
+						$scope.filterUsage.push("new")
+					}
+				}
+				else{
+					if(!$scope.checkUsageAlreadyExist("new")){
+						$scope.filterUsage.splice($scope.getIndexUsageFilter("new"),1);
+					}
+				}
+				
+				//Adding and Removing Fuel from filter
+				if($scope.petrol == true){
+					if($scope.checkFuelAlreadyExist("pertrol")){
+						$scope.filterFuel.push("pertrol")
+					}
+				}
+				else{
+					if(!$scope.checkFuelAlreadyExist("pertrol")){
+						$scope.filterFuel.splice($scope.getIndexFuelFilter("pertrol"),1);
+					}
+				}
+				if($scope.diesel == true){
+					if($scope.checkFuelAlreadyExist("diesel")){
+						$scope.filterFuel.push("diesel")
+					}
+				}
+				else{
+					if(!$scope.checkFuelAlreadyExist("diesel")){
+						$scope.filterFuel.splice($scope.getIndexFuelFilter("diesel"),1);
+					}
+				}
+				if($scope.cng == true){
+					if($scope.checkFuelAlreadyExist("cng")){
+						$scope.filterFuel.push("cng")
+					}
+				}
+				else{
+					if(!$scope.checkFuelAlreadyExist("cng")){
+						$scope.filterFuel.splice($scope.getIndexFuelFilter("cng"),1);
+					}
+				}
+				if($scope.electric == true){
+					if($scope.checkFuelAlreadyExist("electric")){
+						$scope.filterFuel.push("electric")
+					}
+				}
+				else{
+					if(!$scope.checkFuelAlreadyExist("electric")){
+						$scope.filterFuel.splice($scope.getIndexFuelFilter("electric"),1);
+					}
+				}
+				$scope.applyFilter();
+			}
+			$scope.applyFilter = function(){
+				var usageFilter = [];
+				var finalFilter = [];
+				if($scope.filterUsage.length > 0){
+					for(i=0;i<$scope.holder.length;i++){
+						for(j=0;j<$scope.filterUsage.length;j++){
+							if($scope.holder[i].usage == $scope.filterUsage[j]){
+								usageFilter.push($scope.holder[i]);
+							}
+						}
+					}
+				}
+				else {
+					usageFilter = $scope.holder;
+				}
+				if($scope.filterFuel.length > 0){
+					for(i=0;i<usageFilter.length;i++){
+						for(j=0;j<$scope.filterFuel.length;j++){
+							if(usageFilter[i].fuel == $scope.filterFuel[j]){
+								finalFilter.push(usageFilter[i])
+							}
+						}
+					}
+				}
+				else{
+					finalFilter = usageFilter;
+				}
+				$scope.cars = finalFilter;
+				
+			}
 			$scope.searchTerm;
 			$scope.searchTheTerm = function(){
-				$scope.cars = userServices.searchCarByTerm($scope.searchTerm);
+				$scope.holder = userServices.searchCarByTerm($scope.searchTerm);
+				$scope.applyFilter();
 			}
 			userServices.checkSession();
 			$scope.carNames=[];
 			$scope.carBrand=[];
-			$( function() {
-				$( "#slider-range" ).slider({
-				  range: true,
-				  min: 0,
-				  max: 50000000,
-				  values: [ 40000, 10000000 ],
-				  slide: function( event, ui ) {
-					$( "#amount" ).val( "RS." + ui.values[ 0 ] + " - RS." + ui.values[ 1 ] );
-				  }
-				});
-				$( "#amount" ).val( "RS." + $( "#slider-range" ).slider( "values", 0 ) +
-				  " - &RS." + $( "#slider-range" ).slider( "values", 1 ) );
-				  
-			  } );
+			
 			  $scope.temp = 0;
 			  $rootScope.initcap = function(string) {
 					return string.charAt(0).toUpperCase() + string.slice(1);
@@ -163,9 +290,8 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			  
 			  $scope.firstLoad = function(){
 				  $scope.data = userServices.fetchAllCars();
-				  //$scope.printCars($scope.data.cars,$scope.data.rows);
-				  $scope.cars = $scope.data.cars;
-				 
+				  $scope.holder = $scope.data.cars;
+				  $scope.cars = $scope.holder;
 			  }
 			  $scope.firstLoad();
 			  

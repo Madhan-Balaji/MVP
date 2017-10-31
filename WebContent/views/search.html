@@ -5,34 +5,18 @@
 				<input type="text" id="search-box" ng-change="searchTheTerm()" ng-model="searchTerm"  placeholder="Search" class="form-control form-box">
 				<div class="filter-ops">
 					<h4>Select Usage</h4>
-					<input type="checkbox" ng-model="used" ng-click="usedClicked()"> Used<br>
-					<input type="checkbox" ng-model="new"> New<br>
+					<input ng-click="updateFilter()" type="checkbox" ng-model="used" ng-click="usedClicked()"> Used<br>
+					<input ng-click="updateFilter()" type="checkbox" ng-model="newv"> New<br>
 				</div>
-				<div class="filter-ops">
-					<h4>Select Brand</h4>
-					<input type="checkbox" ng-model="honda"> Honda<br>
-					<input type="checkbox" ng-model="bmw"> BMW<br>
-					<input type="checkbox" ng-model="benz"> Benz<br>
-					<input type="checkbox" ng-model="maruthiSuzuki"> Maruthi Suzuki<br>
-					<input type="checkbox" ng-model="toyota"> Toyota<br>
-					<input type="checkbox" ng-model="volvo"> Volvo<br>
-					<input type="checkbox" ng-model="volkswagen"> Voklswagen<br>
-					<input type="checkbox" ng-model="hundai"> Hundai<br>
-					<input type="checkbox" ng-model="ford"> Ford<br>
-				</div>
+				
 				<div class="filter-ops">
 					<h4>Select Fuel Type</h4>
-					<input type="checkbox" ng-model="petrol"> Petrol<br>
-					<input type="checkbox" ng-model="disel"> Disel<br>
-					<input type="checkbox" ng-model="electric"> Electric<br>
-					<input type="checkbox" ng-model="cng"> CNG<br>
+					<input ng-click="updateFilter()" type="checkbox" ng-model="petrol"> Petrol<br>
+					<input ng-click="updateFilter()" type="checkbox" ng-model="diesel"> Disel<br>
+					<input ng-click="updateFilter()" type="checkbox" ng-model="electric"> Electric<br>
+					<input ng-click="updateFilter()" type="checkbox" ng-model="cng"> CNG<br>
 				</div>
-				<p>
-				  <label for="amount">Price range:</label>
-				  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-				</p>
-				 
-				<div id="slider-range"></div>
+				
 			</div>
 			<div class="col-sm-9">
 				<div class="col-sm-12" id="search-area" style="padding-top: 10px;">
