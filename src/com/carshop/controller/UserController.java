@@ -394,4 +394,37 @@ public class UserController {
 		LoanService loanService = new LoanServiceImplement();
 		return loanService.obtainLoans(brand);
 	}
+	@GET
+	@Path("/getAllLoans")
+	@Produces("application/json")
+	public ResponseWithLoanCollection getAllLoans() throws UnknownHostException{
+		LoanService loanService = new LoanServiceImplement();
+		return loanService.obtainAllLoans();
+	}
+	
+	@GET
+	@Path("/removeLoan")
+	@Produces("application/json")
+	public String removeLoan(
+			@QueryParam("id") String id
+			) throws UnknownHostException{
+		LoanService loanService = new LoanServiceImplement();
+		return loanService.removeLoan(id);
+	}
+	@GET
+	@Path("/getAllNews")
+	@Produces("application/json")
+	public ResponseWithNewsCollection getAllNews() throws UnknownHostException{
+		NewsService newsService = new NewsServiceImplement();
+		return newsService.obtainAllNews();
+	}
+	@GET
+	@Path("/removeNews")
+	@Produces("application/json")
+	public String removeNews(
+			@QueryParam("id") String id
+			) throws UnknownHostException{
+		NewsService newsService = new NewsServiceImplement();
+		return newsService.removeLoan(id);
+		}
 }

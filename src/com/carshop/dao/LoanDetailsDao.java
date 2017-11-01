@@ -9,4 +9,8 @@ public interface LoanDetailsDao {
 	public String saveLoan(LoanModel loanModel) throws UnknownHostException;
 
 	public ResponseWithLoanCollection fetchLoans(String brand) throws UnknownHostException;
+
+	public ResponseWithLoanCollection fetchAllLoans() throws UnknownHostException;
+
+	public String removeLoanDetails(String id) throws UnknownHostException;
 }

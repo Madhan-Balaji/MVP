@@ -20,4 +20,14 @@ public class LoanServiceImplement implements LoanService {
 		return loanDetails.fetchLoans(brand);
 	}
 
+	@Override
+	public ResponseWithLoanCollection obtainAllLoans() throws UnknownHostException {
+		return loanDetails.fetchAllLoans();
+	}
+
+	@Override
+	public String removeLoan(String id) throws UnknownHostException {
+		return loanDetails.removeLoanDetails(id);
+	}
+
 }

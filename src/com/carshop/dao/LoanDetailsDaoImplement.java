@@ -2,6 +2,8 @@ package com.carshop.dao;
 
 import java.net.UnknownHostException;
 
+import org.bson.types.ObjectId;
+
 import com.carshop.model.LoanModel;
 import com.carshop.model.ResponseWithLoanCollection;
 import com.mongodb.BasicDBObject;
@@ -69,6 +71,45 @@ public class LoanDetailsDaoImplement implements LoanDetailsDao {
 			loan.status = "failed";
 		}
 		return loan;
+	}
+
+	@Override
+	public ResponseWithLoanCollection fetchAllLoans() throws UnknownHostException {
+		DBCollection collection = getLoanCollectionDetails();		
+		ResponseWithLoanCollection loan = new ResponseWithLoanCollection();		
+		int count = collection.find().count();
+		LoanModel[] loans = new LoanModel[count];
+		if(count>0) {
+			DBCursor cursor = collection.find();
+			int i=0;
+			while(cursor.hasNext()) {
+				BasicDBObject handler = (BasicDBObject) cursor.next();
+				loans[i] = new LoanModel();
+				loans[i] = allDataSetter(handler);
+				i++;
+			}
+			loan.status = "success";
+			loan.loans = loans;
+		}
+		else {
+			loan.status = "failed";
+		}
+		return loan;
+	}
+
+	@Override
+	public String removeLoanDetails(String id) throws UnknownHostException {
+		DBCollection collection = getLoanCollectionDetails();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(id));
+		DBCursor cursor = collection.find(search);
+		if(cursor.hasNext()){
+			collection.remove(search);
+			return "success";
+		}
+		else{
+		return "failed";	
+		}
 	}
 
 }

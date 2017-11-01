@@ -399,6 +399,25 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				data.append("file", $scope.news.file);
 				 userServices.postNews(data);
 			}
+			$scope.loadNews = function(){
+				$scope.newsControl = userServices.getAllNews();
+			}
+			$scope.rmvNews = function(id){
+				if(confirm("Delete the News/Offer?")){
+					if(userServices.removeNews(id)){
+						var remv;
+						for(i=0; i<$scope.newsControl.length; i++){
+							if($scope.newsControl[i].id == id){
+								remv = i;
+								break;
+							}
+						}
+						$scope.newsControl.splice(remv,1);
+					}
+				}
+			$scope.loadNews();
+			}
+			$scope.loadNews();
 			
 		})
 		.controller('viewNews',function($scope, userServices){
@@ -422,7 +441,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			}
 			$scope.loadYourCars();
 			$scope.removeCar = function(id){
-				if(confirm("Delet the car?")){
+				if(confirm("Delete the car?")){
 					if(userServices.removeACar(id)){
 						var remv;
 						for(i=0; i<$scope.cars.length; i++){
@@ -447,7 +466,26 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				loanData.append("amount", $scope.loan.amt);
 				loanData.append("time", $scope.loan.time);
 				userServices.createNewLoan(loanData);
+				$scope.loadLoans();
 			}
+			$scope.loadLoans = function(){
+				$scope.loanControl = userServices.getAllLoans();
+			}
+			$scope.rmvLoan = function(id){
+				if(confirm("Delete the loan?")){
+					if(userServices.removeLoan(id)){
+						var remv;
+						for(i=0; i<$scope.loanControl.length; i++){
+							if($scope.loanControl[i].id == id){
+								remv = i;
+								break;
+							}
+						}
+						$scope.loanControl.splice(remv,1);
+					}
+				}
+			}
+			$scope.loadLoans();
 		})
 		.controller('viewLoans',function($state, $scope, userServices){
 			$scope.firstLoad = function(){

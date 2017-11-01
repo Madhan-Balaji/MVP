@@ -118,5 +118,43 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		}
 		return response;
 	}
+
+	@Override
+	public ResponseWithNewsCollection fetchAllNews() throws UnknownHostException {
+		DBCollection collection = getNewsDetailsCollection();
+		ResponseWithNewsCollection response = new ResponseWithNewsCollection();
+		int count = collection.find().count();
+		NewsModel[] newsModel = new NewsModel[count];
+		if(count>0){
+			int i = 0;
+			DBCursor cursor = collection.find();
+			while(cursor.hasNext()){
+				BasicDBObject handler = (BasicDBObject) cursor.next();
+				newsModel[i] = allDataSetter(handler);
+				i++;
+			}
+			response.status="success";
+			response.news = newsModel;
+		}
+		else{
+			response.status="failed";
+		}
+		return response;
+	}
+
+	@Override
+	public String removeNewsDetails(String id) throws UnknownHostException {
+		DBCollection collection = getNewsDetailsCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(id));
+		DBCursor cursor = collection.find(search);
+		if(cursor.hasNext()){
+			collection.remove(search);
+			return "success";
+		}
+		else{
+			return "failed";
+		}
+	}
 	
 }

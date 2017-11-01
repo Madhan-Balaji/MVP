@@ -1,13 +1,14 @@
 <div class="set-middle login-box">
 	<p align="center">Welcome, Please Sign Up!</p>
-	
-		<input type="text" class="form-control form-text-box" ng-model="name" placeholder="Name">
-		<input type="text" class="form-control form-text-box" ng-model="email" placeholder="E-mail">
-		<input type="text" class="form-control form-text-box" ng-model="phone" placeholder="Phone">
-		<input type="password" class="form-control form-text-box" ng-model="pwd" placeholder="Password">
-		<input type="password" class="form-control form-text-box" placeholder="Re-Enter Password">
+	<form>
+		<input required type="text" class="form-control form-text-box" ng-model="name" placeholder="Name">
+		<input required type="text" class="form-control form-text-box" ng-model="email" placeholder="E-mail">
+		<input required type="text" class="form-control form-text-box" ng-model="phone" placeholder="Phone">
+		<input required type="password" class="form-control form-text-box" ng-model="pwd" placeholder="Password">
+		<input required type="password" class="form-control form-text-box" ng-model="rpwd" placeholder="Re-Enter Password">
+		<p ng-if="pwd != rpwd">Password Mismatch!</p>
 		<select ng-model="region" class="form-control form-text-box" >
-			<option>--Select a Region--</option>
+			<option value="">--Select a Region--</option>
 			<option value="chennai">Chennai</option>
 			<option value="madurai">Madurai</option>
 			<option value="mumbai">Mumbai</option>
@@ -16,5 +17,5 @@
 		</select>
 		<button  class="btn btn-success" ng-click="signup()">Sign Up</button>
 		<a ui-sref="signin" class="link-text">Sign In </a>|<a href="#" class="link-text"> Forgot Password</a>
-	
+	</form>
 </div>

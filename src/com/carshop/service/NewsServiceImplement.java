@@ -28,5 +28,13 @@ public class NewsServiceImplement implements NewsService {
 	public ResponseWithNewsData getNews(String id) throws UnknownHostException {
 		return newsDetails.getData(id);
 	}
+	@Override
+	public ResponseWithNewsCollection obtainAllNews() throws UnknownHostException {
+		return newsDetails.fetchAllNews();
+	}
+	@Override
+	public String removeLoan(String id) throws UnknownHostException {
+		return newsDetails.removeNewsDetails(id);
+	}
 
 }

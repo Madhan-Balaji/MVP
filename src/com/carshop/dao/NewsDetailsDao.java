@@ -21,4 +21,8 @@ public interface NewsDetailsDao {
 	public ResponseWithNewsCollection get8News() throws UnknownHostException;
 
 	public ResponseWithNewsData getData(String id) throws UnknownHostException;
+
+	public ResponseWithNewsCollection fetchAllNews() throws UnknownHostException;
+
+	public String removeNewsDetails(String id) throws UnknownHostException;
 }

@@ -330,6 +330,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		      url: 'http://localhost:8080/carshop/Jserv/control/saveNewLoan',
 		      type: 'POST',
 		      data: loanData,
+		      async:false,
 		      processData: false,
 		      contentType: false,
 		      success: function(data){
@@ -350,11 +351,81 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 						datas = data.loans;
 					}
 					else{
-						alert('No News found');
+						alert('No Loan found');
 					}
 				} 
 			  
 			});
 			return datas
+	}
+	this.getAllLoans = function(){
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/getAllLoans",
+			  async:false,
+			  success:function(data){
+					if(data.status == "success"){
+						datas = data.loans;
+					}
+					else{
+						alert('No Loan found');
+					}
+				} 
+			  
+			});
+		return datas
+	}
+	this.removeLoan = function(ids){
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/removeLoan",
+			  data:{id:ids},
+			  async:false,
+			  success:function(data){
+					if(data == "success"){
+						datas = true;
+					}
+					else{
+						alert('No Loan found');
+					}
+				} 
+			  
+			});
+		return datas
+	}
+	this.removeNews = function(ids){
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/removeNews",
+			  data:{id:ids},
+			  async:false,
+			  success:function(data){
+					if(data == "success"){
+						datas = true;
+					}
+					else{
+						alert('No Loan found');
+					}
+				} 
+			  
+			});
+		return datas
+	}
+	this.getAllNews = function(){
+		$.ajax({
+			  type: 'GET',
+			  url: "http://localhost:8080/carshop/Jserv/control/getAllNews",
+			  async:false,
+			  success:function(data){
+					if(data.status == "success"){
+						datas = data.news;
+					}
+					else{
+						alert('No News found');
+					}
+				} 
+			  
+			});
+		return datas
 	}
 })
