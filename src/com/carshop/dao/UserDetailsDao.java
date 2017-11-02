@@ -12,5 +12,6 @@ public interface UserDetailsDao {
 	public Boolean insertDataForSignUp(UserModel user) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException;
 	public UserModel fetchRowByEmail(UserModel user) throws UnknownHostException;
 	public String getUserCompany(String id) throws UnknownHostException;
+	public UserModel fetchUserById(String id) throws UnknownHostException;
 	
 }

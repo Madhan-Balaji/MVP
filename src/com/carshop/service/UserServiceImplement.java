@@ -100,5 +100,11 @@ public class UserServiceImplement implements UserService {
 	public String getCompany(String id) throws UnknownHostException {
 		return userDetails.getUserCompany(id);
 	}
+
+
+	@Override
+	public UserModel getUserById(String id) throws UnknownHostException {
+		return userDetails.fetchUserById(id);
+	}
 	
 }

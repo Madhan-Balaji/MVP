@@ -76,4 +76,21 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		BasicDBObject handler = (BasicDBObject) cursor.next();
 		return handler.getString("company");
 	}
+	@Override
+	public UserModel fetchUserById(String id) throws UnknownHostException {
+		DBCollection collection = getUserDetailsCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(id));
+		DBCursor cursor = collection.find(search);
+		BasicDBObject handler = (BasicDBObject) cursor.next();
+		UserModel gotUser = new UserModel();
+		gotUser.setEmail(handler.getString("email"));
+		gotUser.setId(handler.getString("_id"));
+		gotUser.setName(handler.getString("name"));
+		gotUser.setPassword(handler.getString("password"));
+		gotUser.setPhone(handler.getString("phone"));
+		gotUser.setRegion(handler.getString("region"));
+		gotUser.setRole(handler.getString("role"));
+		return gotUser;
+	}
 }

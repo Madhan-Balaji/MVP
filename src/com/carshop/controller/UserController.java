@@ -427,4 +427,16 @@ public class UserController {
 		NewsService newsService = new NewsServiceImplement();
 		return newsService.removeLoan(id);
 		}
+	@POST
+	@Path("/addReview")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces("application/json")
+	public String addReview(
+			@FormDataParam("carId") String carId,
+			@FormDataParam("userId") String userId,
+			@FormDataParam("review") String review,
+			@FormDataParam("rating") String rating
+			){
+		return null;
+	}
 }

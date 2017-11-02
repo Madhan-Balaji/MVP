@@ -53,6 +53,7 @@ table{
 .option-icon{
 	font-size: 400%;
 	text-decoration: none;
+	cursor:pointer;
 }
 .user-note{
 	top: 0;
@@ -74,15 +75,19 @@ table{
 .dropbtn {
     padding: 16px;
     font-size: 16px;
-    border: none;
+    border: 1px solid white;
+    border-radius: 10px;
+    color: white;
     cursor: pointer;
-    
+    background:rgba(0,0,0,0);
+        
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
     float:right;
+    margin:10px;
 }
 
 .dropdown-content {

@@ -20,4 +20,5 @@ public interface UserService {
 	public String checkUserSession(String availedSession, HttpServletRequest req);
 	public Response lossSession(HttpServletRequest req);
 	public String getCompany(String id) throws UnknownHostException;
+	public UserModel getUserById(String id) throws UnknownHostException;
 }
