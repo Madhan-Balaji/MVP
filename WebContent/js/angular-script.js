@@ -305,6 +305,7 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				localStorage.setItem("brand", brand);
 				$state.go("dashboard.loans")
 			}
+			
 		})
 		
 		.controller('compareCtrl', function($state,$scope,$rootScope,userServices){

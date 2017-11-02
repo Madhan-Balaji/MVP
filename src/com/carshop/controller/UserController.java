@@ -33,6 +33,7 @@ import com.carshop.model.ResponseWithLoanCollection;
 import com.carshop.model.ResponseWithNewsCollection;
 import com.carshop.model.ResponseWithNewsData;
 import com.carshop.model.ResponseWithUserData;
+import com.carshop.model.ResponseWithUserReviews;
 import com.carshop.model.UserModel;
 import com.carshop.service.CarService;
 import com.carshop.service.CarServiceImplement;
@@ -42,6 +43,8 @@ import com.carshop.service.LoanService;
 import com.carshop.service.LoanServiceImplement;
 import com.carshop.service.NewsService;
 import com.carshop.service.NewsServiceImplement;
+import com.carshop.service.UserReviewService;
+import com.carshop.service.UserReviewServiceImplement;
 import com.carshop.service.UserService;
 import com.carshop.service.UserServiceImplement;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -49,6 +52,7 @@ import com.sun.jersey.multipart.FormDataParam;
 
 @Path("/control")
 public class UserController {
+	
 	@Path("/newUser")
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -70,6 +74,7 @@ public class UserController {
 		userModel.setPhone(phone);
 		return userService.addNewUser(userModel,req);
 	}
+	
 	@POST
 	@Path("/userLogin")
 	@Produces("application/json")
@@ -85,6 +90,7 @@ public class UserController {
 		
 		return userService.userLoginCheck(user,req);
 	}
+	
 	@POST
 	@Path("/checkSession")
 	public String checkSession(
@@ -94,6 +100,7 @@ public class UserController {
 		UserService userService = new UserServiceImplement();
 		return userService.checkUserSession(availedSession,req);
 	}
+	
 	@POST
 	@Path("/newUsedCar")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -189,6 +196,7 @@ public class UserController {
 		carService.uploadVideo(videoInputStream, videoInputDetails, car.car.getId());
 		return car;
 	}
+	
 	@GET
 	@Produces("video/mp4")
 	@Path("/media/{id}")
@@ -198,6 +206,7 @@ public class UserController {
 		CarService carService = new CarServiceImplement();
 		return carService.getCarMedia(id, range);
 	}
+	
 	@GET
 	@Produces("video/mp4")
 	@Path("/video/{id}")
@@ -215,6 +224,7 @@ public class UserController {
 		CarService carService = new CarServiceImplement();
 		return carService.getAllCarDetails();
 	}
+	
 	@GET
 	@Produces("application/json")
 	@Path("/getCarDetails")
@@ -304,6 +314,7 @@ public class UserController {
 		NewsService newsService = new NewsServiceImplement();
 		return newsService.getSomeNews();
 	}
+	
 	@POST
 	@Path("/getNews")
 	@Produces("application/json")
@@ -313,6 +324,7 @@ public class UserController {
 		NewsService newsService = new NewsServiceImplement();
 		return newsService.getNews(id);
 	}
+	
 	@GET
 	@Path("/getInsurances")
 	@Produces("application/json")
@@ -320,6 +332,7 @@ public class UserController {
 		InsuranceService insuranceService = new InsuranceServiceImplement();
 		return insuranceService.getSomeInsurances();
 	}
+	
 	@POST
 	@Path("/getInsu")
 	@Produces("application/json")
@@ -329,6 +342,7 @@ public class UserController {
 		InsuranceService insuranceService = new InsuranceServiceImplement();
 		return insuranceService.getInsu(id);
 	}
+	
 	@POST
 	@Path("/getMyCars")
 	@Produces("application/json")
@@ -340,6 +354,7 @@ public class UserController {
 		CarService carService = new CarServiceImplement();
 		return carService.getCarsUser(id);
 	}
+	
 	@POST
 	@Path("/removeCar")
 	@Produces("application/json")
@@ -349,18 +364,7 @@ public class UserController {
 		CarService carService = new CarServiceImplement();
 		return carService.removeCar(id);
 	}
-	@Path("/addReview")
-	@Produces("application/json")
-	public String addReview(
-			@FormParam("id") String carId,
-			@FormParam("review") String review,
-			@Context HttpServletRequest req
-			){
-		CarService carService = new CarServiceImplement();
-		HttpSession session = req.getSession();
-		String userId = (String) session.getAttribute("user");
-		return carService.addReview(carId, userId, review);
-	}
+	
 	@Path("/saveNewLoan")
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -385,6 +389,7 @@ public class UserController {
 		LoanService loanService = new LoanServiceImplement();
 		return loanService.setLoan(loanModel);
 	}
+	
 	@GET
 	@Path("/getLoans")
 	@Produces("application/json")
@@ -394,6 +399,7 @@ public class UserController {
 		LoanService loanService = new LoanServiceImplement();
 		return loanService.obtainLoans(brand);
 	}
+	
 	@GET
 	@Path("/getAllLoans")
 	@Produces("application/json")
@@ -411,6 +417,7 @@ public class UserController {
 		LoanService loanService = new LoanServiceImplement();
 		return loanService.removeLoan(id);
 	}
+	
 	@GET
 	@Path("/getAllNews")
 	@Produces("application/json")
@@ -418,6 +425,7 @@ public class UserController {
 		NewsService newsService = new NewsServiceImplement();
 		return newsService.obtainAllNews();
 	}
+	
 	@GET
 	@Path("/removeNews")
 	@Produces("application/json")
@@ -426,17 +434,36 @@ public class UserController {
 			) throws UnknownHostException{
 		NewsService newsService = new NewsServiceImplement();
 		return newsService.removeLoan(id);
-		}
+	}
+	
 	@POST
 	@Path("/addReview")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("application/json")
 	public String addReview(
 			@FormDataParam("carId") String carId,
-			@FormDataParam("userId") String userId,
 			@FormDataParam("review") String review,
-			@FormDataParam("rating") String rating
-			){
-		return null;
+			@FormDataParam("rating") String rating,
+			@Context HttpServletRequest req
+			) throws UnknownHostException{
+		HttpSession session = req.getSession();
+		String userId = (String) session.getAttribute("user");
+		UserReviewService userReviewService = new UserReviewServiceImplement();
+		return userReviewService.addUserReview(carId, userId, review, rating);
 	}
+	
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Path("/getReview")
+	@Produces("application/json")
+	public ResponseWithUserReviews getReviews(
+			@FormDataParam("carId") String carId,
+			@Context HttpServletRequest req
+			){
+		UserReviewService userReviewService = new UserReviewServiceImplement();
+		HttpSession session = req.getSession();
+		String userId = (String) session.getAttribute("user");
+		return userReviewService.getUserReviews(carId, userId);
+	}
+	
 }
