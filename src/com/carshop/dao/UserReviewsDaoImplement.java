@@ -60,14 +60,14 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 				response.userReviewed = "yes";
 				int count = collection.find().sort(new BasicDBObject("_id", -1)).count();
 				DBCursor gotCursor = collection.find().sort(new BasicDBObject("_id", -1)).limit(4);
-				DBCursor tempCursor = gotCursor;
 				int hasUser = 0;
 				if(count>4){
 					count = 4;
 				}
 				for(int i=0;i<count;i++){
-					BasicDBObject holder = (BasicDBObject) tempCursor.next();
-					if(holder.getString("userId") == userId){
+					BasicDBObject holder = (BasicDBObject) gotCursor.next();
+					String user = holder.getString("userId");
+					if(user.equals(userId)){
 						hasUser = 1;
 						break;
 					}
@@ -75,6 +75,7 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 				if(hasUser == 1){
 					int n=0;
 					UserReviewModel[] review = new UserReviewModel[count];
+					gotCursor = collection.find().sort(new BasicDBObject("_id", -1)).limit(4);
 					while(gotCursor.hasNext()){
 						BasicDBObject handler = (BasicDBObject) gotCursor.next();
 						review[n] = allDataSetter(handler);
@@ -86,6 +87,7 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 				else{
 					int n=0;
 					UserReviewModel[] review = new UserReviewModel[count+1];
+					gotCursor = collection.find().sort(new BasicDBObject("_id", -1)).limit(4);
 					while(gotCursor.hasNext()){
 						BasicDBObject handler = (BasicDBObject) gotCursor.next();
 						review[n] = new UserReviewModel();

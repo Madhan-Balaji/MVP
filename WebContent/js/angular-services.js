@@ -428,4 +428,46 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 			});
 		return datas
 	}
+	this.getReviews = function(){
+		var car = localStorage.getItem("showCar");
+		var reviewData={};
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/getReview',
+		      type: 'POST',
+		      data: {'carId':car},
+		      async:false,
+		      success: function(data){
+		      	if(data.status == "success"){
+		      		reviewData = data;
+		      		reviewData.notYet = "no";
+		      	}
+		      	else{
+		      		reviewData.userReviewed = "no";
+		      		reviewData.notYet = "yes";
+		      		reviewData.notYetMessage = "No Reviews Yet!";
+		      	}
+		      }
+		    } );
+		return reviewData;
+	}
+	this.setReview = function(car,revw,rate){
+		var reviewData ={};
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/addReview',
+		      type: 'POST',
+		      data: {'carId':car, 'review':revw, 'rating':rate},
+		      async:false,
+		      success: function(data){
+		      	if(data == "success"){
+		      		reviewData.userReviewed = "yes";
+		      		reviewData.notYet = "no";
+		      		alert("Thanks for reviewing!");
+		      	}
+		      	else{
+		      		alert("Problem with updating Review");
+		      	}
+		      }
+		    } );
+		return reviewData;
+	}
 })

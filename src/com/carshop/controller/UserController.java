@@ -438,12 +438,12 @@ public class UserController {
 	
 	@POST
 	@Path("/addReview")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces("application/json")
 	public String addReview(
-			@FormDataParam("carId") String carId,
-			@FormDataParam("review") String review,
-			@FormDataParam("rating") String rating,
+			@FormParam("carId") String carId,
+			@FormParam("review") String review,
+			@FormParam("rating") String rating,
 			@Context HttpServletRequest req
 			) throws UnknownHostException{
 		HttpSession session = req.getSession();
@@ -453,13 +453,12 @@ public class UserController {
 	}
 	
 	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Path("/getReview")
 	@Produces("application/json")
 	public ResponseWithUserReviews getReviews(
-			@FormDataParam("carId") String carId,
+			@FormParam("carId") String carId,
 			@Context HttpServletRequest req
-			){
+			) throws UnknownHostException{
 		UserReviewService userReviewService = new UserReviewServiceImplement();
 		HttpSession session = req.getSession();
 		String userId = (String) session.getAttribute("user");
