@@ -106,4 +106,45 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 		return response;
 	}
 
+	@Override
+	public ResponseWithInsuranceCollection getAllInsurance(String uid)
+			throws UnknownHostException {
+		DBCollection collection = getInsuranceDetailsCollection();
+		ResponseWithInsuranceCollection response = new ResponseWithInsuranceCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("postBy", uid);
+		int count = collection.find(search).count();
+		if(count>8){
+			count=8;
+		}
+		if(count != 0){
+			InsuranceModel[] insurance = new InsuranceModel[count]; 
+			DBCursor cursor = collection.find(search).sort(new BasicDBObject("_id",-1)).limit(8);
+			int i = 0;
+			while(cursor.hasNext()){
+				BasicDBObject handler = (BasicDBObject) cursor.next();
+				insurance[i] = new InsuranceModel();
+				insurance[i] = allDataSetter(handler);
+				i++;
+			}
+			response.status = "success";
+			response.insurances = insurance;
+			return response;
+		}
+		else{
+			response.status="failure";
+			return response;
+		}
+	}
+
+	@Override
+	public String removeInsurance(String id) throws UnknownHostException {
+		DBCollection collection = getInsuranceDetailsCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(id));
+		collection.remove(search);
+		return "success";
+	}
+	
+
 }

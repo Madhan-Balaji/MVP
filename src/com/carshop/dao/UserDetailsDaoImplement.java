@@ -93,4 +93,21 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		gotUser.setRole(handler.getString("role"));
 		return gotUser;
 	}
+	@Override
+	public Boolean changePassword(String password, String uid)
+			throws UnknownHostException {
+		DBCollection collection = getUserDetailsCollection();
+		BasicDBObject search = new BasicDBObject();
+		search.put("_id", new ObjectId(uid));
+		DBCursor cursor = collection.find(search);
+		if(cursor.hasNext()){
+			BasicDBObject updation = new BasicDBObject("password",password);
+			collection.update(search, updation);
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 }

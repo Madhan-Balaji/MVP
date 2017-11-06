@@ -13,4 +13,8 @@ public interface InsuranceService {
 
 	public ResponseWithInsurance getInsu(String id) throws UnknownHostException;
 	
+	public ResponseWithInsuranceCollection getAllInsurance(String uid) throws UnknownHostException;
+	
+	public String removeInsurance(String id) throws UnknownHostException;
+	
 }

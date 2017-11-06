@@ -90,4 +90,9 @@ mainPage.config(function($stateProvider, $urlRouterProvider){
 		templateUrl: 'views/viewLoans.html',
 		controller: 'viewLoans'
 	})
+	.state('dashboard.changePassword', {
+		url:'/change-password',
+		templateUrl: 'views/changePassword.html',
+		controller: 'chngPwd'
+	})
 });

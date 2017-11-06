@@ -48,5 +48,24 @@
 				</div>
 				</form>
 			</div>
+			<div class = "row">
+			<div class = "col-sm-12">
+				<h3>Insurance History</h3>
+				<table class="table table-striped table-responsive">
+					<tr>
+						<th>Name</th>
+						<th>Value</th>
+						<th>Premium</th>
+						<td>Action</td>
+					</tr>
+					<tr ng-repeat="insurance in insuranceControl">
+						<td>{{insurance.name}}</td>
+						<td>{{insurance.val}}</td>
+						<td>{{insurance.prem}}</td>
+						<td><i ng-click="rmvInsu(insurance.id)" style="color:red;" class="glyphicon glyphicon-remove-circle"></i></td>
+					</tr>
+				</table>
+			</div>
+			</div>
 		</div>
 	</div>

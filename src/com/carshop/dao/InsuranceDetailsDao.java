@@ -12,4 +12,8 @@ public interface InsuranceDetailsDao {
 	public ResponseWithInsuranceCollection get8Insurance() throws UnknownHostException;
 
 	public ResponseWithInsurance getData(String id) throws UnknownHostException;
+	
+	public ResponseWithInsuranceCollection getAllInsurance(String uid) throws UnknownHostException;
+	
+	public String removeInsurance(String id) throws UnknownHostException;
 }

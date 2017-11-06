@@ -106,5 +106,26 @@ public class UserServiceImplement implements UserService {
 	public UserModel getUserById(String id) throws UnknownHostException {
 		return userDetails.fetchUserById(id);
 	}
+
+
+	@Override
+	public String changePassword(String uid, String newPass, String oldPass)
+			throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException {
+		UserModel userModel = getUserById(uid);
+		String old = Md5Encrypt(oldPass);
+		String newPwd = Md5Encrypt(newPass);
+		String exist = userModel.getPassword();
+		if(exist.equals(old)){
+			if(userDetails.changePassword(newPwd, uid)){
+				return "success";
+			}
+			else{
+				return "false";
+			}
+		}
+		else{
+			return "false";
+		}
+	}
 	
 }

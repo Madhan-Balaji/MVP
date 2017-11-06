@@ -29,4 +29,15 @@ public class InsuranceServiceImplement implements InsuranceService {
 		return insuranceDetails.getData(id);
 	}
 
+	@Override
+	public ResponseWithInsuranceCollection getAllInsurance(String uid)
+			throws UnknownHostException {
+		return insuranceDetails.getAllInsurance(uid);
+	}
+
+	@Override
+	public String removeInsurance(String id) throws UnknownHostException {
+		return insuranceDetails.removeInsurance(id);
+	}
+
 }

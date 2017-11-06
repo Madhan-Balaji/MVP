@@ -470,4 +470,57 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		    } );
 		return reviewData;
 	}
+	this.getAllInsurance = function(){
+		var insuranceData;
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/getAllInsurance',
+		      type: 'GET',
+		      async:false,
+		      success: function(data){
+		      	if(data.status == "success"){
+		      		insuranceData = data.insurances;
+		      	}
+		      	else{
+		      		alert("Problem retriving Insurance Data!");
+		      	}
+		      }
+		    } );
+		return insuranceData;
+	}
+	this.removeInsurance = function(ids){
+		var result;
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/removeInsurance',
+		      type: 'POST',
+		      data: {'id':ids},
+		      async:false,
+		      success: function(data){
+		      	if(data == "success"){
+		      		result = true;
+		      	}
+		      	else{
+		      		result = false;
+		      	}
+		      }
+		    } );
+		return result;
+	}
+	this.changePassword = function(newP, oldP){
+		var result;
+		$.ajax( {
+		      url: 'http://localhost:8080/carshop/Jserv/control/changePassword',
+		      type: 'POST',
+		      data: {'newPwd':newP, 'oldPwd':oldP},
+		      async:false,
+		      success: function(data){
+		      	if(data == "success"){
+		      		result = true;
+		      	}
+		      	else{
+		      		result = false;
+		      	}
+		      }
+		    } );
+		return result;
+	}
 })

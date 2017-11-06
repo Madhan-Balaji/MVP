@@ -21,4 +21,5 @@ public interface UserService {
 	public Response lossSession(HttpServletRequest req);
 	public String getCompany(String id) throws UnknownHostException;
 	public UserModel getUserById(String id) throws UnknownHostException;
+	public String changePassword(String uid, String newPass, String oldPass) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException;
 }

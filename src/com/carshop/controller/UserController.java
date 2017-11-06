@@ -465,4 +465,39 @@ public class UserController {
 		return userReviewService.getUserReviews(carId, userId);
 	}
 	
+	@GET
+	@Path("/getAllInsurance")
+	@Produces("application/json")
+	public ResponseWithInsuranceCollection getAllInsurance(
+			@Context HttpServletRequest req
+			) throws UnknownHostException{
+		HttpSession session = req.getSession();
+		String uid = (String) session.getAttribute("user");
+		InsuranceService insuranceService = new InsuranceServiceImplement();
+		return insuranceService.getAllInsurance(uid);
+	}
+	
+	@POST
+	@Path("/removeInsurance")
+	@Produces("application/json")
+	public String removeInsurance(
+			@FormParam("id") String id
+			) throws UnknownHostException{
+		InsuranceService insuranceService = new InsuranceServiceImplement();
+		return insuranceService.removeInsurance(id);
+	}
+	
+	@POST
+	@Path("/changePassword")
+	@Produces("application/json")
+	public String changePassword(
+			@FormParam("newPwd") String newPassword,
+			@FormParam("oldPwd") String oldPassword,
+			@Context HttpServletRequest req
+			) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException{
+		UserService userService = new UserServiceImplement();
+		HttpSession session = req.getSession();
+		String uid = (String) session.getAttribute("user");
+		return userService.changePassword(uid, newPassword, oldPassword);
+	}
 }

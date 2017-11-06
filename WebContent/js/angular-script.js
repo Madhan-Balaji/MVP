@@ -393,6 +393,17 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 			$scope.sellInsu = function(){
 				userServices.submitNewInsurance($scope.insurance);
 			}
+			$scope.insuranceControl = userServices.getAllInsurance();
+			$scope.rmvInsu = function(id){
+				if(confirm("Delete the insurance?")){
+					if(userServices.removeInsurance(id)){
+						$scope.insuranceControl = userServices.getAllInsurance();
+					}
+					else{
+						alert("Something went wrong!");
+					}
+				}
+			}
 		})
 		.controller('newNewsCtrl',function($scope, userServices){
 			$scope.news = {};
@@ -498,4 +509,17 @@ mainPage.controller('signinCtrl',function($scope,$state,$rootScope,userServices)
 				$scope.data = userServices.getLoans();
 			}
 			$scope.firstLoad();
+		})
+		.controller('chngPwd',function($state, $scope, userServices){
+			$scope.pass = {};
+			$scope.changePwd = function(){
+				if(userServices.changePassword($scope.pass.newP, $scope.pass.oldP)){
+					alert("password changed");
+					userServices.signingOut();
+					$state.go('signin');
+				}
+				else{
+					alert("Old password wrong");
+				}
+			}
 		})
