@@ -101,7 +101,7 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		search.put("_id", new ObjectId(uid));
 		DBCursor cursor = collection.find(search);
 		if(cursor.hasNext()){
-			BasicDBObject updation = new BasicDBObject("password",password);
+			BasicDBObject updation = new BasicDBObject("$set", new BasicDBObject().append("password",password));
 			collection.update(search, updation);
 			return true;
 		}
