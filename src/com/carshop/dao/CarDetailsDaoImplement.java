@@ -127,7 +127,7 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		}
 		if(count != 0){
 			CarModel[] cars = new CarModel[count]; 
-			DBCursor cursor = collection.find().limit(15);
+			DBCursor cursor = collection.find().sort(new BasicDBObject("_id",-1)).limit(15);
 			int i = 0;
 			while(cursor.hasNext()){
 				BasicDBObject handler = (BasicDBObject) cursor.next();
