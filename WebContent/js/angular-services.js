@@ -155,6 +155,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		return datas
 	}
 	this.signingOut = function(){
+		var datas
 		$.ajax({
 			  type: 'GET',
 			  url: "http://localhost:8080/carshop/Jserv/control/getRidOfSession",
@@ -216,6 +217,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		    } );
 	}
 	this.loadDailyNews = function(){
+		var datas;
 		$.ajax({
 			  type: 'GET',
 			  url: "http://localhost:8080/carshop/Jserv/control/getStarterNews",
@@ -359,6 +361,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 			return datas
 	}
 	this.getAllLoans = function(){
+		var datas;
 		$.ajax({
 			  type: 'GET',
 			  url: "http://localhost:8080/carshop/Jserv/control/getAllLoans",
@@ -376,6 +379,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		return datas
 	}
 	this.removeLoan = function(ids){
+		var datas;
 		$.ajax({
 			  type: 'GET',
 			  url: "http://localhost:8080/carshop/Jserv/control/removeLoan",
@@ -394,6 +398,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		return datas
 	}
 	this.removeNews = function(ids){
+		var datas;
 		$.ajax({
 			  type: 'GET',
 			  url: "http://localhost:8080/carshop/Jserv/control/removeNews",
@@ -412,6 +417,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		return datas
 	}
 	this.getAllNews = function(){
+		var datas;
 		$.ajax({
 			  type: 'GET',
 			  url: "http://localhost:8080/carshop/Jserv/control/getAllNews",

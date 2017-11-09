@@ -23,9 +23,9 @@
 					<div style="display:inline-block;width:25%;height:25%;margin:20px;" ng-repeat="car in cars" >
 						<div class="thumbnail" >
 							
-							<img src="{{car.imageUrl}}" alt="Nature" style="width:100%">
+							<img style="cursor:pointer;" ng-click="selectCar(car.id)" src="{{car.imageUrl}}" alt="Nature" style="width:100%">
 							<div class="caption">
-							<button  ng-click="selectCar(car.id)">{{initcap(car.brand)}} {{initcap(car.name)}}</button>
+							<h3 style="cursor:pointer;" ng-click="selectCar(car.id)">{{initcap(car.brand)}} {{initcap(car.name)}}</h3>
 							
 							<p>{{car.year}}</p>
 							<h5 style="text-align: right;">

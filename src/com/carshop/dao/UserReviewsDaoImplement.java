@@ -58,8 +58,8 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 			DBCursor cursor = collection.find(search);
 			if(cursor.hasNext()){
 				response.userReviewed = "yes";
-				int count = collection.find().sort(new BasicDBObject("_id", -1)).count();
-				DBCursor gotCursor = collection.find().sort(new BasicDBObject("_id", -1)).limit(4);
+				int count = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).count();
+				DBCursor gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).limit(4);
 				int hasUser = 0;
 				if(count>4){
 					count = 4;
@@ -75,7 +75,7 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 				if(hasUser == 1){
 					int n=0;
 					UserReviewModel[] review = new UserReviewModel[count];
-					gotCursor = collection.find().sort(new BasicDBObject("_id", -1)).limit(4);
+					gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).limit(4);
 					while(gotCursor.hasNext()){
 						BasicDBObject handler = (BasicDBObject) gotCursor.next();
 						review[n] = allDataSetter(handler);
@@ -87,7 +87,7 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 				else{
 					int n=0;
 					UserReviewModel[] review = new UserReviewModel[count+1];
-					gotCursor = collection.find().sort(new BasicDBObject("_id", -1)).limit(4);
+					gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).limit(4);
 					while(gotCursor.hasNext()){
 						BasicDBObject handler = (BasicDBObject) gotCursor.next();
 						review[n] = new UserReviewModel();
@@ -103,8 +103,8 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 			}
 			else{
 				response.userReviewed = "no";
-				int count = collection.find().sort(new BasicDBObject("_id",-1)).count();
-				DBCursor gotCursor = collection.find().sort(new BasicDBObject("_id",-1)).limit(4);
+				int count = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id",-1)).count();
+				DBCursor gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id",-1)).limit(4);
 				if(count>4){
 					count = 4;
 				}
