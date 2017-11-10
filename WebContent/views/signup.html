@@ -1,6 +1,6 @@
 <div class="set-middle login-box">
 	<p align="center">Welcome, Please Sign Up!</p>
-	<form>
+	<form ng-submit="signup()">
 		<input required type="text" class="form-control form-text-box" ng-model="name" placeholder="Name">
 		<input required type="email" class="form-control form-text-box" ng-model="email" placeholder="E-mail">
 		<input required type="text" class="form-control form-text-box" ng-model="phone" placeholder="Phone">
@@ -15,7 +15,7 @@
 			<option value="delhi">Delhi</option>
 			<option value="kolkata">Kolkata</option>
 		</select>
-		<button  class="btn btn-success" ng-click="signup()">Sign Up</button>
+		<button  class="btn btn-success" >Sign Up</button>
 		<a ui-sref="signin" class="link-text">Sign In </a>
 	</form>
 </div>
