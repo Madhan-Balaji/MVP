@@ -7,13 +7,16 @@ import com.carshop.model.ResponseWithInsurance;
 import com.carshop.model.ResponseWithInsuranceCollection;
 
 public interface InsuranceDetailsDao {
-	public String setInsuranceDetails(InsuranceModel insurance) throws UnknownHostException;
+	public String setInsuranceDetails(InsuranceModel insurance)
+			throws UnknownHostException;
 
-	public ResponseWithInsuranceCollection get8Insurance() throws UnknownHostException;
+	public ResponseWithInsuranceCollection get8Insurance()
+			throws UnknownHostException;
 
 	public ResponseWithInsurance getData(String id) throws UnknownHostException;
-	
-	public ResponseWithInsuranceCollection getAllInsurance(String uid) throws UnknownHostException;
-	
+
+	public ResponseWithInsuranceCollection getAllInsurance(String uid)
+			throws UnknownHostException;
+
 	public String removeInsurance(String id) throws UnknownHostException;
 }

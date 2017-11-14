@@ -13,14 +13,14 @@ import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 
 public class UserReviewsDaoImplement implements UserReviewsDao {
-	
-	public DBCollection getUserReviewCollection() throws UnknownHostException{
-		MongoClient mongo = new MongoClient("localhost",27017);
+
+	public DBCollection getUserReviewCollection() throws UnknownHostException {
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		DB mongoDB = mongo.getDB("carshop");
 		return mongoDB.getCollection("user_reviews");
 	}
-	
-	public UserReviewModel allDataSetter(BasicDBObject handler){
+
+	public UserReviewModel allDataSetter(BasicDBObject handler) {
 		UserReviewModel review = new UserReviewModel();
 		review.setId(handler.getString("_id"));
 		review.setCarId(handler.getString("carId"));
@@ -30,9 +30,10 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 		review.setUserName(handler.getString("userName"));
 		return review;
 	}
-	
+
 	@Override
-	public String addReview(UserReviewModel userReview) throws UnknownHostException {
+	public String addReview(UserReviewModel userReview)
+			throws UnknownHostException {
 		DBCollection collection = getUserReviewCollection();
 		BasicDBObject document = new BasicDBObject();
 		document.append("carId", userReview.getCarId());
@@ -45,51 +46,60 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 	}
 
 	@Override
-	public ResponseWithUserReviews fetchReviews(String carId, String userId) throws UnknownHostException {
+	public ResponseWithUserReviews fetchReviews(String carId, String userId)
+			throws UnknownHostException {
 		DBCollection collection = getUserReviewCollection();
 		ResponseWithUserReviews response = new ResponseWithUserReviews();
 		BasicDBObject search = new BasicDBObject();
 		List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
-		obj.add(new BasicDBObject("userId", userId ));
-		obj.add(new BasicDBObject("carId", carId ));
+		obj.add(new BasicDBObject("userId", userId));
+		obj.add(new BasicDBObject("carId", carId));
 		search.put("$and", obj);
 		int hasData = collection.find().count();
-		if(hasData > 0){
+		if (hasData > 0) {
 			DBCursor cursor = collection.find(search);
-			if(cursor.hasNext()){
+			if (cursor.hasNext()) {
 				response.userReviewed = "yes";
-				int count = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).count();
-				DBCursor gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).limit(4);
+				int count = collection.find(new BasicDBObject("carId", carId))
+						.sort(new BasicDBObject("_id", -1)).count();
+				DBCursor gotCursor = collection
+						.find(new BasicDBObject("carId", carId))
+						.sort(new BasicDBObject("_id", -1)).limit(4);
 				int hasUser = 0;
-				if(count>4){
+				if (count > 4) {
 					count = 4;
 				}
-				for(int i=0;i<count;i++){
+				for (int i = 0; i < count; i++) {
 					BasicDBObject holder = (BasicDBObject) gotCursor.next();
 					String user = holder.getString("userId");
-					if(user.equals(userId)){
+					if (user.equals(userId)) {
 						hasUser = 1;
 						break;
 					}
 				}
-				if(hasUser == 1){
-					int n=0;
+				if (hasUser == 1) {
+					int n = 0;
 					UserReviewModel[] review = new UserReviewModel[count];
-					gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).limit(4);
-					while(gotCursor.hasNext()){
-						BasicDBObject handler = (BasicDBObject) gotCursor.next();
+					gotCursor = collection
+							.find(new BasicDBObject("carId", carId))
+							.sort(new BasicDBObject("_id", -1)).limit(4);
+					while (gotCursor.hasNext()) {
+						BasicDBObject handler = (BasicDBObject) gotCursor
+								.next();
 						review[n] = allDataSetter(handler);
 						n++;
 					}
-					response.status ="success";
+					response.status = "success";
 					response.userReview = review;
-				}
-				else{
-					int n=0;
-					UserReviewModel[] review = new UserReviewModel[count+1];
-					gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id", -1)).limit(4);
-					while(gotCursor.hasNext()){
-						BasicDBObject handler = (BasicDBObject) gotCursor.next();
+				} else {
+					int n = 0;
+					UserReviewModel[] review = new UserReviewModel[count + 1];
+					gotCursor = collection
+							.find(new BasicDBObject("carId", carId))
+							.sort(new BasicDBObject("_id", -1)).limit(4);
+					while (gotCursor.hasNext()) {
+						BasicDBObject handler = (BasicDBObject) gotCursor
+								.next();
 						review[n] = new UserReviewModel();
 						review[n] = allDataSetter(handler);
 						n++;
@@ -97,20 +107,22 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 					BasicDBObject handler = (BasicDBObject) cursor.next();
 					review[n] = new UserReviewModel();
 					review[n] = allDataSetter(handler);
-					response.status ="success";
+					response.status = "success";
 					response.userReview = review;
 				}
-			}
-			else{
+			} else {
 				response.userReviewed = "no";
-				int count = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id",-1)).count();
-				DBCursor gotCursor = collection.find(new BasicDBObject("carId",carId)).sort(new BasicDBObject("_id",-1)).limit(4);
-				if(count>4){
+				int count = collection.find(new BasicDBObject("carId", carId))
+						.sort(new BasicDBObject("_id", -1)).count();
+				DBCursor gotCursor = collection
+						.find(new BasicDBObject("carId", carId))
+						.sort(new BasicDBObject("_id", -1)).limit(4);
+				if (count > 4) {
 					count = 4;
 				}
 				UserReviewModel[] review = new UserReviewModel[count];
-				int n=0;
-				while(gotCursor.hasNext()){
+				int n = 0;
+				while (gotCursor.hasNext()) {
 					BasicDBObject handler = (BasicDBObject) gotCursor.next();
 					review[n] = new UserReviewModel();
 					review[n] = allDataSetter(handler);
@@ -119,8 +131,7 @@ public class UserReviewsDaoImplement implements UserReviewsDao {
 				response.status = "success";
 				response.userReview = review;
 			}
-		}
-		else{
+		} else {
 			response.status = "failed";
 		}
 		return response;

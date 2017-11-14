@@ -12,16 +12,35 @@ import com.carshop.model.ResponseWithCarData;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public interface CarService {
-	public ResponseWithCarData addNewUsedCar(CarModel carModel, InputStream fileInputStream, FormDataContentDisposition fileInputDetails, HttpServletRequest req) throws UnknownHostException;
-	public Boolean addNewUsedCarImage(CarModel carModel,InputStream fis, FormDataContentDisposition fi) throws UnknownHostException;
+	public ResponseWithCarData addNewUsedCar(CarModel carModel,
+			InputStream fileInputStream,
+			FormDataContentDisposition fileInputDetails, HttpServletRequest req)
+			throws UnknownHostException;
+
+	public Boolean addNewUsedCarImage(CarModel carModel, InputStream fis,
+			FormDataContentDisposition fi) throws UnknownHostException;
+
 	public Response getCarMedia(String id, String Range) throws Exception;
-	public ResponseWithCarCollection getAllCarDetails() throws UnknownHostException;
-	public ResponseWithCarData getCarData(String id) throws UnknownHostException;
-	public ResponseWithCarCollection searchCarTerm(String term) throws UnknownHostException;
-	public ResponseWithCarCollection getCarsUser(String id) throws UnknownHostException;
+
+	public ResponseWithCarCollection getAllCarDetails()
+			throws UnknownHostException;
+
+	public ResponseWithCarData getCarData(String id)
+			throws UnknownHostException;
+
+	public ResponseWithCarCollection searchCarTerm(String term)
+			throws UnknownHostException;
+
+	public ResponseWithCarCollection getCarsUser(String id)
+			throws UnknownHostException;
+
 	public String removeCar(String id) throws UnknownHostException;
+
 	public String addReview(String carId, String userId, String review);
+
 	public boolean uploadVideo(InputStream videoInputStream,
-			FormDataContentDisposition videoInputDetails, String id) throws UnknownHostException;
+			FormDataContentDisposition videoInputDetails, String id)
+			throws UnknownHostException;
+
 	public Response getCarVideo(String id, String range) throws Exception;
 }

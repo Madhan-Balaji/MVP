@@ -17,45 +17,49 @@ import com.mongodb.MongoClient;
 
 public class UserDetailsDaoImplement implements UserDetailsDao {
 	@Override
-	public DBCollection getUserDetailsCollection() throws UnknownHostException{
-		MongoClient mongo = new MongoClient("localhost",27017);
+	public DBCollection getUserDetailsCollection() throws UnknownHostException {
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		DB mongoDB = mongo.getDB("carshop");
 		return mongoDB.getCollection("user_details");
 	}
+
 	@Override
-	public Boolean insertDataForSignUp(UserModel user) throws UnknownHostException, NoSuchAlgorithmException, UnsupportedEncodingException{
+	public Boolean insertDataForSignUp(UserModel user)
+			throws UnknownHostException, NoSuchAlgorithmException,
+			UnsupportedEncodingException {
 		UserService service = new UserServiceImplement();
 		Boolean status;
-		DBCollection collection = getUserDetailsCollection(); 
+		DBCollection collection = getUserDetailsCollection();
 		BasicDBObject existing = new BasicDBObject();
 		String encryptPassword = new String();
 		existing.put("email", user.getEmail());
 		DBCursor cursor = collection.find(existing);
-		if(!cursor.hasNext()){
+		if (!cursor.hasNext()) {
 			BasicDBObject newDocument = new BasicDBObject();
 			newDocument.append("name", user.getName());
 			newDocument.append("email", user.getEmail());
 			newDocument.append("phone", user.getPhone());
 			newDocument.append("region", user.getRegion());
 			encryptPassword = service.Md5Encrypt(user.getPassword());
-			newDocument.append("password", encryptPassword );
+			newDocument.append("password", encryptPassword);
 			newDocument.append("role", "user");
 			collection.insert(newDocument);
 			status = true;
-		}
-		else{
+		} else {
 			status = false;
 		}
 		return status;
 	}
+
 	@Override
-	public UserModel fetchRowByEmail(UserModel user) throws UnknownHostException{
+	public UserModel fetchRowByEmail(UserModel user)
+			throws UnknownHostException {
 		DBCollection collection = getUserDetailsCollection();
 		UserModel gotUser = new UserModel();
 		BasicDBObject query = new BasicDBObject();
 		query.put("email", user.getEmail());
 		DBCursor cursor = collection.find(query);
-		if(cursor.hasNext()){
+		if (cursor.hasNext()) {
 			BasicDBObject holder = (BasicDBObject) cursor.next();
 			gotUser.setEmail(holder.getString("email"));
 			gotUser.setId(holder.getString("_id"));
@@ -67,6 +71,7 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		}
 		return gotUser;
 	}
+
 	@Override
 	public String getUserCompany(String id) throws UnknownHostException {
 		DBCollection collection = getUserDetailsCollection();
@@ -76,6 +81,7 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		BasicDBObject handler = (BasicDBObject) cursor.next();
 		return handler.getString("company");
 	}
+
 	@Override
 	public UserModel fetchUserById(String id) throws UnknownHostException {
 		DBCollection collection = getUserDetailsCollection();
@@ -93,6 +99,7 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		gotUser.setRole(handler.getString("role"));
 		return gotUser;
 	}
+
 	@Override
 	public Boolean changePassword(String password, String uid)
 			throws UnknownHostException {
@@ -100,12 +107,12 @@ public class UserDetailsDaoImplement implements UserDetailsDao {
 		BasicDBObject search = new BasicDBObject();
 		search.put("_id", new ObjectId(uid));
 		DBCursor cursor = collection.find(search);
-		if(cursor.hasNext()){
-			BasicDBObject updation = new BasicDBObject("$set", new BasicDBObject().append("password",password));
+		if (cursor.hasNext()) {
+			BasicDBObject updation = new BasicDBObject("$set",
+					new BasicDBObject().append("password", password));
 			collection.update(search, updation);
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}

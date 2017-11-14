@@ -14,20 +14,22 @@ import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 
 public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
-	
-	public DBCollection getInsuranceDetailsCollection() throws UnknownHostException{
-		MongoClient mongo = new MongoClient("localhost",27017);
+
+	public DBCollection getInsuranceDetailsCollection()
+			throws UnknownHostException {
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		DB mongoDB = mongo.getDB("carshop");
 		return mongoDB.getCollection("insurance_details");
 	}
-	
-	public InsuranceModel allDataSetter(BasicDBObject handler){
+
+	public InsuranceModel allDataSetter(BasicDBObject handler) {
 		InsuranceModel insurance = new InsuranceModel();
 		insurance.setName(handler.getString("name"));
 		insurance.setVal(handler.getString("value"));
 		insurance.setId(handler.getString("_id"));
 		insurance.setCd(handler.getString("cd"));
-		insurance.setClaim(handler.getString("claim"));;
+		insurance.setClaim(handler.getString("claim"));
+		;
 		insurance.setCompany(handler.getString("company"));
 		insurance.setLib(handler.getString("lib"));
 		insurance.setOwn(handler.getString("own"));
@@ -39,7 +41,8 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 	}
 
 	@Override
-	public String setInsuranceDetails(InsuranceModel insurance) throws UnknownHostException {
+	public String setInsuranceDetails(InsuranceModel insurance)
+			throws UnknownHostException {
 		DBCollection collection = getInsuranceDetailsCollection();
 		BasicDBObject document = new BasicDBObject();
 		document.append("name", insurance.getName());
@@ -58,32 +61,33 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 	}
 
 	@Override
-	public ResponseWithInsuranceCollection get8Insurance() throws UnknownHostException {
+	public ResponseWithInsuranceCollection get8Insurance()
+			throws UnknownHostException {
 		DBCollection collection = getInsuranceDetailsCollection();
 		ResponseWithInsuranceCollection response = new ResponseWithInsuranceCollection();
 		int count = collection.find().count();
-		if(count>8){
-			count=8;
+		if (count > 8) {
+			count = 8;
 		}
-		if(count != 0){
-			InsuranceModel[] insurance = new InsuranceModel[count]; 
-			DBCursor cursor = collection.find().sort(new BasicDBObject("_id",-1)).limit(8);
+		if (count != 0) {
+			InsuranceModel[] insurance = new InsuranceModel[count];
+			DBCursor cursor = collection.find()
+					.sort(new BasicDBObject("_id", -1)).limit(8);
 			int i = 0;
-			while(cursor.hasNext()){
+			while (cursor.hasNext()) {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				insurance[i] = new InsuranceModel();
 				insurance[i] = allDataSetter(handler);
 				i++;
 			}
-			response.status="success";
+			response.status = "success";
 			response.insurances = insurance;
 			return response;
-		}
-		else{
-			response.status="failure";
+		} else {
+			response.status = "failure";
 			return response;
 		}
-		
+
 	}
 
 	@Override
@@ -94,14 +98,13 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 		BasicDBObject search = new BasicDBObject();
 		search.put("_id", new ObjectId(id));
 		DBCursor cursor = collection.find(search);
-		if(cursor.hasNext()){
+		if (cursor.hasNext()) {
 			BasicDBObject handler = (BasicDBObject) cursor.next();
 			insuranceModel = allDataSetter(handler);
 			response.status = "success";
 			response.insurance = insuranceModel;
-		}
-		else{
-			response.status="failed";
+		} else {
+			response.status = "failed";
 		}
 		return response;
 	}
@@ -114,14 +117,15 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 		BasicDBObject search = new BasicDBObject();
 		search.put("postBy", uid);
 		int count = collection.find(search).count();
-		if(count>8){
-			count=8;
+		if (count > 8) {
+			count = 8;
 		}
-		if(count != 0){
-			InsuranceModel[] insurance = new InsuranceModel[count]; 
-			DBCursor cursor = collection.find(search).sort(new BasicDBObject("_id",-1)).limit(8);
+		if (count != 0) {
+			InsuranceModel[] insurance = new InsuranceModel[count];
+			DBCursor cursor = collection.find(search)
+					.sort(new BasicDBObject("_id", -1)).limit(8);
 			int i = 0;
-			while(cursor.hasNext()){
+			while (cursor.hasNext()) {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				insurance[i] = new InsuranceModel();
 				insurance[i] = allDataSetter(handler);
@@ -130,9 +134,8 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 			response.status = "success";
 			response.insurances = insurance;
 			return response;
-		}
-		else{
-			response.status="failure";
+		} else {
+			response.status = "failure";
 			return response;
 		}
 	}
@@ -145,6 +148,5 @@ public class InsuranceDetailsDaoImplement implements InsuranceDetailsDao {
 		collection.remove(search);
 		return "success";
 	}
-	
 
 }

@@ -16,12 +16,14 @@ public class LoanServiceImplement implements LoanService {
 	}
 
 	@Override
-	public ResponseWithLoanCollection obtainLoans(String brand) throws UnknownHostException {
+	public ResponseWithLoanCollection obtainLoans(String brand)
+			throws UnknownHostException {
 		return loanDetails.fetchLoans(brand);
 	}
 
 	@Override
-	public ResponseWithLoanCollection obtainAllLoans() throws UnknownHostException {
+	public ResponseWithLoanCollection obtainAllLoans()
+			throws UnknownHostException {
 		return loanDetails.fetchAllLoans();
 	}
 

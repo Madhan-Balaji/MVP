@@ -15,11 +15,11 @@ import com.mongodb.MongoClient;
 public class LoanDetailsDaoImplement implements LoanDetailsDao {
 
 	public DBCollection getLoanCollectionDetails() throws UnknownHostException {
-		MongoClient mongo = new MongoClient("localhost",27017);
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		DB mongoDB = mongo.getDB("carshop");
 		return mongoDB.getCollection("loan_details");
 	}
-	
+
 	public LoanModel allDataSetter(BasicDBObject handler) {
 		LoanModel loan = new LoanModel();
 		loan.setAmt(handler.getString("amt"));
@@ -32,7 +32,7 @@ public class LoanDetailsDaoImplement implements LoanDetailsDao {
 		loan.setTime(handler.getString("time"));
 		return loan;
 	}
-	
+
 	@Override
 	public String saveLoan(LoanModel loanModel) throws UnknownHostException {
 		DBCollection collection = getLoanCollectionDetails();
@@ -47,18 +47,20 @@ public class LoanDetailsDaoImplement implements LoanDetailsDao {
 		collection.insert(document);
 		return "success";
 	}
+
 	@Override
-	public ResponseWithLoanCollection fetchLoans(String brand) throws UnknownHostException {
+	public ResponseWithLoanCollection fetchLoans(String brand)
+			throws UnknownHostException {
 		DBCollection collection = getLoanCollectionDetails();
 		BasicDBObject search = new BasicDBObject();
 		ResponseWithLoanCollection loan = new ResponseWithLoanCollection();
 		search.put("brand", brand);
 		int count = collection.find(search).count();
 		LoanModel[] loans = new LoanModel[count];
-		if(count>0) {
+		if (count > 0) {
 			DBCursor cursor = collection.find(search);
-			int i=0;
-			while(cursor.hasNext()) {
+			int i = 0;
+			while (cursor.hasNext()) {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				loans[i] = new LoanModel();
 				loans[i] = allDataSetter(handler);
@@ -66,23 +68,23 @@ public class LoanDetailsDaoImplement implements LoanDetailsDao {
 			}
 			loan.status = "success";
 			loan.loans = loans;
-		}
-		else {
+		} else {
 			loan.status = "failed";
 		}
 		return loan;
 	}
 
 	@Override
-	public ResponseWithLoanCollection fetchAllLoans() throws UnknownHostException {
-		DBCollection collection = getLoanCollectionDetails();		
-		ResponseWithLoanCollection loan = new ResponseWithLoanCollection();		
+	public ResponseWithLoanCollection fetchAllLoans()
+			throws UnknownHostException {
+		DBCollection collection = getLoanCollectionDetails();
+		ResponseWithLoanCollection loan = new ResponseWithLoanCollection();
 		int count = collection.find().count();
 		LoanModel[] loans = new LoanModel[count];
-		if(count>0) {
+		if (count > 0) {
 			DBCursor cursor = collection.find();
-			int i=0;
-			while(cursor.hasNext()) {
+			int i = 0;
+			while (cursor.hasNext()) {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				loans[i] = new LoanModel();
 				loans[i] = allDataSetter(handler);
@@ -90,8 +92,7 @@ public class LoanDetailsDaoImplement implements LoanDetailsDao {
 			}
 			loan.status = "success";
 			loan.loans = loans;
-		}
-		else {
+		} else {
 			loan.status = "failed";
 		}
 		return loan;
@@ -103,12 +104,11 @@ public class LoanDetailsDaoImplement implements LoanDetailsDao {
 		BasicDBObject search = new BasicDBObject();
 		search.put("_id", new ObjectId(id));
 		DBCursor cursor = collection.find(search);
-		if(cursor.hasNext()){
+		if (cursor.hasNext()) {
 			collection.remove(search);
 			return "success";
-		}
-		else{
-		return "failed";	
+		} else {
+			return "failed";
 		}
 	}
 

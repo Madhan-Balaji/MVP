@@ -9,10 +9,10 @@ import com.carshop.model.UserModel;
 import com.carshop.model.UserReviewModel;
 
 public class UserReviewServiceImplement implements UserReviewService {
-	
+
 	UserReviewsDao userReviewDetails = new UserReviewsDaoImplement();
 	UserService userService = new UserServiceImplement();
-	
+
 	@Override
 	public String addUserReview(String carId, String userId, String review,
 			String rating) throws UnknownHostException {
@@ -28,7 +28,8 @@ public class UserReviewServiceImplement implements UserReviewService {
 	}
 
 	@Override
-	public ResponseWithUserReviews getUserReviews(String carId, String userId) throws UnknownHostException {
+	public ResponseWithUserReviews getUserReviews(String carId, String userId)
+			throws UnknownHostException {
 		return userReviewDetails.fetchReviews(carId, userId);
 	}
 

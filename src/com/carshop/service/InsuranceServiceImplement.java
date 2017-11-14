@@ -10,17 +10,19 @@ import com.carshop.model.ResponseWithInsuranceCollection;
 
 public class InsuranceServiceImplement implements InsuranceService {
 	UserService userService = new UserServiceImplement();
-	InsuranceDetailsDao insuranceDetails = new InsuranceDetailsDaoImplement(); 
-	
+	InsuranceDetailsDao insuranceDetails = new InsuranceDetailsDaoImplement();
+
 	@Override
-	public String addNewInsurance(InsuranceModel insuranceModel) throws UnknownHostException {
+	public String addNewInsurance(InsuranceModel insuranceModel)
+			throws UnknownHostException {
 		String company = userService.getCompany(insuranceModel.getPostby());
 		insuranceModel.setCompany(company);
 		return insuranceDetails.setInsuranceDetails(insuranceModel);
 	}
 
 	@Override
-	public ResponseWithInsuranceCollection getSomeInsurances() throws UnknownHostException {		
+	public ResponseWithInsuranceCollection getSomeInsurances()
+			throws UnknownHostException {
 		return insuranceDetails.get8Insurance();
 	}
 

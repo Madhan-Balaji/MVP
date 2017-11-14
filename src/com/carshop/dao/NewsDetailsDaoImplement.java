@@ -21,22 +21,23 @@ import com.mongodb.gridfs.GridFSInputFile;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class NewsDetailsDaoImplement implements NewsDetailsDao {
-	public DBCollection getNewsDetailsCollection() throws UnknownHostException{
-		MongoClient mongo = new MongoClient("localhost",27017);
+	public DBCollection getNewsDetailsCollection() throws UnknownHostException {
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		DB mongoDB = mongo.getDB("carshop");
 		return mongoDB.getCollection("daily_news");
 	}
-	
-	public NewsModel allDataSetter(BasicDBObject handler){
+
+	public NewsModel allDataSetter(BasicDBObject handler) {
 		NewsModel newsModel = new NewsModel();
 		newsModel.setContent(handler.getString("content"));
 		newsModel.setHeading(handler.getString("heading"));
 		newsModel.setId(handler.getString("_id"));
 		newsModel.setNewsBy(handler.getString("newsBy"));
-		newsModel.setImage("http://localhost:8080/carshop/Jserv/control/media/"+newsModel.getId());
+		newsModel.setImage("http://localhost:8080/carshop/Jserv/control/media/"
+				+ newsModel.getId());
 		return newsModel;
 	}
-	
+
 	@Override
 	public String insertNew(NewsModel newsModel) throws UnknownHostException {
 		DBCollection collection = getNewsDetailsCollection();
@@ -48,9 +49,11 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		String id = doc.getString("_id");
 		return id;
 	}
+
 	@Override
-	public String addMedia(NewsModel carModel,InputStream fis, FormDataContentDisposition fi) throws UnknownHostException {
-		MongoClient mongo = new MongoClient("localhost",27017);
+	public String addMedia(NewsModel carModel, InputStream fis,
+			FormDataContentDisposition fi) throws UnknownHostException {
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		DB mongoDB = mongo.getDB("carshop");
 		GridFS fileStore = new GridFS(mongoDB, "media");
 		GridFSInputFile inputFile = fileStore.createFile(fis);
@@ -59,6 +62,7 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		inputFile.save();
 		return "success";
 	}
+
 	@Override
 	public File getMedia(String id) throws IOException {
 		MongoClient mongoClient = new MongoClient("localhost", 27017);
@@ -67,34 +71,35 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		query.put("_id", id);
 		GridFS fileStore = new GridFS(mongoDB, "media");
 		GridFSDBFile gridFile = fileStore.findOne(query);
-		File file = new File(id+".jpg");
+		File file = new File(id + ".jpg");
 		gridFile.writeTo(file);
 		return file;
 	}
+
 	@Override
 	public ResponseWithNewsCollection get8News() throws UnknownHostException {
 		DBCollection collection = getNewsDetailsCollection();
 		ResponseWithNewsCollection response = new ResponseWithNewsCollection();
 		int count = collection.find().count();
-		if(count>8){
-			count=8;
+		if (count > 8) {
+			count = 8;
 		}
-		if(count != 0){
-			NewsModel[] news = new NewsModel[count]; 
-			DBCursor cursor = collection.find().sort(new BasicDBObject("_id",-1)).limit(8);
+		if (count != 0) {
+			NewsModel[] news = new NewsModel[count];
+			DBCursor cursor = collection.find()
+					.sort(new BasicDBObject("_id", -1)).limit(8);
 			int i = 0;
-			while(cursor.hasNext()){
+			while (cursor.hasNext()) {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				news[i] = new NewsModel();
 				news[i] = allDataSetter(handler);
 				i++;
 			}
-			response.status="success";
+			response.status = "success";
 			response.news = news;
 			return response;
-		}
-		else{
-			response.status="failure";
+		} else {
+			response.status = "failure";
 			return response;
 		}
 	}
@@ -107,37 +112,36 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		BasicDBObject search = new BasicDBObject();
 		search.put("_id", new ObjectId(id));
 		DBCursor cursor = collection.find(search);
-		if(cursor.hasNext()){
+		if (cursor.hasNext()) {
 			BasicDBObject handler = (BasicDBObject) cursor.next();
 			newsModel = allDataSetter(handler);
 			response.status = "success";
 			response.news = newsModel;
-		}
-		else{
-			response.status="failed";
+		} else {
+			response.status = "failed";
 		}
 		return response;
 	}
 
 	@Override
-	public ResponseWithNewsCollection fetchAllNews() throws UnknownHostException {
+	public ResponseWithNewsCollection fetchAllNews()
+			throws UnknownHostException {
 		DBCollection collection = getNewsDetailsCollection();
 		ResponseWithNewsCollection response = new ResponseWithNewsCollection();
 		int count = collection.find().count();
 		NewsModel[] newsModel = new NewsModel[count];
-		if(count>0){
+		if (count > 0) {
 			int i = 0;
 			DBCursor cursor = collection.find();
-			while(cursor.hasNext()){
+			while (cursor.hasNext()) {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				newsModel[i] = allDataSetter(handler);
 				i++;
 			}
-			response.status="success";
+			response.status = "success";
 			response.news = newsModel;
-		}
-		else{
-			response.status="failed";
+		} else {
+			response.status = "failed";
 		}
 		return response;
 	}
@@ -148,13 +152,12 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		BasicDBObject search = new BasicDBObject();
 		search.put("_id", new ObjectId(id));
 		DBCursor cursor = collection.find(search);
-		if(cursor.hasNext()){
+		if (cursor.hasNext()) {
 			collection.remove(search);
 			return "success";
-		}
-		else{
+		} else {
 			return "failed";
 		}
 	}
-	
+
 }

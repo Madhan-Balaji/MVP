@@ -8,9 +8,11 @@ import com.carshop.model.ResponseWithLoanCollection;
 public interface LoanService {
 	public String setLoan(LoanModel loanModel) throws UnknownHostException;
 
-	public ResponseWithLoanCollection obtainLoans(String brand) throws UnknownHostException;
+	public ResponseWithLoanCollection obtainLoans(String brand)
+			throws UnknownHostException;
 
-	public ResponseWithLoanCollection obtainAllLoans() throws UnknownHostException;
+	public ResponseWithLoanCollection obtainAllLoans()
+			throws UnknownHostException;
 
 	public String removeLoan(String id) throws UnknownHostException;
 }

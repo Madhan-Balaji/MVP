@@ -12,6 +12,7 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class NewsServiceImplement implements NewsService {
 	NewsDetailsDao newsDetails = new NewsDetailsDaoImplement();
+
 	@Override
 	public String addNews(NewsModel newsModel, InputStream file,
 			FormDataContentDisposition fis) throws UnknownHostException {
@@ -19,19 +20,24 @@ public class NewsServiceImplement implements NewsService {
 		newsModel.setId(id);
 		return newsDetails.addMedia(newsModel, file, fis);
 	}
+
 	@Override
 	public ResponseWithNewsCollection getSomeNews() throws UnknownHostException {
-		
+
 		return newsDetails.get8News();
 	}
+
 	@Override
 	public ResponseWithNewsData getNews(String id) throws UnknownHostException {
 		return newsDetails.getData(id);
 	}
+
 	@Override
-	public ResponseWithNewsCollection obtainAllNews() throws UnknownHostException {
+	public ResponseWithNewsCollection obtainAllNews()
+			throws UnknownHostException {
 		return newsDetails.fetchAllNews();
 	}
+
 	@Override
 	public String removeLoan(String id) throws UnknownHostException {
 		return newsDetails.removeNewsDetails(id);
