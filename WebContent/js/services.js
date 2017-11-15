@@ -75,7 +75,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	}
 	this.sellCar = function(formdata){
 		$.ajax( {
-      url: 'http://localhost:8080/carshop/Jserv/control/newUsedCar',
+      url: 'http://localhost:8080/carshop/Jserv/cars/newUsedCar',
       type: 'POST',
       data: formdata,
       processData: false,
@@ -87,7 +87,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	}
 	this.sellNewCar = function(formdata){
 		$.ajax( {
-      url: 'http://localhost:8080/carshop/Jserv/control/newCar',
+      url: 'http://localhost:8080/carshop/Jserv/cars/newCar',
       type: 'POST',
       data: formdata,
       processData: false,
@@ -100,7 +100,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.fetchAllCars = function(){
 		var avail; 
 		$.ajax( {
-      url: 'http://localhost:8080/carshop/Jserv/control/getAllCars',
+      url: 'http://localhost:8080/carshop/Jserv/cars/getAllCars',
       type: 'GET',
 	  async:false,
       success: function(data){
@@ -119,7 +119,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		
 		$.ajax({
 		  type: 'GET',
-		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails?carid="+carId,
+		  url: "http://localhost:8080/carshop/Jserv/cars/getCarDetails?carid="+carId,
 		  async:false,
 		  success:function(data){
 				if(data.status == "success"){
@@ -139,7 +139,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		
 		$.ajax({
 		  type: 'GET',
-		  url: "http://localhost:8080/carshop/Jserv/control/getCarDetails?carid="+carId,
+		  url: "http://localhost:8080/carshop/Jserv/cars/getCarDetails?carid="+carId,
 		  async:false,
 		  success:function(data){
 				if(data.status == "success"){
@@ -167,7 +167,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		
 		$.ajax({
 		  type: 'GET',
-		  url: "http://localhost:8080/carshop/Jserv/control/searchByTerm?term="+terms,
+		  url: "http://localhost:8080/carshop/Jserv/cars/searchByTerm?term="+terms,
 		  async:false,
 		  success:function(data){
 				if(data.status == "success"){
@@ -184,7 +184,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	}
 	this.submitNewInsurance = function(insurance){
 		
-		$.post("http://localhost:8080/carshop/Jserv/control/saveNewInsurance",
+		$.post("http://localhost:8080/carshop/Jserv/insurance/saveNewInsurance",
 				{
 					name:insurance.name,
 					val:insurance.value,
@@ -206,7 +206,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	}
 	this.postNews = function(newsDetails){
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/saveNewNews',
+		      url: 'http://localhost:8080/carshop/Jserv/news/saveNewNews',
 		      type: 'POST',
 		      data: newsDetails,
 		      processData: false,
@@ -220,7 +220,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/getStarterNews",
+			  url: "http://localhost:8080/carshop/Jserv/news/getStarterNews",
 			  async:false,
 			  success:function(data){
 					if(data.status == "success"){
@@ -238,7 +238,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.getNewsData = function(ids){
 		var newsData;
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/getNews',
+		      url: 'http://localhost:8080/carshop/Jserv/news/getNews',
 		      type: 'POST',
 		      data: {'id':ids},
 		      async:false,
@@ -247,7 +247,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		      		newsData = data.news;
 		      	}
 		      	else{
-		      		alert("Data not recived");
+		      		alert("Data not received");
 		      	}
 		      }
 		    } );
@@ -257,7 +257,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/getInsurances",
+			  url: "http://localhost:8080/carshop/Jserv/insurance/getInsurances",
 			  async:false,
 			  success:function(data){
 					if(data.status == "success"){
@@ -276,7 +276,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var ids = localStorage.getItem('show-insu');
 		var newsData;
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/getInsu',
+		      url: 'http://localhost:8080/carshop/Jserv/insurance/getInsu',
 		      type: 'POST',
 		      data: {'id':ids},
 		      async:false,
@@ -293,8 +293,9 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		
 	}
 	this.loadUserCars = function(){
+		var newsData;
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/getMyCars',
+		      url: 'http://localhost:8080/carshop/Jserv/cars/getMyCars',
 		      type: 'POST',
 		      async:false,
 		      success: function(data){
@@ -311,7 +312,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.removeACar = function(ids){
 		var newsData;
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/removeCar',
+		      url: 'http://localhost:8080/carshop/Jserv/cars/removeCar',
 		      type: 'POST',
 		      data: {'id':ids},
 		      async:false,
@@ -329,7 +330,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	}
 	this.createNewLoan = function(loanData){
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/saveNewLoan',
+		      url: 'http://localhost:8080/carshop/Jserv/loan/saveNewLoan',
 		      type: 'POST',
 		      data: loanData,
 		      async:false,
@@ -345,7 +346,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/getLoans",
+			  url: "http://localhost:8080/carshop/Jserv/loan/getLoans",
 			  data:{brand:brands},
 			  async:false,
 			  success:function(data){
@@ -364,7 +365,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/getAllLoans",
+			  url: "http://localhost:8080/carshop/Jserv/loan/getAllLoans",
 			  async:false,
 			  success:function(data){
 					if(data.status == "success"){
@@ -382,7 +383,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/removeLoan",
+			  url: "http://localhost:8080/carshop/Jserv/loan/removeLoan",
 			  data:{id:ids},
 			  async:false,
 			  success:function(data){
@@ -401,7 +402,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/removeNews",
+			  url: "http://localhost:8080/carshop/Jserv/news/removeNews",
 			  data:{id:ids},
 			  async:false,
 			  success:function(data){
@@ -420,7 +421,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var datas;
 		$.ajax({
 			  type: 'GET',
-			  url: "http://localhost:8080/carshop/Jserv/control/getAllNews",
+			  url: "http://localhost:8080/carshop/Jserv/news/getAllNews",
 			  async:false,
 			  success:function(data){
 					if(data.status == "success"){
@@ -438,7 +439,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 		var car = localStorage.getItem("showCar");
 		var reviewData={};
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/getReview',
+		      url: 'http://localhost:8080/carshop/Jserv/cars/getReview',
 		      type: 'POST',
 		      data: {'carId':car},
 		      async:false,
@@ -459,7 +460,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.setReview = function(car,revw,rate){
 		var reviewData ={};
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/addReview',
+		      url: 'http://localhost:8080/carshop/Jserv/cars/addReview',
 		      type: 'POST',
 		      data: {'carId':car, 'review':revw, 'rating':rate},
 		      async:false,
@@ -479,7 +480,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.getAllInsurance = function(){
 		var insuranceData;
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/getAllInsurance',
+		      url: 'http://localhost:8080/carshop/Jserv/insurance/getAllInsurance',
 		      type: 'GET',
 		      async:false,
 		      success: function(data){
@@ -496,7 +497,7 @@ mainPage.service('userServices',function($rootScope,$state,$http){
 	this.removeInsurance = function(ids){
 		var result;
 		$.ajax( {
-		      url: 'http://localhost:8080/carshop/Jserv/control/removeInsurance',
+		      url: 'http://localhost:8080/carshop/Jserv/insurance/removeInsurance',
 		      type: 'POST',
 		      data: {'id':ids},
 		      async:false,

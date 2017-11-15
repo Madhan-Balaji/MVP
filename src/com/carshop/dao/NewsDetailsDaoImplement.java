@@ -33,7 +33,7 @@ public class NewsDetailsDaoImplement implements NewsDetailsDao {
 		newsModel.setHeading(handler.getString("heading"));
 		newsModel.setId(handler.getString("_id"));
 		newsModel.setNewsBy(handler.getString("newsBy"));
-		newsModel.setImage("http://localhost:8080/carshop/Jserv/control/media/"
+		newsModel.setImage("http://localhost:8080/carshop/Jserv/cars/media/"
 				+ newsModel.getId());
 		return newsModel;
 	}

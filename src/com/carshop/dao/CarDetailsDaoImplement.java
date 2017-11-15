@@ -44,7 +44,7 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 		car.setUsage(handler.getString("usage"));
 		car.setAddress(handler.getString("address"));
 		car.setYear(handler.getString("year"));
-		car.setImageUrl("http://localhost:8080/carshop/Jserv/control/media/"
+		car.setImageUrl("http://localhost:8080/carshop/Jserv/cars/media/"
 				+ car.getId());
 		return car;
 	}
@@ -169,7 +169,7 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 			BasicDBObject handler = (BasicDBObject) cursor.next();
 			carModel = allDataSetter(handler);
 			response.status = "success";
-			carModel.setVideo("http://localhost:8080/carshop/Jserv/control/video/"
+			carModel.setVideo("http://localhost:8080/carshop/Jserv/cars/video/"
 					+ carModel.getId());
 			response.car = carModel;
 		} else {
