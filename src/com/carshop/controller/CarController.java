@@ -52,7 +52,7 @@ public class CarController {
 			@FormDataParam("brand") String brand,
 			@FormDataParam("type") String type,
 			@FormDataParam("price") String price,
-			@Context HttpServletRequest req) throws UnknownHostException {
+			@FormDataParam("user") String userId) throws UnknownHostException {
 
 		System.out.println(" File name is :" + fileInputDetails.getFileName());
 
@@ -73,8 +73,9 @@ public class CarController {
 		carModel.setAddress(address);
 		carModel.setPrice(price);
 		carModel.setUsage("used");
+		carModel.setUser(userId);
 		return carService.addNewUsedCar(carModel, fileInputStream,
-				fileInputDetails, req);
+				fileInputDetails);
 	}
 
 	@POST
@@ -100,7 +101,7 @@ public class CarController {
 			@FormDataParam("brand") String brand,
 			@FormDataParam("type") String type,
 			@FormDataParam("price") String price,
-			@Context HttpServletRequest req) throws UnknownHostException {
+			@FormDataParam("user") String userId) throws UnknownHostException {
 
 		System.out.println(" File name is :" + fileInputDetails.getFileName());
 		System.out
@@ -122,8 +123,9 @@ public class CarController {
 		carModel.setAddress(address);
 		carModel.setPrice(price);
 		carModel.setUsage("new");
+		carModel.setUser(userId);
 		ResponseWithCarData car = carService.addNewUsedCar(carModel,
-				fileInputStream, fileInputDetails, req);
+				fileInputStream, fileInputDetails);
 		carService.uploadVideo(videoInputStream, videoInputDetails,
 				car.car.getId());
 		return car;

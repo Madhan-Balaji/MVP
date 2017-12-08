@@ -21,12 +21,9 @@ public class CarServiceImplement implements CarService {
 	@Override
 	public ResponseWithCarData addNewUsedCar(CarModel carModel,
 			InputStream fileInputStream,
-			FormDataContentDisposition fileInputDetails, HttpServletRequest req)
+			FormDataContentDisposition fileInputDetails)
 			throws UnknownHostException {
-		HttpSession session = req.getSession();
 		ResponseWithCarData response = new ResponseWithCarData();
-		String userId = (String) session.getAttribute("user");
-		carModel.setUser(userId);
 		carModel = carDetailsDao.addUsedCarDetails(carModel);
 		if (addNewUsedCarImage(carModel, fileInputStream, fileInputDetails)) {
 			response.status = "success";

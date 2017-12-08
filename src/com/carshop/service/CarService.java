@@ -14,7 +14,7 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 public interface CarService {
 	public ResponseWithCarData addNewUsedCar(CarModel carModel,
 			InputStream fileInputStream,
-			FormDataContentDisposition fileInputDetails, HttpServletRequest req)
+			FormDataContentDisposition fileInputDetails)
 			throws UnknownHostException;
 
 	public Boolean addNewUsedCarImage(CarModel carModel, InputStream fis,
