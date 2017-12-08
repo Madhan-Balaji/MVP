@@ -178,12 +178,11 @@ public class CarController {
 	@POST
 	@Path("/getMyCars")
 	@Produces("application/json")
-	public ResponseWithCarCollection getMyCars(@Context HttpServletRequest req)
+	public ResponseWithCarCollection getMyCars(@FormParam("id") String id)
 			throws UnknownHostException {
-		HttpSession session = req.getSession();
-		String id = (String) session.getAttribute("user");
+		String ids = id;
 		CarService carService = new CarServiceImplement();
-		return carService.getCarsUser(id);
+		return carService.getCarsUser(ids);
 	}
 
 	@POST
