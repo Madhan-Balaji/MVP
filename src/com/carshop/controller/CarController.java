@@ -200,10 +200,8 @@ public class CarController {
 	@Produces("application/json")
 	public String addReview(@FormParam("carId") String carId,
 			@FormParam("review") String review,
-			@FormParam("rating") String rating, @Context HttpServletRequest req)
+			@FormParam("rating") String rating, @FormParam("userId") String userId)
 			throws UnknownHostException {
-		HttpSession session = req.getSession();
-		String userId = (String) session.getAttribute("user");
 		UserReviewService userReviewService = new UserReviewServiceImplement();
 		return userReviewService.addUserReview(carId, userId, review, rating);
 	}
