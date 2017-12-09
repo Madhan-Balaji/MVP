@@ -2,17 +2,12 @@ package com.carshop.controller;
 
 import java.net.UnknownHostException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-
 import com.carshop.model.InsuranceModel;
 import com.carshop.model.ResponseWithInsurance;
 import com.carshop.model.ResponseWithInsuranceCollection;

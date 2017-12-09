@@ -144,6 +144,8 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				cars[i] = new CarModel();
 				cars[i] = allDataSetter(handler);
+				cars[i].setVideo("http://localhost:8080/carshop/Jserv/cars/video/"
+						+ cars[i].getId());
 				i++;
 			}
 			response.status = "success";
@@ -200,6 +202,8 @@ public class CarDetailsDaoImplement implements CarDetailsDao {
 				BasicDBObject handler = (BasicDBObject) cursor.next();
 				cars[i] = new CarModel();
 				cars[i] = allDataSetter(handler);
+				cars[i].setVideo("http://localhost:8080/carshop/Jserv/cars/video/"
+						+ cars[i].getId());
 				i++;
 			}
 			response.status = "success";
