@@ -8,7 +8,9 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import com.carshop.model.InsuranceModel;
@@ -27,11 +29,10 @@ public class InsuranceController {
 			@FormParam("zDep") String zDep, @FormParam("claim") String claim,
 			@FormParam("own") String own, @FormParam("owner") String owner,
 			@FormParam("lib") String lib, @FormParam("cd") String cd,
-			@Context HttpServletRequest req) throws UnknownHostException {
+			@FormParam("postBy") String postBy) throws UnknownHostException {
 		InsuranceService InsuranceService = new InsuranceServiceImplement();
 		InsuranceModel insuranceModel = new InsuranceModel();
-		HttpSession session = req.getSession();
-		insuranceModel.setPostby((String) session.getAttribute("user"));
+		insuranceModel.setPostby(postBy);
 		insuranceModel.setName(name);
 		insuranceModel.setVal(val);
 		insuranceModel.setPrem(prem);
@@ -66,11 +67,9 @@ public class InsuranceController {
 	@Path("/getAllInsurance")
 	@Produces("application/json")
 	public ResponseWithInsuranceCollection getAllInsurance(
-			@Context HttpServletRequest req) throws UnknownHostException {
-		HttpSession session = req.getSession();
-		String uid = (String) session.getAttribute("user");
+			@QueryParam("user") String user) throws UnknownHostException {
 		InsuranceService insuranceService = new InsuranceServiceImplement();
-		return insuranceService.getAllInsurance(uid);
+		return insuranceService.getAllInsurance(user);
 	}
 
 	@POST
